@@ -1,6 +1,8 @@
 <template>
     
-    <div>{{ txt }}</div>
+    <div class="container">
+        <img alt="" src="../assets/bckg-pic.jpg"/>
+    </div>
 
 </template>
 
@@ -24,6 +26,15 @@
 
 <style scoped>
 
+   
 
+    .container {
+        overflow: hidden;
+        height: 700px;
+    }
+
+    img {
+        opacity: 0.5;
+    }
 
 </style>

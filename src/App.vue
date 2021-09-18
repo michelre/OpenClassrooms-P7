@@ -1,6 +1,7 @@
 <template>
   <div id="app">
 
+    <header-top></header-top>
     <home></home>
 
   </div>
@@ -9,12 +10,14 @@
 
 <script>
 
+  import Header from './components/Header.vue'
   import Home from'./views/Home.vue'
 
   export default {
     name: 'App',
     components: {
-      'home': Home
+      'home': Home,
+      'header-top': Header
     }
   }
 
