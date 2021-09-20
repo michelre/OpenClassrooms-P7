@@ -1,8 +1,8 @@
 <template>
   <div id="app">
 
-    <header-top></header-top>
     <home></home>
+    <login></login>
 
   </div>
 </template>
@@ -10,14 +10,15 @@
 
 <script>
 
-  import Header from './components/Header.vue'
+
   import Home from'./views/Home.vue'
+  import Login from './views/Login.vue'
 
   export default {
     name: 'App',
     components: {
       'home': Home,
-      'header-top': Header
+      'login': Login
     }
   }
 
