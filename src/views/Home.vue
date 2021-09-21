@@ -22,6 +22,10 @@
             <div class="hero-content">
                 <img alt="" src="../assets/bckg-pic.jpg"/>
             </div>
+
+            <router-link to="/login" class="btn">Connexion</router-link>
+            <router-link to="/signup" class="btn">Inscription</router-link>
+
         </div>
 
     </div>
@@ -32,11 +36,7 @@
 
 <script>
     export default {
-        data() {
-            return {
-                txt: 'Essai texte'
-            }
-        }
+        name: 'Home'
     }
 </script>
 
