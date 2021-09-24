@@ -44,18 +44,21 @@
 
 <script>
 
+    
+
     export default {
         name: 'SignUp',
+        components: {
+        },
         data() {
             return {
-                formDataSignUp: [
+                formData:
                     {
                     nom: '',
                     prenom: '',
                     email: '',
                     mdp: ''
                     }
-                ]
             }
         },
         methods: {

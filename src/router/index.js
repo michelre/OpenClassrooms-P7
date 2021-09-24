@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import SignUp from '../views/SignUp.vue'
+import Profil from '../views/Profil.vue'
+import Wall from'../views/Wall.vue'
+
 
 Vue.use(VueRouter)
 
@@ -13,19 +14,20 @@ const routes = [
     component: Home
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: '/profil',
+    name: 'Profil',
+    component: Profil
   },
   {
-    path: '/signup',
-    name: 'SignUp',
-    component: SignUp
-  },
+    path: '/wall',
+    name: 'Wall',
+    component: Wall
+  }
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
 
 export default router

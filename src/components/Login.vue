@@ -34,9 +34,12 @@
 
     export default {
         name: 'Login',
+        components: {
+         
+        },
         data() {
             return {
-                formaData: {
+                formData: {
                     email: '',
                     mdp: ''
                 }
@@ -44,6 +47,7 @@
         },
         methods: {
             envoiForm() {
+                this.$router.push({ name:'Wall' });
                 
             }
         }
