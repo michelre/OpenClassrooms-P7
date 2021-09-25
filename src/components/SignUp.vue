@@ -3,7 +3,7 @@
 
         <h1>Créer un compte</h1>
 
-        <form class="form-signup">
+        <form class="form-card">
 
             <div class="form-group">
                 <label for="nom">Nom</label>
@@ -34,7 +34,7 @@
             <button v-on:click="envoiForm" class="form-btn">Se connecter</button>
         </form>
 
-        <div class="signup-login">
+        <div class="sign-card">
             <p>Déjà inscrit ? <a href="">Connectez-vous !</a></p>
         </div>
 
@@ -43,8 +43,6 @@
 
 
 <script>
-
-    
 
     export default {
         name: 'SignUp',
@@ -75,6 +73,45 @@
 
 <style scoped>
 
+    * {
+        font-family: 'Titillium Web', sans-serif;
+        background-color: white;
+        border-radius: 10px;
+    }
 
+    h1 {
+        text-align: center;
+        font-size: 2em;
+    }
+
+    .form-card {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+   
+    }
+
+    input {
+        margin-bottom: 3%;
+    }
+
+    .form-btn {
+        width: 100%;
+        margin-top: 3%;
+        background-color: rgb(49, 94, 240);
+        color: white;
+        height: 3em;
+        border-radius: 10px;
+
+    }
+
+    .sign-card {
+        font-style: italic;
+        text-align: center;
+    }
 
 </style>

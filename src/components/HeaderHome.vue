@@ -1,10 +1,11 @@
 <template>
-  <div class="header-home">
- 
-      <a href="/">
-        <img src="../assets/icon-groupo-left.png" alt="" class="logo-img">">
-        <h1>Groupomania</h1>
-      </a>
+    <div class="container">
+
+        <header>
+            <a href="" title="" class="logo-header">
+                <img src="../assets/main-header.png" alt="" class="logo-img">
+            </a>
+        </header>
 
   </div>
 </template>
@@ -22,6 +23,18 @@
 
 <style>
 
+    header {
+        height: 55px;
+    }
 
+    .logo-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-img {
+       height: 55px;
+    }
 
 </style>
