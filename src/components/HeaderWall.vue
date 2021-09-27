@@ -3,7 +3,7 @@
 
         <header>
             <nav>
-                <a href="" title="" class="logo-header">
+                <a href="/" title="" class="logo-header">
                     <img src="../assets/main-header.png" alt="" class="logo-img">
                 </a>
                 <a href="" title="" class="users-header">
@@ -43,7 +43,7 @@
     }
 
     .logo-header {
-        margin-right: 25%;
+        margin-right: 35%;
         margin-left: 3%;
     }
 
