@@ -3,18 +3,17 @@
 
         <header>
             <nav>
-                <a href="/" title="" class="logo-header">
+                <a href="/wall" title="" class="logo-header">
                     <img src="../assets/main-header.png" alt="" class="logo-img">
                 </a>
                 <a href="" title="" class="users-header">
                     <i class="fas -solid fa-users"></i>
                 </a>
-                <a href="" title="" class="profil-header">
+                <a href="/profil" title="" class="profil-header">
                     <i class="fas -duotone fa-camera"></i>
                 </a>
-                <a href="" title="" class="deconnect-header">
+                <a href="/" title="" class="deconnect-header">
                     <i class="fas -solid fa-power-off"></i>
-                    
                 </a>
             </nav>
         </header> 
