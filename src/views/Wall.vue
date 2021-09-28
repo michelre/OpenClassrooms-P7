@@ -1,4 +1,4 @@
-<template>
+<template> 
     
         <div class="container">
 
@@ -13,9 +13,9 @@
         <section class="wall-card">
        
             <div class="post-card-header">
-                <div class="post-header-pic"> 
+                <a href="/profil" class="post-header-pic"> 
                     <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
-                </div>
+                </a>
                 <div class="post-header-name">
                     <p>Witch-King of Angmar</p>
                 </div>
@@ -97,18 +97,18 @@
 
 <style scoped>
 
-    hr {
-        color: rgb(30, 51, 121);
-    }
-
     .container {
         overflow: hidden;
         margin: 0;
     }
 
+    hr {
+        color: rgb(30, 51, 121);
+    }
+
     .main-wall {
-        margin-top: 5%;
-        margin-bottom: 5%;
+        margin-top: 3%;
+        margin-bottom: 3%;
     }
 
     .wall-card {

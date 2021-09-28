@@ -6,13 +6,8 @@
         <form class="form-card">
 
             <div class="form-group">
-                <label for="nom">Nom</label>
-                <input type="text" v-model="formData.nom" name="nom" id="nom" class="form-input">
-                <div class="form-err"></div>
-            </div>
-            <div class="form-group">
-                <label for="prenom">Prénom</label>
-                <input type="text" v-model="formData.prenom" name="prenom" id="prenom" class="form-input">
+                <label for="pseudo">Pseudo</label>
+                <input type="text" v-model="formData.pseudo" name="pseudo" id="pseudo" class="form-input">
                 <div class="form-err"></div>
             </div>
             <div class="form-group">
@@ -52,8 +47,7 @@
             return {
                 formData:
                     {
-                    nom: '',
-                    prenom: '',
+                    pseudo: '',
                     email: '',
                     mdp: ''
                     }
@@ -106,7 +100,6 @@
         color: white;
         height: 3em;
         border-radius: 10px;
-
     }
 
     .sign-card {
