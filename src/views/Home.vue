@@ -10,13 +10,13 @@
                     <button v-on:click="envoiForm" class="form-btn">S'ENREGISTRER</button>
                 </div>
 
-                <Login />
-                <SignUp style="display: none"/>
+                <Login style="display: none"/>
+                <SignUp />
             </div>
         </div>
     </div>
 
-</template>
+</template> 
 
 
 

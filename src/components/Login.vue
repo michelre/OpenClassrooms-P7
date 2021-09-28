@@ -48,8 +48,7 @@
         },
         methods: {
             envoiForm() {
-                this.$router.push({ name:'Wall' });
-                
+                this.$router.push({ name:'Wall' }); 
             }
         }
     }

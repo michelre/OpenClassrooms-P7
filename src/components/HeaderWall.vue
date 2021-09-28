@@ -6,7 +6,7 @@
                 <a href="/wall" title="" class="logo-header">
                     <img src="../assets/main-header.png" alt="" class="logo-img">
                 </a>
-                <a href="" title="" class="users-header">
+                <a href="/community" title="" class="users-header">
                     <i class="fas -solid fa-users"></i>
                 </a>
                 <a href="/profil" title="" class="profil-header">

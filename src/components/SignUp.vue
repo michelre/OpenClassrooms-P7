@@ -55,7 +55,7 @@
         },
         methods: {
             envoiForm() {
-                
+                this.$router.push({ name:'Wall' }); 
             }
         }
     }
