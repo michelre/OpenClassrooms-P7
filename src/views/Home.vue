@@ -6,8 +6,8 @@
             <div class="register-card">
 
                 <div class="register-card-btn">
-                    <button v-on:click="changeForm(false)" class="form-btn">SE CONNECTER</button>
-                    <button v-on:click="changeForm(true)" class="form-btn">S'ENREGISTRER</button>
+                    <button v-on:click="changeForm(false)" class="form-btn"><span>SE CONNECTER</span></button>
+                    <button v-on:click="changeForm(true)" class="form-btn"><span>S'ENREGISTRER</span></button>
                 </div>
 
                 <Login v-if="!registerForm" :changeForm="changeForm" />
@@ -77,17 +77,47 @@
 
     .register-card-btn {
         display: flex;
-        padding-bottom: 5%;
+        padding-bottom: 3%;
     }
 
-    .form-btn {
-        padding: 2%;
-        border-radius: 10px;
-        background-color: rgb(49, 94, 240);
-        color: white;
+    button {
         width: 50%;
-        margin: auto;
+        padding: 2%;
+        font-size: 18px;
+        font-family: sans-serif;
+        text-decoration: none;
+        color: #333;
+        border: 2px solid #333;
+        letter-spacing: 2px;
+        text-align: center;
+        position: relative;
+        transition: all .35s;
     }
+
+    button span {
+        position: relative;
+        z-index: 2;
+    }
+
+    button:after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: rgb(49, 94, 240);
+        transition: all .35s;
+    }
+
+    button:hover {
+        color: #fff;
+    }
+
+    button:hover:after {
+        width: 100%;
+    }
+ 
 
 
 </style>
