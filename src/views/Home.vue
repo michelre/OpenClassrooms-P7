@@ -58,7 +58,6 @@
 
     .container {
         overflow: hidden;
-        margin: 0;
     }
 
     .hero {

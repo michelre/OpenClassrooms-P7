@@ -34,8 +34,12 @@
 
 <style scoped>
 
+    header {
+        height: 60px;
+        
+    }
+
     nav {
-        height: 55px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -47,7 +51,7 @@
     }
 
     .logo-img {
-       height: 55px;
+       height: 60px;
     }
 
     .users-header, .profil-header, .deconnect-header {

@@ -34,7 +34,8 @@
                         <img src="../assets/Gandalf_vs_WitchKing.png" class="wall-img">
                     </div>
                     <div class="post-likes">
-                        <i class="fas -regular fa-thumbs-up" id="wall-likes">18</i>
+                        <img src="../assets/pouce.png" class="wall-likes">
+                        <p>18</p>
                     </div>
                 </div>
 
@@ -93,11 +94,6 @@
 
 <style scoped>
 
-    .container {
-        overflow: hidden;
-        margin: 0;
-    }
-
     hr {
         color: rgb(30, 51, 121);
     }
@@ -120,7 +116,6 @@
     .post-card-header {
         display: flex;
         align-items: center;
-    
     }
 
     .post-header-pic-round {
@@ -129,16 +124,17 @@
     width: 50px
     }
 
+    .post-header-name-date {
+        margin-left: 5%;
+    }
+
     .post-header-name {
         font-size: 1.1em;
         font-weight: bold;
-        margin-left: 3%;
-        
     }
 
     .post-header-date {
         color:gray;
-        margin-left: 2%;
     }
 
     .post-content {
@@ -150,13 +146,17 @@
     }
 
     .post-likes {
+        display: flex;
+        align-items: center;
         margin-top: 3%;
         margin-bottom: 3%;
         margin-left: 10%;
     }
 
-    #wall-likes {
-        font-size: 1.5em;
+    .post-likes img {
+        width: 5%;
+        height: 5%;
+        margin-right: 2%;
     }
 
     .card-sep {

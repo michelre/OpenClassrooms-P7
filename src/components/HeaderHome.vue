@@ -24,7 +24,7 @@
 <style>
 
     header {
-        height: 55px;
+        height: 60px;
     }
 
     .logo-header {
@@ -34,7 +34,7 @@
     }
 
     .logo-img {
-       height: 55px;
+       height: 60px;
     }
 
 </style>
