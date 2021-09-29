@@ -95,7 +95,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         height: auto;
-        padding: 5%;
+        padding: 3%;
     }
 
 

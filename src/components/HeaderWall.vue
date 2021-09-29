@@ -2,16 +2,16 @@
     <header class="header-container">
 
         <nav>
-            <router-link to="/wall" title="" class="logo-header">
+            <router-link to="/wall" title="Retour à la page d'accueil" class="logo-header">
                 <img src="../assets/main-header.png" alt="" class="logo-img">
             </router-link>
-            <router-link to="/community" title="" class="users-header">
+            <router-link to="/community" title="Membres de l'équipe" class="users-header">
                 <i class="fas -solid fa-users"></i>
             </router-link>
-            <router-link to="/profil" title="" class="profil-header">
+            <router-link to="/profil" title="Profil" class="profil-header">
                 <i class="fas -duotone fa-camera"></i>
             </router-link>
-            <router-link to="/" title="" class="deconnect-header">
+            <router-link to="/" title="Se déconnecter" class="deconnect-header">
                 <i class="fas -solid fa-power-off"></i>
             </router-link>
         </nav>
