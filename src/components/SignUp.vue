@@ -30,7 +30,7 @@
         </form>
 
         <div class="sign-card">
-            <p>Déjà inscrit ? <a href="">Connectez-vous !</a></p>
+            <p>Déjà inscrit ? <a href="" @click.prevent="changeForm(false)">Connectez-vous !</a></p>
         </div>
 
     </div>
@@ -42,6 +42,10 @@
     export default {
         name: 'SignUp',
         components: {
+
+        },
+        props: {
+            changeForm: Function 
         },
         data() {
             return {

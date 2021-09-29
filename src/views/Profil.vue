@@ -6,50 +6,50 @@
 
         <hr>
 
-    <!-- Test bloc profil -->
-    <main class="main-profil">
-        <section class="profil-card">
+        <!-- Test bloc profil -->
+        <main class="main-profil">
+            <section class="profil-card">
 
-            <div class="profil-pic-name">
-                <div class="profil-pic">
-                    <img src="../assets/witchKing.jpeg" class="profil-pic-img">
+                <div class="profil-pic-name">
+                    <div class="profil-pic">
+                        <img src="../assets/witchKing.jpeg" class="profil-pic-img">
+                    </div>
+                    <h1 class="profil-name">Witch-King of Angmar</h1>
                 </div>
-                <h1 class="profil-name">Witch-King of Angmar</h1>
-            </div>
 
-            <hr class="profil-sep">
+                <hr class="profil-sep">
 
-            <div class="profil-informations">
-                <form class="form-profil">
+                <div class="profil-informations">
+                    <form class="form-profil">
 
-                    <div class="form-group">
-                        <label for="pseudo">Pseudo</label>
-                        <input type="text" v-model="formData.pseudo" name="pseudo" id="pseudo" class="form-input">
-                    <div class="form-err"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" v-model="formData.email" name="email" id="email" class="form-input">
-                        <div class="form-err"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="mdp">Mot de passe actuel</label>
-                        <input type="password" v-model="formData.mdp" name="mdp" id="mdp" class="form-input">
-                        <div class="form-err"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="mdp">Nouveau mot de passe</label>
-                        <input type="password" v-model="formData.mdp" name="mdp" id="mdp" class="form-input">
-                        <div class="form-err"></div>
-                    </div>
+                        <div class="form-group">
+                            <label for="pseudo">Pseudo</label>
+                            <input type="text" v-model="formData.pseudo" name="pseudo" id="pseudo" class="form-input">
+                            <div class="form-err"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" v-model="formData.email" name="email" id="email" class="form-input">
+                            <div class="form-err"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mdp">Mot de passe actuel</label>
+                            <input type="password" v-model="formData.mdp" name="mdp" id="mdp" class="form-input">
+                            <div class="form-err"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mdp">Nouveau mot de passe</label>
+                            <input type="password" v-model="formData.mdp" name="mdp" id="mdp" class="form-input">
+                            <div class="form-err"></div>
+                        </div>
 
-                    <button v-on:click="envoiForm" class="form-btn">Enregistrer les modifications</button>
+                        <button v-on:click="envoiForm" class="form-btn">Enregistrer les modifications</button>
 
-                </form>
-            </div>
+                    </form>
+                </div>
 
-        </section>
-    </main>
+            </section>
+        </main>
 
     </div>
 

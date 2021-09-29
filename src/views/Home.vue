@@ -6,12 +6,12 @@
             <div class="register-card">
 
                 <div class="register-card-btn">
-                    <button v-on:click="envoiForm" class="form-btn">SE CONNECTER</button>
-                    <button v-on:click="envoiForm" class="form-btn">S'ENREGISTRER</button>
+                    <button v-on:click="changeForm(false)" class="form-btn">SE CONNECTER</button>
+                    <button v-on:click="changeForm(true)" class="form-btn">S'ENREGISTRER</button>
                 </div>
 
-                <Login style="display: none"/>
-                <SignUp />
+                <Login v-if="!registerForm" :changeForm="changeForm" />
+                <SignUp v-if="registerForm" :changeForm="changeForm" />
             </div>
         </div>
     </div>
@@ -33,6 +33,16 @@
             Login,
             SignUp,
             HeaderHome
+        },
+        data() {
+            return {
+                registerForm: false
+            }
+        },
+        methods: {
+            changeForm(registerForm) {
+                this.registerForm = registerForm
+            }
         }
     }
 </script>
@@ -55,7 +65,7 @@
         background-image: url("../assets/test2.jpg");
         background-repeat: no-repeat;
         background-size: cover;
-        height: 100%;
+        height: 70vh;
         padding: 5%;
     }
 

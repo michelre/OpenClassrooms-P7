@@ -1,5 +1,5 @@
 <template> 
-    <div class="container" v-if="!registerActive">
+    <div class="container">
 
         <h1>Identifiez-vous</h1>
 
@@ -21,7 +21,7 @@
         </form>
 
         <div class="sign-card">
-            <p>Pas encore inscrit ? <a href="">Créez un compte !</a></p>
+            <p>Pas encore inscrit ? <a href="" @click="clicRegister($event)">Créez un compte !</a></p>
         </div>
 
     </div>
@@ -35,7 +35,10 @@
     export default {
         name: 'Login',
         components: {
-         
+            
+        },
+        props: {
+            changeForm: Function 
         },
         data() {
             return {
@@ -49,6 +52,10 @@
         methods: {
             envoiForm() {
                 this.$router.push({ name:'Wall' }); 
+            },
+            clicRegister(e) {
+                e.preventDefault()
+                this.changeForm(true) 
             }
         }
     }

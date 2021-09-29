@@ -3,18 +3,18 @@
 
         <header>
             <nav>
-                <a href="/wall" title="" class="logo-header">
+                <router-link to="/wall" title="" class="logo-header">
                     <img src="../assets/main-header.png" alt="" class="logo-img">
-                </a>
-                <a href="/community" title="" class="users-header">
+                </router-link>
+                <router-link to="/community" title="" class="users-header">
                     <i class="fas -solid fa-users"></i>
-                </a>
-                <a href="/profil" title="" class="profil-header">
+                </router-link>
+                <router-link to="/profil" title="" class="profil-header">
                     <i class="fas -duotone fa-camera"></i>
-                </a>
-                <a href="/" title="" class="deconnect-header">
+                </router-link>
+                <router-link to="/" title="" class="deconnect-header">
                     <i class="fas -solid fa-power-off"></i>
-                </a>
+                </router-link>
             </nav>
         </header> 
 

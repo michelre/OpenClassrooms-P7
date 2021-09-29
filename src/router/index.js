@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Profil from '../views/Profil.vue'
 import Wall from'../views/Wall.vue'
+import Profil from '../views/Profil.vue'
 import Community from '../views/Community.vue'
 
 
@@ -15,14 +15,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/profil',
-    name: 'Profil',
-    component: Profil
-  },
-  {
     path: '/wall',
     name: 'Wall',
     component: Wall
+  },
+  {
+    path: '/profil',
+    name: 'Profil',
+    component: Profil
   },
   {
     path: '/community',

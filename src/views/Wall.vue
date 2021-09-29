@@ -1,78 +1,74 @@
 <template> 
     
-        <div class="container">
+    <div class="container">
 
-            <HeaderWall/>
+        <HeaderWall/>
 
-            <hr>
+        <hr>
            
 
         <!-- Test bloc post (composant ?) -->
         <main class="main-wall">
 
-        <section class="wall-card">
-       
-            <div class="post-card-header">
-                <a href="/profil" class="post-header-pic"> 
-                    <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
-                </a>
-                <div class="post-header-name">
-                    <p>Witch-King of Angmar</p>
-                </div>
-                <div class="post-header-date">
-                    <p>27 septembre 2021</p>
-                </div>
-            </div>
-
-            <div class="post-content">
-                <div class="post-description">
-                    <p class="post-txt">Do you not know death when you see it, old man?</p>
-                </div>
-                <div class="post-img">
-                    <img src="../assets/Gandalf_vs_WitchKing.png" class="wall-img">
-                </div>
-                <div class="post-likes">
-                    <i class="fas -regular fa-thumbs-up" id="wall-likes">18</i>
-                </div>
-            </div>
-
-            <hr class="card-sep">
-            <div class="post-actions">
-                <div class="post-action-like">
-                    <i class="fas -thin fa-thumbs-up"></i>
-                    <span class="like-txt">J'aime</span>
-                </div>
-                <div class="post-action-comment">
-                    <i class="fas -thin fa-message"></i>
-                    <span class="comment-txt">Commenter</span>
-                </div>
-            </div>
-            <hr class="card-sep">
-
-            <div class="comment">
-                <div class="comment-auth">
-                    <img src="../assets/merry.jpg" width="40" class="comment-pic-round">
-                <div class="comment-user"> 
-                    <span class="comment-user-name">Merry</span> 
-                    <p class="comment-text">C'mon Pippin !</p>
-                </div>
-            </div>
-
-                <div class="comment-input">
-                    <input type="text" class="form-control">
-                        <div class="fonts">
-                             <i class="fa fa-camera"></i> 
+            <section class="wall-card">
+        
+                <div class="post-card-header">
+                    <a href="/profil" class="post-header-pic"> 
+                        <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
+                    </a>
+                    <div class="post-header-name-date">
+                        <div class="post-header-name">
+                            <p>Witch-King of Angmar<br></p>
                         </div>
+                        <div class="post-header-date">
+                            <p>27 septembre 2021</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-        </section>
-    </main>
+                <div class="post-content">
+                    <div class="post-description">
+                        <p class="post-txt">Do you not know death when you see it, old man?</p>
+                    </div>
+                    <div class="post-img">
+                        <img src="../assets/Gandalf_vs_WitchKing.png" class="wall-img">
+                    </div>
+                    <div class="post-likes">
+                        <i class="fas -regular fa-thumbs-up" id="wall-likes">18</i>
+                    </div>
+                </div>
 
+                <hr class="card-sep">
+                <div class="post-actions">
+                    <div class="post-action-like">
+                        <i class="fas -thin fa-thumbs-up"></i>
+                        <span class="like-txt">J'aime</span>
+                    </div>
+                    <div class="post-action-comment">
+                        <i class="fas -thin fa-message"></i>
+                        <span class="comment-txt">Commenter</span>
+                    </div>
+                </div>
+                <hr class="card-sep">
 
+                <div class="comment">
+                    <div class="comment-auth">
+                        <img src="../assets/merry.jpg" width="40" class="comment-pic-round">
+                        <div class="comment-user"> 
+                            <span class="comment-user-name">Merry</span> 
+                            <p class="comment-text">C'mon Pippin !</p>
+                        </div>
+                    </div>
 
+                    <div class="comment-input">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
 
-        </div>
+            </section>
+        </main>
+
+    </div>
 
 </template>
 
