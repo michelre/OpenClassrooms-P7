@@ -1,8 +1,9 @@
 <template>
-
     <div class="container">
-            <HeaderHome/>
-        <div class="hero">
+
+        <HeaderHome/>
+        
+        <main class="main-hero">
             <div class="register-card">
 
                 <div class="register-card-btn">
@@ -13,9 +14,9 @@
                 <Login v-if="!registerForm" :changeForm="changeForm" />
                 <SignUp v-if="registerForm" :changeForm="changeForm" />
             </div>
-        </div>
-    </div>
+        </main>
 
+    </div>
 </template> 
 
 
@@ -60,7 +61,7 @@
         overflow: hidden;
     }
 
-    .hero {
+    .main-hero {
         background-image: url("../assets/test2.jpg");
         background-repeat: no-repeat;
         background-size: cover;

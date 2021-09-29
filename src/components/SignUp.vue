@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <section class="signup-container">
 
         <h1>Créer un compte</h1>
 
@@ -33,7 +33,7 @@
             <p>Déjà inscrit ? <a href="" @click.prevent="changeForm(false)">Connectez-vous !</a></p>
         </div>
 
-    </div>
+    </section>
 </template>
 
 
@@ -74,7 +74,11 @@
     * {
         font-family: 'Titillium Web', sans-serif;
         background-color: white;
-        border-radius: 10px;
+        border-radius: 5px;
+    }
+
+    .signup-container {
+        padding: 0.5%;
     }
 
     h1 {

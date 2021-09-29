@@ -1,11 +1,7 @@
 <template> 
-    
     <div class="container">
 
         <HeaderWall/>
-
-        <hr>
-           
 
         <!-- Test bloc post (composant ?) -->
         <main class="main-wall">
@@ -70,7 +66,6 @@
         </main>
 
     </div>
-
 </template>
 
 
@@ -94,14 +89,15 @@
 
 <style scoped>
 
-    hr {
-        color: rgb(30, 51, 121);
+    .main-wall {
+        background-attachment: fixed;
+        background-image: url("../assets/test2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: auto;
+        padding: 5%;
     }
 
-    .main-wall {
-        margin-top: 3%;
-        margin-bottom: 3%;
-    }
 
     .wall-card {
         width: 50%;
@@ -110,7 +106,6 @@
         box-shadow: 0 0 20px #000000b3;
         box-sizing: border-box;
         background: #f1f1f1;
-        
     }
 
     .post-card-header {

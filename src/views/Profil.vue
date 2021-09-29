@@ -1,10 +1,7 @@
 <template>
-    
     <div class="container">
 
         <HeaderWall/>
-
-        <hr>
 
         <!-- Test bloc profil -->
         <main class="main-profil">
@@ -52,7 +49,6 @@
         </main>
 
     </div>
-
 </template>
 
 
@@ -96,13 +92,13 @@
         margin: 0;
     }
 
-    hr {
-        color: rgb(30, 51, 121);
-    }
-
     .main-profil {
-        margin-top: 3%;
-        margin-bottom: 3%;
+        background-attachment: fixed;
+        background-image: url("../assets/test2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: auto;
+        padding: 5%;
     }
 
     .profil-card {

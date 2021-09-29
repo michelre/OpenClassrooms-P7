@@ -1,13 +1,11 @@
 <template>
-    <div class="container">
+    <header class="header-container">
 
-        <header>
-            <div class="logo-header">
-                <img src="../assets/main-header.png" alt="" class="logo-img">
-            </div>
-        </header>
+        <div class="logo-header">
+            <img src="../assets/main-header.png" alt="" class="logo-img">
+        </div>
 
-  </div>
+    </header>
 </template>
 
 

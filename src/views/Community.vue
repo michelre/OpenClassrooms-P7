@@ -1,15 +1,14 @@
 <template>
-
     <div class="container">
 
         <HeaderWall/>
+        
+        <!-- Test bloc community -->
+        <main class="main-community">
 
-            <hr>
-
-        <div>Test</div>
+        </main>
 
     </div>
-    
 </template>
 
 
@@ -28,5 +27,13 @@
 
 
 <style scoped>
+
+    .main-community {
+        background-image: url("../assets/test2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: auto;
+        padding: 5%;
+    }
 
 </style>

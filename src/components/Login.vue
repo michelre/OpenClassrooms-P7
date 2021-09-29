@@ -1,5 +1,5 @@
-<template> 
-    <div class="container">
+<template>
+    <section class="login-container">
 
         <h1>Identifiez-vous</h1>
 
@@ -24,7 +24,7 @@
             <p>Pas encore inscrit ? <a href="" @click="clicRegister($event)">Créez un compte !</a></p>
         </div>
 
-    </div>
+    </section>
 </template>
 
 
@@ -70,7 +70,11 @@
     * {
         font-family: 'Titillium Web', sans-serif;
         background-color: white;
-        border-radius: 10px;
+        border-radius: 5px;
+    }
+
+    .login-container {
+        padding: 0.5%;
     }
 
     h1 {
