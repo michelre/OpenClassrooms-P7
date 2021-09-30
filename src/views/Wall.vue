@@ -20,6 +20,16 @@
                             <p>27 septembre 2021</p>
                         </div>
                     </div>
+                    <div class="dropdown">
+                        <button @click="postOptions" class="dropdown-btn"><i class="fas fa-ellipsis-v"></i></button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a href="#">
+                                <i class="far fa-edit"></i>
+                                <span class="dropdown-options">Modifier</span></a>
+                            <a href="#">
+                                <i class="far fa-trash-alt"></i><span class="dropdown-options">Supprimer</span></a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="post-content">
@@ -79,6 +89,25 @@
         name: 'Wall',
         components: {
             HeaderWall
+        },
+        methods: {
+            // Fonction déroulement les options Modifier et Supprimer le post
+            postOptions() {
+                document.getElementById("myDropdown").classList.toggle("show");
+                // Fermeture du bouton dropdown dès lors que l'utilisateur clic en dehors du bouton
+                window.onclick = function(event) {
+                if (!event.target.matches('.dropdown-btn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                            }
+                        }
+                    }
+                } 
+            }
         }
     }
 
@@ -196,26 +225,70 @@
     }
 
     .comment-pic-round {
-    border-radius: 50% !important;
-    height: 50px;
-    width: 50px;
+        border-radius: 50% !important;
+        height: 50px;
+        width: 50px;
     }
 
     .form-control {
-    border-radius: 10px;
-    width: 100%;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    height: 40px;
+        border-radius: 10px;
+        width: 100%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        height: 40px;
     }
 
     .form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #8bbafe;
-    outline: 0;
-    box-shadow: none
-}
+        color: #495057;
+        background-color: #fff;
+        border-color: #8bbafe;
+        outline: 0;
+        box-shadow: none;
+    }
+
+
+/* Boutons options de post */
+    .dropdown-btn {
+        color: black;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown {
+        margin-left: auto;
+    }
+
+    .dropdown-options {
+        margin-left: 10%;
+        font-weight: bold;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #ddd
+    }
+
+    .show {
+        display:block;
+    }
 
 
 </style>
