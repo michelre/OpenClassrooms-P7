@@ -104,7 +104,6 @@
         color: white;
         height: 3em;
         border-radius: 10px;
-
     }
 
     .sign-card {

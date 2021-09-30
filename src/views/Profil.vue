@@ -168,4 +168,9 @@
         border-radius: 10px;
     }
 
+    .profil-sep {
+        color: rgb(30, 51, 121);
+        margin: 3%;
+    }
+
 </style>

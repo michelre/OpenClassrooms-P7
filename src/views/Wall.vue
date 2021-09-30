@@ -50,11 +50,11 @@
                 <hr class="card-sep">
                 <div class="post-actions">
                     <div class="post-action-like">
-                        <i class="fas -thin fa-thumbs-up"></i>
+                        <i class="far fa-thumbs-up"></i>
                         <span class="like-txt">J'aime</span>
                     </div>
                     <div class="post-action-comment">
-                        <i class="fas -thin fa-message"></i>
+                        <i class="far fa-comment-alt"></i>
                         <span class="comment-txt">Commenter</span>
                     </div>
                 </div>
@@ -134,7 +134,7 @@
 
     .wall-card {
         width: 50%;
-        padding: 2%;
+        padding: 1% 2% 1% 2%;
         margin: auto;
         box-shadow: 0 0 20px #000000b3;
         box-sizing: border-box;
@@ -147,9 +147,9 @@
     }
 
     .post-header-pic-round {
-    border-radius: 50% !important;
-    height: 50px;
-    width: 50px
+        border-radius: 50% !important;
+        height: 50px;
+        width: 50px
     }
 
     .post-header-name-date {
@@ -176,8 +176,6 @@
     .post-likes {
         display: flex;
         align-items: center;
-        margin-top: 3%;
-        margin-bottom: 3%;
         margin-left: 10%;
     }
 
@@ -188,14 +186,17 @@
     }
 
     .card-sep {
-        margin-top: 3%;
-        margin-bottom: 3%;
+        color: rgb(30, 51, 121);
     }
 
     .post-actions {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    i {
+        
     }
 
     .post-action-like {
@@ -210,7 +211,8 @@
     .comment-auth {
         display: flex;
         flex-direction: row;
-        margin-bottom: 2%;
+        margin-top: 3%;
+        margin-bottom: 1%;
     }
 
     .comment-user {
