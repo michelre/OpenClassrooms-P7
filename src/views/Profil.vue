@@ -45,6 +45,10 @@
                     </form>
                 </div>
 
+            <hr class="profil-sep">
+
+                <button v-on:click="envoiForm" class="suppr-btn">Supprimer le compte</button>
+
             </section>
         </main>
 
@@ -149,6 +153,16 @@
         width: 100%;
         margin-top: 3%;
         background-color: rgb(49, 94, 240);
+        color: white;
+        height: 3em;
+        border-radius: 10px;
+    }
+
+    .suppr-btn {
+        width: 30%;
+        display: block;
+        margin: auto;
+        background-color: rgb(240, 49, 49);
         color: white;
         height: 3em;
         border-radius: 10px;
