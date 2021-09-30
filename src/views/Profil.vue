@@ -101,12 +101,12 @@
         background-image: url("../assets/test2.jpg");
         background-repeat: no-repeat;
         background-size: cover;
-        height: auto;
+        height: 80vh;
         padding: 3%;
     }
 
     .profil-card {
-        width: 50%;
+        width: 30%;
         height: auto;
         padding: 2%;
         margin: auto;
@@ -145,7 +145,7 @@
         flex-direction: column;
     }
 
-        input {
+    input {
         margin-bottom: 3%;
     }
 
@@ -159,7 +159,7 @@
     }
 
     .suppr-btn {
-        width: 30%;
+        width: 40%;
         display: block;
         margin: auto;
         background-color: rgb(240, 49, 49);

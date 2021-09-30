@@ -6,6 +6,8 @@
         <!-- Test bloc post (composant ?) -->
         <main class="main-wall">
 
+            <AddPost/>
+
             <section class="wall-card">
         
                 <div class="post-card-header">
@@ -84,11 +86,13 @@
 <script>
 
     import HeaderWall from '../components/HeaderWall.vue'
+    import AddPost from '../components/AddPost.vue'
 
     export default {
         name: 'Wall',
         components: {
-            HeaderWall
+            HeaderWall,
+            AddPost
         },
         methods: {
             // Fonction déroulement les options Modifier et Supprimer le post
