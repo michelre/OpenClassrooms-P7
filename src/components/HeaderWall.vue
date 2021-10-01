@@ -20,6 +20,7 @@
 </template>
 
 
+
 <script>
 
     export default {
@@ -55,7 +56,7 @@
         margin-right: 3%;
     }
 
-    i{
+    i {
         font-size: 1.5em;
         color: rgb(30, 51, 121);
     }

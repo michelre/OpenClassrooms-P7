@@ -29,7 +29,6 @@
 
 
 
-
 <script>
 
     export default {
@@ -61,7 +60,6 @@
     }
 
 </script>
-
 
 
 

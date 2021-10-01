@@ -23,8 +23,14 @@
                         </div>
                     </div>
                     <div class="dropdown">
-                        <button @click="postOptions" class="dropdown-btn"><i class="fas fa-ellipsis-v"></i></button>
-                        <div id="myDropdown" class="dropdown-content">
+                        <button 
+                            @click="menuActive = !menuActive" 
+                            v-click-outside="clickOutside" 
+                            class="dropdown-btn"
+                        >
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div v-if="menuActive" id="myDropdown" class="dropdown-content">
                             <a href="#">
                                 <i class="far fa-edit"></i>
                                 <span class="dropdown-options">Modifier</span></a>
@@ -82,7 +88,6 @@
 
 
 
-
 <script>
 
     import HeaderWall from '../components/HeaderWall.vue'
@@ -94,29 +99,19 @@
             HeaderWall,
             AddPost
         },
-        methods: {
-            // Fonction déroulement les options Modifier et Supprimer le post
-            postOptions() {
-                document.getElementById("myDropdown").classList.toggle("show");
-                // Fermeture du bouton dropdown dès lors que l'utilisateur clic en dehors du bouton
-                window.onclick = function(event) {
-                if (!event.target.matches('.dropdown-btn')) {
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    var i;
-                    for (i = 0; i < dropdowns.length; i++) {
-                        var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                            }
-                        }
-                    }
-                } 
+        data() {
+            return {
+                menuActive: false
             }
+        },
+        methods: {
+            clickOutside() {
+                this.menuActive = false
+            },
         }
     }
 
 </script>
-
 
 
 
@@ -130,7 +125,6 @@
         height: auto;
         padding: 3%;
     }
-
 
     .wall-card {
         width: 50%;
@@ -195,10 +189,6 @@
         align-items: center;
     }
 
-    i {
-        
-    }
-
     .post-action-like {
         margin-left: 25%;
     }
@@ -206,7 +196,6 @@
     .post-action-comment {
         margin-right: 25%;
     }
-
 
     .comment-auth {
         display: flex;
@@ -252,7 +241,6 @@
         box-shadow: none;
     }
 
-
 /* Boutons options de post */
     .dropdown-btn {
         color: black;
@@ -264,21 +252,24 @@
 
     .dropdown {
         margin-left: auto;
+        position: relative;
+        display: flex;
     }
 
     .dropdown-options {
         margin-left: 10%;
         font-weight: bold;
+        
     }
 
     .dropdown-content {
-        display: none;
-        position: absolute;
         background-color: #f1f1f1;
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
-        
+        position: absolute;
+        top: 35px;
+        right: 0;
     }
 
     .dropdown-content a {
@@ -295,6 +286,5 @@
     .show {
         display:block;
     }
-
 
 </style>

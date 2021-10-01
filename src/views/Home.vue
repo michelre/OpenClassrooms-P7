@@ -7,8 +7,8 @@
             <div class="register-card">
 
                 <div class="register-card-btn">
-                    <button v-on:click="changeForm(false)" class="form-btn"><span>SE CONNECTER</span></button>
-                    <button v-on:click="changeForm(true)" class="form-btn"><span>S'ENREGISTRER</span></button>
+                    <button v-on:click="changeForm(false)" class="form-btn" :class="{ active: !registerForm }"><span>SE CONNECTER</span></button>
+                    <button v-on:click="changeForm(true)" class="form-btn" :class="{ active: registerForm }"><span>S'ENREGISTRER</span></button>
                 </div>
 
                 <Login v-if="!registerForm" :changeForm="changeForm" />
@@ -18,7 +18,6 @@
 
     </div>
 </template> 
-
 
 
 
@@ -43,11 +42,14 @@
         methods: {
             changeForm(registerForm) {
                 this.registerForm = registerForm
+            },
+            buttonActive() {
+
             }
         }
     }
-</script>
 
+</script>
 
 
 
@@ -117,7 +119,10 @@
     button:hover:after {
         width: 100%;
     }
- 
 
+    .active {
+        background: rgb(49, 94, 240);
+        color: white;
+    }
 
 </style>

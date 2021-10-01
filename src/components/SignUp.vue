@@ -37,6 +37,7 @@
 </template>
 
 
+
 <script>
 
     export default {
@@ -68,7 +69,6 @@
 
 
 
-
 <style scoped>
 
     * {
@@ -94,7 +94,6 @@
     .form-group {
         display: flex;
         flex-direction: column;
-   
     }
 
     input {

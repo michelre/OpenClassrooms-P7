@@ -82,8 +82,6 @@
 
 <style scoped>
 
-   
-
     .main-community {
         background-attachment: fixed;
         background-image: url("../assets/test2.jpg");
@@ -127,7 +125,7 @@
         right: 0;
         padding: 18px 10px;
         z-index: 2;
-        }
+    }
 
     .community-search input:focus + button .fa-search {
         color: rgb(49, 94, 240);
@@ -163,9 +161,5 @@
         width: 100px;
         height: 100px;
     }
-
-
-
-
 
 </style>

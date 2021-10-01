@@ -57,7 +57,6 @@
 
 
 
-
 <script>
 
     import HeaderWall from '../components/HeaderWall.vue'
@@ -75,7 +74,7 @@
                     email: '',
                     mdp: ''
                     }
-            }
+                }
         },
         methods: {
             envoiForm() {
@@ -85,7 +84,6 @@
     }
 
 </script>  
-
 
 
 
