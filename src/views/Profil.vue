@@ -106,11 +106,12 @@
     .profil-card {
         width: 30%;
         height: auto;
-        padding: 2%;
         margin: auto;
+        padding: 1%;
+        background: #f1f1f1;
+        border-radius: 5px;
         box-shadow: 0 0 20px #000000b3;
         box-sizing: border-box;
-        background: #f1f1f1;
     }
 
     .profil-pic-name {

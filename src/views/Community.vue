@@ -5,61 +5,78 @@
 
         <!-- Test bloc community -->
         <main class="main-community">
-            <section class="community-card">
 
+            <section class="community-card">
                 <div class="community-title">
                     <h1>Membres de l'équipe</h1>
                 </div>
 
                 <div class="community-search">
-                    <input type="text" name="pseudo" id="pseudo" class="community-input" placeholder="Rechercher un collaborateur">
+                    <input type="text" name="pseudo" id="pseudo" class="community-input" placeholder="Rechercher un collègue">
                     <button type="submit">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
-
-                <div class="community-list">
-
-                    <div class="community-member">
-                        <div class="member-pic">
-                            <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                        </div>
-                        <h1 class="member-name">Witch-King of Angmar</h1>
-                    </div>
-                    <div class="community-member">
-                        <div class="member-pic">
-                            <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                        </div>
-                        <h1 class="member-name">Witch-King of Angmar</h1>
-                    </div>
-                    <div class="community-member">
-                        <div class="member-pic">
-                            <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                        </div>
-                        <h1 class="member-name">Witch-King of Angmar</h1>
-                    </div>
-                    <div class="community-member">
-                        <div class="member-pic">
-                            <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                        </div>
-                        <h1 class="member-name">Witch-King of Angmar</h1>
-                    </div>
-                    <div class="community-member">
-                        <div class="member-pic">
-                            <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                        </div>
-                        <h1 class="member-name">Witch-King of Angmar</h1>
-                    </div>
-                    <div class="community-member">
-                        <div class="member-pic">
-                            <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                        </div>
-                        <h1 class="member-name">Witch-King of Angmar</h1>
-                    </div>
-
-                </div>
-
             </section>
+
+            <div class="community-list">
+                <div class="community-member">
+                    <div class="member-pic">
+                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">Witch-King of Angmar</h2>
+                </div>
+                <div class="community-member">
+                    <div class="member-pic">
+                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">Witch-King of Angmar</h2>
+                </div>
+                <div class="community-member">
+                    <div class="member-pic">
+                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">Witch-King of Angmar</h2>
+                </div>
+                <div class="community-member">
+                    <div class="member-pic">
+                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">Witch-King of Angmar</h2>
+                </div>
+                <div class="community-member">
+                    <div class="member-pic">
+                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">Witch-King of Angmar</h2>
+                </div>
+                <div class="community-member">
+                    <div class="member-pic">
+                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">Witch-King of Angmar</h2>
+                </div>
+                <div class="community-member">
+                    <div class="member-pic">
+                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">Witch-King of Angmar</h2>
+                </div>
+                <div class="community-member">
+                    <div class="member-pic">
+                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">Witch-King of Angmar</h2>
+                </div>
+                <div class="community-member">
+                    <div class="member-pic">
+                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">Witch-King of Angmar</h2>
+                </div>
+            </div>
+
+            
         </main>
 
     </div>
@@ -87,23 +104,28 @@
         background-image: url("../assets/test2.jpg");
         background-repeat: no-repeat;
         background-size: cover;
-        height: 80vh;
+        height: auto;
         padding: 3%;
     }
 
     .community-card {
-        width: 80%;
+        width: 30%;
         margin: auto;
+        padding-top: 0.1%;
+        padding-bottom: 1%;
+        background: #f1f1f1;
+        border-radius: 5px;
+        box-shadow: 0 0 20px #000000b3;
+        box-sizing: border-box;
     }
 
     .community-title {
-        color: white;
         text-align: center;
     }
 
     .community-search {
         position: relative;
-        width: 35%;
+        width: 75%;
         margin: auto;
         background: white;
     }
@@ -135,22 +157,23 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
-        margin-top: 3%;
+        margin: auto;
+        width: 60%;
     }
 
     .community-member {
         display: flex;
-        width: 25%;
-        margin-top: 3%;
-        padding: 1%;
+        width: 30%;
+        margin-top: 5%;
+        padding: 0.5%;
         background: #f1f1f1;
         box-shadow: 0 0 20px #000000b3;
-        border-radius: 10px;
+        border-radius: 5px;
         align-items: center;
     }
 
     .member-name {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
 
     .member-pic {
@@ -158,8 +181,8 @@
     }
 
     .member-pic-img {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
     }
 
 </style>

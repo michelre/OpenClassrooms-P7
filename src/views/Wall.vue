@@ -128,11 +128,12 @@
 
     .wall-card {
         width: 50%;
-        padding: 1% 2% 1% 2%;
         margin: auto;
+        padding: 1% 2% 1% 2%;
+        background: #f1f1f1;
+        border-radius: 2px;
         box-shadow: 0 0 20px #000000b3;
         box-sizing: border-box;
-        background: #f1f1f1;
     }
 
     .post-card-header {
@@ -216,7 +217,6 @@
     .comment-user-name {
         font-weight: bold;
         margin-left: 5%;
-    
     }
 
     .comment-pic-round {
@@ -259,17 +259,18 @@
     .dropdown-options {
         margin-left: 10%;
         font-weight: bold;
-        
     }
 
     .dropdown-content {
         background-color: #f1f1f1;
-        min-width: 160px;
+        border-radius: 5px;
+        min-width: 200px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
         position: absolute;
-        top: 35px;
-        right: 0;
+        top: 55px;
+        right: 10px;
+        
     }
 
     .dropdown-content a {
@@ -277,10 +278,11 @@
         padding: 12px 16px;
         text-decoration: none;
         display: block;
+        margin: 1%;
     }
 
     .dropdown-content a:hover {
-        background-color: #ddd
+        background-color: #ddd;
     }
 
     .show {

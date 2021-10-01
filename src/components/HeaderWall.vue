@@ -35,6 +35,7 @@
 
     header {
         height: 60px;
+        margin: auto;
     }
 
     nav {
