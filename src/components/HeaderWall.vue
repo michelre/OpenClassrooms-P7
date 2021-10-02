@@ -60,6 +60,11 @@
     i {
         font-size: 1.5em;
         color: rgb(30, 51, 121);
+        transition: transform .3s;
+    }
+
+    i:hover {
+        transform: scale(1.3)
     }
 
 </style>

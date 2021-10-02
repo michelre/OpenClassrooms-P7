@@ -4,6 +4,7 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+// Directive ClickOutside
 Vue.directive('click-outside', {
   bind: function (el, binding, vnode) {
     el.clickOutsideEvent = function (event) {

@@ -5,6 +5,9 @@
 
         <!-- Test bloc profil -->
         <main class="main-profil">
+
+             <ProfilAvatar style="display: none" />
+      
             <section class="profil-card">
 
                 <div class="profil-pic-name">
@@ -50,6 +53,9 @@
                 <button v-on:click="envoiForm" class="suppr-btn">Supprimer le compte</button>
 
             </section>
+
+   
+
         </main>
 
     </div>
@@ -60,11 +66,13 @@
 <script>
 
     import HeaderWall from '../components/HeaderWall.vue'
+    import ProfilAvatar from '../components/ProfilAvatar.vue'
 
     export default {
         name: 'Profil',
         components: {
-            HeaderWall
+            HeaderWall,
+            ProfilAvatar
         },
         data() {
             return {

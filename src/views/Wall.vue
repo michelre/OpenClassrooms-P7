@@ -9,7 +9,6 @@
             <AddPost/>
 
             <section class="wall-card">
-        
                 <div class="post-card-header">
                     <a href="/profil" class="post-header-pic"> 
                         <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
@@ -56,11 +55,11 @@
                 <hr class="card-sep">
                 <div class="post-actions">
                     <div class="post-action-like">
-                        <i class="far fa-thumbs-up"></i>
+                        <i class="far fa-thumbs-up" id="icon-like"></i>
                         <span class="like-txt">J'aime</span>
                     </div>
                     <div class="post-action-comment">
-                        <i class="far fa-comment-alt"></i>
+                        <i class="far fa-comment-alt" id="icon-comment"></i>
                         <span class="comment-txt">Commenter</span>
                     </div>
                 </div>
@@ -76,11 +75,16 @@
                     </div>
 
                     <div class="comment-input">
-                        <input type="text" class="form-control">
+                        <input type="text" class="com-input" placeholder="Écrivez un commentaire ici...">
                     </div>
                 </div>
-
             </section>
+
+            <!-- Bouton Scroll to Top-->
+            <button class="toTop" @click="toTop" aria-label="Retour en haut de page">
+                <span class="fa fa-chevron-up"></span>
+            </button>
+
         </main>
 
     </div>
@@ -101,12 +105,21 @@
         },
         data() {
             return {
-                menuActive: false
+                menuActive: false,
+                scTimer: 0,
+                scY: 0
             }
         },
+
         methods: {
             clickOutside() {
                 this.menuActive = false
+            },
+            toTop() {
+                window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+                });
             },
         }
     }
@@ -134,6 +147,7 @@
         border-radius: 2px;
         box-shadow: 0 0 20px #000000b3;
         box-sizing: border-box;
+        margin-bottom: 3%;
     }
 
     .post-card-header {
@@ -171,13 +185,13 @@
     .post-likes {
         display: flex;
         align-items: center;
-        margin-left: 10%;
+        margin-left: 5%;
     }
 
     .post-likes img {
         width: 5%;
         height: 5%;
-        margin-right: 2%;
+        margin-right: 1%;
     }
 
     .card-sep {
@@ -190,12 +204,28 @@
         align-items: center;
     }
 
+    #icon-like, #icon-comment {
+        transition: transform .2s;
+    }
+
+    #icon-like:hover, #icon-comment:hover {
+        transform: scale(1.3);
+    }
+
     .post-action-like {
-        margin-left: 25%;
+        margin-left: 20%;
     }
 
     .post-action-comment {
-        margin-right: 25%;
+        margin-right: 20%;
+    }
+
+    .post-action-like, .post-action-comment {
+        width: 20%;
+    }
+
+    .like-txt, .comment-txt {
+        margin-left: 10%;
     }
 
     .comment-auth {
@@ -212,11 +242,12 @@
         padding: 1%;
         border-radius: 5px;
         background-color: rgb(219, 222, 226);
+        height: 50px;
+        line-height: 0.8;
     }
 
     .comment-user-name {
         font-weight: bold;
-        margin-left: 5%;
     }
 
     .comment-pic-round {
@@ -225,18 +256,19 @@
         width: 50px;
     }
 
-    .form-control {
-        border-radius: 10px;
-        width: 100%;
+    .com-input {
+        width: 97%;
+        height: 3em;
+        padding: 1%;
         margin-top: 2%;
         margin-bottom: 2%;
-        height: 40px;
+        border-radius: 5px;
     }
 
-    .form-control:focus {
+    .com-input:focus {
         color: #495057;
         background-color: #fff;
-        border-color: #8bbafe;
+        border-color: rgb(30, 51, 121);
         outline: 0;
         box-shadow: none;
     }
@@ -286,7 +318,16 @@
     }
 
     .show {
-        display:block;
+        display: block;
+    }
+
+    /* Bouton Scroll to the Top */ 
+    .toTop {
+        width: 7vh;
+        height: 5vh;
+        position: absolute;
+        right: 0;
+        margin-right: 5%;
     }
 
 </style>
