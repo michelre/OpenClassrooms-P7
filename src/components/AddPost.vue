@@ -13,6 +13,7 @@
             <div class="post-content">
                 <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?">
                 <div class="post-img">
+                    <!-- <i class="fas fa-folder-plus"></i> -->
                     <label for="addContent"><i class="far fa-file-image"></i></label>
                     <input type="file"
                         id="addContent"

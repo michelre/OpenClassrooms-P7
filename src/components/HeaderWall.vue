@@ -9,7 +9,7 @@
                 <i class="fas -solid fa-users"></i>
             </router-link>
             <router-link to="/profil" title="Profil" class="profil-header">
-                <i class="fas -duotone fa-camera"></i>
+                <i class="fas fa-user-circle"></i>
             </router-link>
             <router-link to="/" title="Se déconnecter" class="deconnect-header">
                 <i class="fas -solid fa-power-off"></i>

@@ -10,10 +10,22 @@
       
             <section class="profil-card">
 
+
                 <div class="profil-pic-name">
-                    <div class="profil-pic">
-                        <img src="../assets/witchKing.jpeg" class="profil-pic-img">
-                    </div>
+
+                <div class="profil-pic">
+                    <label for="profilPic" class="testpic">
+                        <i class="fas fa-user-circle"></i>
+                    </label>
+                    <input type="file"
+                           name="profilPic" 
+                           id="profilPic"
+                           accept="image/*"
+                    >
+                    <button @click="validPic()">Valider</button>
+                </div>
+
+
                     <h1 class="profil-name">Witch-King of Angmar</h1>
                 </div>
 
@@ -68,6 +80,8 @@
     import HeaderWall from '../components/HeaderWall.vue'
     import ProfilAvatar from '../components/ProfilAvatar.vue'
 
+    import axios from 'axios'
+
     export default {
         name: 'Profil',
         components: {
@@ -87,8 +101,23 @@
         methods: {
             envoiForm() {
                 
-            }
-        }
+            },
+            validPic() {
+                // Récupération de l'image
+                let img = document.getElementById('profilPic').files[0]
+                    // Ajout de l'envoi de l'image au formData
+                    var formData = new FormData()
+                    formData.append('img', img)
+                    // Envoi des données sur l'url du serveur
+                    axios.post('http://localhost:8000/upload_image', formData)
+                        .then((resp) => {
+                            console.log(resp)
+                        })
+                        .catch((err) => {
+                            console.log(err.response)
+                        })   
+                    }     
+                }
     }
 
 </script>  
@@ -96,6 +125,20 @@
 
 
 <style scoped>
+
+.profil-pic > input {
+    display: none;
+}
+
+.profil-pic {
+    display: flex;
+    flex-direction: column;
+}
+
+.testpic {
+    font-size: 3em;
+    
+}
 
     .container {
         overflow: hidden;
