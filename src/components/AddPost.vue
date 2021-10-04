@@ -4,15 +4,26 @@
 
         <form class="post-card">
             <h1>Exprimez-vous...</h1>
+
             <div class="post-infos">
                 <label for="postTitle" class="hidden">Nouvelle publication</label>
                 <textarea name="postTitle" id="postTitle" placeholder="Que voulez-vous partager ?"></textarea>
             </div>
+
             <div class="post-content">
                 <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?">
-            
-            <button type="submit" class="post-btn">Publier</button>
+                <div class="post-img">
+                    <label for="addContent"><i class="far fa-file-image"></i></label>
+                    <input type="file"
+                        id="addContent"
+                        name="addContent"
+                        accept="image/*"
+                        alt="Ajouter un fichier"
+                    >
+                </div>
+                <button type="submit" class="post-btn">Publier</button>
             </div>
+            
         </form>            
         
     </section>
@@ -77,6 +88,25 @@
         margin-left: 4%;
         margin-bottom: 2%;
         padding: 1%;
+    }
+
+    .post-img > input {
+        display: none;
+    }
+
+    .post-img {
+        width: 10%;
+        font-size: 1.5em;
+        justify-content: center;
+        align-content: center;
+        display: flex;
+        padding-top: 1%;
+        color: rgb(30, 51, 121);
+        transition: transform .3s;
+    }
+
+    .post-img:hover {
+        transform: scale(1.1);
     }
 
     .post-btn {
