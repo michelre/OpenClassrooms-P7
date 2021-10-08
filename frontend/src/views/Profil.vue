@@ -13,18 +13,17 @@
 
                 <div class="profil-pic-name">
 
-                <div class="profil-pic">
-                    <label for="profilPic" class="testpic">
-                        <i class="fas fa-user-circle"></i>
-                    </label>
-                    <input type="file"
-                           name="profilPic" 
-                           id="profilPic"
-                           accept="image/*"
-                    >
-                    <button @click="validPic()">Valider</button>
-                </div>
-
+                    <div class="profil-pic">
+                        <label for="profilPic" class="testpic">
+                            <i class="fas fa-user-circle"></i>
+                        </label>
+                        <input type="file"
+                            name="profilPic" 
+                            id="profilPic"
+                            accept="image/*"
+                        >
+                        <button @click="validPic()">Valider</button>
+                    </div>
 
                     <h1 class="profil-name">Witch-King of Angmar</h1>
                 </div>
@@ -137,7 +136,6 @@
 
 .testpic {
     font-size: 3em;
-    
 }
 
     .container {

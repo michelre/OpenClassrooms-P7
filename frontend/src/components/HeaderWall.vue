@@ -64,7 +64,12 @@
     }
 
     i:hover {
+        border-radius: 100%;
+        transform: rotate(720deg);
+
+        /*
         transform: scale(1.3)
+        */
     }
 
 </style>

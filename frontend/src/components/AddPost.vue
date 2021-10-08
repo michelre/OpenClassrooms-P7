@@ -14,12 +14,11 @@
                 <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?">
                 <div class="post-img">
                     <!-- <i class="fas fa-folder-plus"></i> -->
-                    <label for="addContent"><i class="far fa-file-image"></i></label>
+                    <label  title="Ajouter un fichier" for="addContent"><i class="far fa-file-image"></i></label>
                     <input type="file"
                         id="addContent"
                         name="addContent"
                         accept="image/*"
-                        alt="Ajouter un fichier"
                     >
                 </div>
                 <button type="submit" class="post-btn">Publier</button>
