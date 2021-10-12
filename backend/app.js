@@ -10,8 +10,10 @@ app.use((req, res, next) => {
     next();
   });
 
+  /*
 // Traitement des données via bodyParser rendant celles-ci exploitables
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
+  */
 
 
 
