@@ -1,4 +1,4 @@
-// Importation du package multer s'occupant de la gestion des fichiers téléchargés via une requête HTTP
+// Importation du package multer en charge de la gestion des fichiers téléchargés via une requête HTTP
 const multer = require('multer');
 
 // Gestion du MIME type des fichiers images
