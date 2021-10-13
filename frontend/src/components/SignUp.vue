@@ -32,7 +32,7 @@
             </div>
      
 
-            <button v-on:click="envoiForm" class="form-btn">Se connecter</button>
+            <button v-on:click.prevent="envoiForm" class="form-btn">Se connecter</button>
         </form>
 
         <div class="sign-card">
@@ -45,8 +45,6 @@
 
 
 <script>
-
-    
 
     export default {
         name: 'SignUp',
@@ -69,9 +67,23 @@
         },
         methods: {
 
-                  envoiForm() {
+            envoiForm() {
                 this.$router.push({ name:'Wall' }); 
             }
+
+        }
+    }
+
+
+
+        
+
+
+
+
+
+
+
 
 
 
@@ -151,8 +163,29 @@
             } 
         */
 
+
+/*
+    Test 3
+        envoiForm(){
+            const nom = document.getElementById('nom').value;
+            const prenom = document.getElementById('prenom').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            var formData = new FormData();
+            formData.append('prenom', prenom);
+            formData.append('nom', nom);
+            formData.append('email', email);
+            formData.append('password', password);
+            alert("utilisateur enregistré !");
+            axios
+                .post('/signup', formData)
+                .then(reponse => { console.log(reponse)
+                    this.$router.push({ name:'Wall' }); 
+            });
         }
-    }
+*/
+
 
 </script>
 
