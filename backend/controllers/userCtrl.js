@@ -32,7 +32,7 @@ exports.login = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     // Recherche de l'utilisateur via son mail
-    db.query(`SELECT * FROM utilisateur WHERE email = ?`), email, (error, result) => {
+    db.query(`SELECT 'email' FROM utilisateur`), email, (error, result) => {
         // Si l'utilisateur n'a pas été trouvé, envoi d'un message d'erreur
         if (result === "" || result === undefined) {
             return res.status(401).json({ error: 'Utilisateur non trouvé !'});
@@ -59,7 +59,7 @@ exports.login = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
     const id = req.params.id;
     // Recherche de l'utilisateur via son mail avant suppresion
-    db.query(`DELETE FROM utilisateur WHERE id_utilisateur = ?`, id, (error, result) => {
+    db.query(`DELETE 'id_utilisateur' FROM utilisateur`, id, (error, result) => {
         // Si l'utilisateur n'a pas été trouvé
         if (error) {
             return res.status(400).json({ error: 'Utilisateur non trouvé'}); 
