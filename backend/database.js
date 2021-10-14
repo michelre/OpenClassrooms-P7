@@ -2,7 +2,7 @@
 const myqsl = require('mysql2');
 
 // Création de la connexion à la base de données MySQL
-const db = mysql.connexion ({
+const db = mysql.createConnection ({
     DATABASE: process.env.DATABASE,
     HOST: process.env.HOST,
     USER: process.env.USER,

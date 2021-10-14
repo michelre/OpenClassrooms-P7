@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('database');
+const db = require('../database');
 const User = require('../models/user');
 
 // Enregistrement de nouveaux utilisateurs
@@ -16,7 +16,7 @@ exports.signup = (req, res, next) => {
                 password: hash
             });
             // Sauvegarde du nouvel utilisateur dans la base de données SQL
-            db.query(`INSERT INTO utilisateur SET ?`), user, (error, result) => {
+            db.query(`INSERT INTO utilisateur (nom, prenom, email, password, image) VALUES ('nom', 'prenom', 'email', 'password_hash', 'image')`), user, (error, result) => {
             if (error) {
                 console.log(error)
                 return res.status(400).json("erreur")
