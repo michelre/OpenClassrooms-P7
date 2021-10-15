@@ -12,6 +12,6 @@ passwordSchema
 .has().lowercase()      // Doit contenir au moins une minuscule
 .has().digits(2)        // Doit contenir au moins 2 chiffres
 .has().not().spaces()   // Ne contient aucun espace
-.is().not().oneOf(['password', 'motdepasse']);  // Interdit ces valeurs
+.is().not().oneOf(['password1234', 'motdepasse1234']);  // Interdit ces valeurs
 
 module.exports = passwordSchema;

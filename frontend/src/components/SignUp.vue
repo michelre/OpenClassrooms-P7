@@ -22,12 +22,12 @@
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input type="password" v-model="signUpForm.mdp" name="password" id="password" class="form-input">
+                <input type="password" v-model="signUpForm.password" name="password" id="password" class="form-input">
                 <div class="form-err"></div>
             </div>
             <div class="form-group">
                 <label for="passwordConfirm">Confirmez le mot de passe</label>
-                <input type="password" v-model="signUpForm.mdp" name="passwordConfirm" id="passwordConfirm" class="form-input">
+                <input type="password" v-model="signUpForm.passwordConfirm" name="passwordConfirm" id="passwordConfirm" class="form-input">
                 <div class="form-err"></div>
             </div>
      
@@ -46,6 +46,8 @@
 
 <script>
 
+    import axios from 'axios';
+
     export default {
         name: 'SignUp',
         components: {
@@ -61,16 +63,31 @@
                     nom: '',
                     prenom: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    passwordConfirm: ''
                     }
             }
         },
         methods: {
 
-            envoiForm() {
-                this.$router.push({ name:'Wall' }); 
+            envoiForm(){
+                const nom = this.signUpForm.nom;
+                const prenom = this.signUpForm.prenom;
+                const email = this.signUpForm.email;
+                const password = this.signUpForm.password;
+                
+                var formData = new FormData();
+                    formData.append('prenom', prenom);
+                    formData.append('nom', nom);
+                    formData.append('email', email);
+                    formData.append('password', password);
+                    alert("utilisateur enregistré !");
+                    axios
+                        .post('/signup', formData)
+                        .then(reponse => { console.log(reponse)
+                            this.$router.push({ name:'Wall' }); 
+                    });
             }
-
         }
     }
 
@@ -87,8 +104,9 @@
 
 
 
+
+
 /*
-    Test 1 
             envoiForm() {
                 let newUser = {
                     nom: this.signUpForm.nom,
@@ -120,13 +138,7 @@
                 }
                 });
             }
-*/
 
-
-
-
-/*
-    Test 2
             envoiForm() {
                 const nom = document.getElementById('#nom')[0].value;
                 const prenom = document.getElementById('#prenom')[0].value;
@@ -161,30 +173,8 @@
                     alert("Les mots de passe saisis ne sont pas identiques");
                 }
             } 
-        */
+    */
 
-
-/*
-    Test 3
-        envoiForm(){
-            const nom = document.getElementById('nom').value;
-            const prenom = document.getElementById('prenom').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            var formData = new FormData();
-            formData.append('prenom', prenom);
-            formData.append('nom', nom);
-            formData.append('email', email);
-            formData.append('password', password);
-            alert("utilisateur enregistré !");
-            axios
-                .post('/signup', formData)
-                .then(reponse => { console.log(reponse)
-                    this.$router.push({ name:'Wall' }); 
-            });
-        }
-*/
 
 
 </script>

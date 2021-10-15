@@ -1,3 +1,6 @@
+// Importation du package dotenv sécurisant les informations sensibles liées à la BDD
+require('dotenv').config();
+
 // Importations
 const express = require('express'); // permet de déployer rapidement l'API       
 const helmet = require('helmet'); // sécurise notre application Express en application des en-têtes HTTP diverses
@@ -5,10 +8,7 @@ const bodyParser = require('body-parser'); // middleware express lisant l'entré
 const apiLimiter = require('./middleware/limits-rate'); // middleware limitant les demandes infructueuses répétées à l'API
 const path = require('path'); // module donnant accès au chemin du système de fichiers
 const userRoutes = require('./routes/userRoutes'); // route user
-
-// Importation du package dotenv sécurisant les informations sensibles liées à la BDD
-require('dotenv').config();
-
+ 
 // Création de l'application Express, sécurisée par le package Helmet via la définition d'en-têtes HTTP diverses
 const app = express(); 
 app.use(helmet());
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json()); 
 
 // Définition des différentes routes
-app.use('api/auth', apiLimiter, userRoutes);
+app.use('/api/auth', apiLimiter, userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Exportation de l'application
