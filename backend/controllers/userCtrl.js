@@ -22,36 +22,51 @@ exports.signup = (req, res, next) => {
     })
 } 
 
-
-// Connexion d'utilisateurs existants    
+// Connexion d'utilisateurs existants   
 exports.login = (req, res, next) => {
     const email = req.body.email;
-    const password = req.body.password; 
+	const password = req.body.password;
     // Recherche de l'utilisateur via son mail
-    db.query(`SELECT * FROM utilisateur WHERE email = ?`), email, (error, result) => {
-        // Si l'utilisateur n'a pas été trouvé, envoi d'un message d'erreur
-        if (result === "" || result === undefined) {
-            return res.status(401).json({ error: 'Utilisateur non trouvé !'});
-        }
-        // Utilisation de bcrypt pour comparer le hashage du mot de passe
-        bcrypt.compare(password, result[0].password).then((valid) => {
-            // Si le mot de passe ne correspond pas, envoi d'un message d'erreur
-            if (!valid) {
-                return res.status(401).json({ error: 'Mot de passe incorrect !'});
+    if (email && password) {
+        db.query('SELECT * FROM utilisateur WHERE email= ?', email, (error, results, fields) => { 
+            // Utilisation de bcrypt pour comparer le hashage du mot de passe
+            if (results.length > 0) {
+                bcrypt.compare(password, results[0].password).then((valid) => {
+                // Si le mot de passe ne correspond pas, envoi d'un message d'erreur
+                    if (!valid) {
+                    res.status(401).json({ message: 'Mot de passe incorrect' })
+                    // Si le mot de passe correspond :
+                    } else {
+                    console.log(email, "s'est connecté")
+                    let status = ''
+                    console.log(results);
+                    // Vérification du niveau d'accès de l'utilisateur afin de lui attribuer le statut d'admin ou de membre
+                        if (results[0].niveau_acces === 1) {
+                            status = 'admin'
+                        } else {
+                            status = 'membre'
+                        }
+                        // Attribution d'un token d'identification d'une durée de 24h
+                        res.status(200).json({
+                            userId: results[0].id,
+                            email: results[0].email,
+                            status: status,
+                            token: jwt.sign({ userId: results[0].id, status: status },process.env.JWT_SECRET_TOKEN,{ expiresIn: '24h' })
+                        })
+                    }
+                })
+            } 
+            // Si l'utilisateur ou le mot de passe n'ont pas été trouvés, envoi d'un message d'erreur
+            else {
+                res.status(401).json({ message: 'Utilisateur ou mot de passe inconnu' })
             }
-            const id = result[0].id_utilisateur;
-            // Si le mot de passe correspond, attribution d'un token d'identification d'une durée de 24h
-            const token = jwt.sign(
-                { userId: id },
-                'JWT_SECRET_TOKEN',
-                { expiresIn: '24h'}
-            )
-            res.status(200)({ token, userId: id });
-        });
+        })
+    } else {  
+        res.status(500).json({ message: "Entrez votre email et votre mot de passe" })
     }
-};
+}   
 
-
+   
 // Suppression d'un compte 
 exports.deleteUser = (req, res, next) => {
     const id = req.params.id;
@@ -67,32 +82,3 @@ exports.deleteUser = (req, res, next) => {
 };
 
 
-/*
-// Connexion d'utilisateurs existants   
-exports.login = (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    // Recherche de l'utilisateur via son mail
-    db.query(`SELECT 'email' FROM utilisateur`), email, (error, result) => {
-        // Si l'utilisateur n'a pas été trouvé, envoi d'un message d'erreur
-        if (result === "" || result === undefined) {
-            return res.status(401).json({ error: 'Utilisateur non trouvé !'});
-        }
-        // Utilisation de bcrypt pour comparer le hashage du mot de passe
-        bcrypt.compare(password, result[0].password).then((valid) => {
-            // Si le mot de passe ne correspond pas, envoi d'un message d'erreur
-            if (!valid) {
-                return res.status(401).json({ error: 'Mot de passe incorrect !'});
-            }
-            const id = result[0].id_utilisateur;
-            // Si le mot de passe correspond, attribution d'un token d'identification d'une durée de 24h
-            const token = jwt.sign(
-                { userId: id },
-                'JWT_SECRET_TOKEN',
-                { expiresIn: '24h'}
-            )
-            res.status(200)({ token, userId: id });
-        });
-    }
-};
-*/
