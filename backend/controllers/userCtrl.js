@@ -66,19 +66,51 @@ exports.login = (req, res, next) => {
     }
 }   
 
-   
+
 // Suppression d'un compte 
 exports.deleteUser = (req, res, next) => {
     const id = req.params.id;
-    // Recherche de l'utilisateur via son mail avant suppresion
-    db.query(`DELETE 'id_utilisateur' FROM utilisateur`, id, (error, result) => {
+    // Recherche de l'utilisateur via son id avant suppresion
+    db.query(`DELETE FROM utilisateur WHERE id = ?`, id, (error, result) => {
         // Si l'utilisateur n'a pas été trouvé
         if (error) {
             return res.status(400).json({ error: 'Utilisateur non trouvé'}); 
         }
-        // Si le mail correspond, suppresion du compte
+        // Si l'id correspond, suppresion du compte
         return res.status(200).json(result);
     });
 };
 
 
+// Sélectionner un utilisateur
+exports.getOneUser = (req, res, next) => {
+    const id = req.params.id;
+    db.query(`SELECT * FROM utilisateur WHERE id =`, id, (error, result) => {
+        // Si l'utilisateur n'a pas été trouvé
+        if (error) {
+            return res.status(400).json({ error: 'Utilisateur non trouvé'}); 
+        }
+        // Si l'id correspond, affichage du compte
+        return res.status(200).json(result);
+    });
+};
+
+
+// Afficher tous les comptes
+exports.getAllUsers = (req, res, next) => {
+    db.query(`SELECT * FROM utilisateur`, (error, result) => {
+        // Si les utilisateurs n'ont pas été trouvés
+        if (error) {
+            return res.status(400).json({ error: 'Utilisateur non trouvé'}); 
+        }
+        // Si les utilisateurs ont été trouvés, affichage de tous les comptes
+        return res.status(200).json(result);
+    });
+};
+
+
+
+// Modifier un compte 
+exports.updateUser = (req, res, next) => {
+    
+}
