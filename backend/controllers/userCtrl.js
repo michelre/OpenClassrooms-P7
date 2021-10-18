@@ -10,7 +10,7 @@ exports.signup = (req, res, next) => {
         .then(hash => {
             console.log(hash, db);
             // Sauvegarde du nouvel utilisateur dans la base de données SQL
-            db.query(`INSERT INTO utilisateur (nom, prenom, email, password, image) VALUES ('${req.body.nom}', '${req.body.prenom}', '${req.body.email}', '${hash}', '')`, (error, result) => {
+            db.query(`INSERT INTO utilisateurs (nom, prenom, email, password, image) VALUES ('${req.body.nom}', '${req.body.prenom}', '${req.body.email}', '${hash}', '')`, (error, result) => {
                 console.log(result);
             if (error) {
                 console.log(error)
@@ -28,7 +28,7 @@ exports.login = (req, res, next) => {
 	const password = req.body.password;
     // Recherche de l'utilisateur via son mail
     if (email && password) {
-        db.query('SELECT * FROM utilisateur WHERE email= ?', email, (error, results, fields) => { 
+        db.query('SELECT * FROM utilisateurs WHERE email= ?', email, (error, results, fields) => { 
             // Utilisation de bcrypt pour comparer le hashage du mot de passe
             if (results.length > 0) {
                 bcrypt.compare(password, results[0].password).then((valid) => {
@@ -71,7 +71,7 @@ exports.login = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
     const id = req.params.id;
     // Recherche de l'utilisateur via son id avant suppresion
-    db.query(`DELETE FROM utilisateur WHERE id = ?`, id, (error, result) => {
+    db.query(`DELETE FROM utilisateurs WHERE id = ?`, id, (error, result) => {
         // Si l'utilisateur n'a pas été trouvé
         if (error) {
             return res.status(400).json({ error: 'Utilisateur non trouvé'}); 
@@ -85,7 +85,7 @@ exports.deleteUser = (req, res, next) => {
 // Sélectionner un utilisateur
 exports.getOneUser = (req, res, next) => {
     const id = req.params.id;
-    db.query(`SELECT * FROM utilisateur WHERE id =`, id, (error, result) => {
+    db.query(`SELECT * FROM utilisateurs WHERE id =`, id, (error, result) => {
         // Si l'utilisateur n'a pas été trouvé
         if (error) {
             return res.status(400).json({ error: 'Utilisateur non trouvé'}); 
@@ -98,7 +98,7 @@ exports.getOneUser = (req, res, next) => {
 
 // Afficher tous les comptes
 exports.getAllUsers = (req, res, next) => {
-    db.query(`SELECT * FROM utilisateur`, (error, result) => {
+    db.query(`SELECT * FROM utilisateurs`, (error, result) => {
         // Si les utilisateurs n'ont pas été trouvés
         if (error) {
             return res.status(400).json({ error: 'Utilisateur non trouvé'}); 
