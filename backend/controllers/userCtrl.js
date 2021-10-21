@@ -62,7 +62,7 @@ exports.login = (req, res, next) => {
             }
         })
     } else {  
-        res.status(500).json({ message: "Entrez votre email et votre mot de passe" })
+        res.status(400).json({ message: "Entrez votre email et votre mot de passe" })
     }
 }   
 
@@ -77,7 +77,7 @@ exports.deleteUser = (req, res, next) => {
             return res.status(400).json({ error: 'Utilisateur non trouvé'}); 
         }
         // Si l'id correspond, suppresion du compte
-        return res.status(200).json(result);
+        return res.status(204).end();
     });
 };
 
@@ -85,13 +85,13 @@ exports.deleteUser = (req, res, next) => {
 // Sélectionner un utilisateur
 exports.getOneUser = (req, res, next) => {
     const id = req.params.id;
-    db.query(`SELECT * FROM utilisateurs WHERE id =`, id, (error, result) => {
+    db.query(`SELECT * FROM utilisateurs WHERE id = ?`, id, (error, result) => {
         // Si l'utilisateur n'a pas été trouvé
         if (error) {
             return res.status(400).json({ error: 'Utilisateur non trouvé'}); 
         }
         // Si l'id correspond, affichage du compte
-        return res.status(200).json(result);
+        return res.status(200).json(result[0]);
     });
 };
 

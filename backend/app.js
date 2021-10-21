@@ -8,6 +8,7 @@ const bodyParser = require('body-parser'); // middleware express lisant l'entré
 const apiLimiter = require('./middleware/limits-rate'); // middleware limitant les demandes infructueuses répétées à l'API
 const path = require('path'); // module donnant accès au chemin du système de fichiers
 const userRoutes = require('./routes/userRoutes'); // route user
+const postRoutes = require('./routes/postRoutes'); // route post
  
 // Création de l'application Express, sécurisée par le package Helmet via la définition d'en-têtes HTTP diverses
 const app = express(); 
@@ -25,7 +26,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.json()); 
 
 // Définition des différentes routes
-app.use('/api/auth', apiLimiter, userRoutes);
+app.use('/api/users', apiLimiter, userRoutes);
+app.use('/api/posts', postRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Exportation de l'application
