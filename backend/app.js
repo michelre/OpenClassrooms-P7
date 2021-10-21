@@ -7,8 +7,10 @@ const helmet = require('helmet'); // sécurise notre application Express en appl
 const bodyParser = require('body-parser'); // middleware express lisant l'entrée d'un formulaire, le stockant en tant qu'objet JavaScript accessible via req.body
 const apiLimiter = require('./middleware/limits-rate'); // middleware limitant les demandes infructueuses répétées à l'API
 const path = require('path'); // module donnant accès au chemin du système de fichiers
-const userRoutes = require('./routes/userRoutes'); // route user
-const postRoutes = require('./routes/postRoutes'); // route post
+const userRoutes = require('./routes/userRoutes');        // route user
+const postRoutes = require('./routes/postRoutes');        // route post
+const likeRoutes = require('./routes/likeRoutes');        // route like
+const commentRoutes = require('./routes/commentRoutes');  // route comment 
  
 // Création de l'application Express, sécurisée par le package Helmet via la définition d'en-têtes HTTP diverses
 const app = express(); 
@@ -26,8 +28,12 @@ app.use((req, res, next) => {
 app.use(bodyParser.json()); 
 
 // Définition des différentes routes
-app.use('/api/users', apiLimiter, userRoutes);
-app.use('/api/posts', postRoutes);
+app.use('/api/users', apiLimiter, userRoutes);  // Routes utilisateur
+app.use('/api/posts', postRoutes);              // Routes publications
+app.use('/api/likes', likeRoutes);              // Routes likes
+app.use('/api/comments', commentRoutes);        // Routes commentaires
+
+// Routes images
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Exportation de l'application
