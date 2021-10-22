@@ -109,8 +109,54 @@ exports.getAllUsers = (req, res, next) => {
 };
 
 
-
-// Modifier un compte 
+/*
+// Modifier un compte : Premier Try NON FONCTIONNEL
 exports.updateUser = (req, res, next) => {
-    
+    const id = req.params.id;
+    const nom = req.params.nom;
+    db.query(`UPDATE utilisateurs SET (nom) = '${nom}' WHERE id = 1`, (error, result) => {
+        if (error) {
+            return res.status(400).json({ error: 'Utilisateur non trouvé ! '}); 
+        }
+        // Si les utilisateurs ont été trouvés, affichage de tous les comptes
+        return res.status(200).json(result);
+    });
 }
+*/
+
+
+// Modifier un compte : Second Try, FONCTIONNEL AVEC ERREUR
+exports.updateUser = (req, res, next) => {
+    const id = req.params.id;
+    const nom = req.params.nom;
+    var changeName = `UPDATE utilisateurs SET nom = '${nom}' WHERE id =`+id;
+    var showName = `SELECT * FROM utilisateurs WHERE id=`+id;
+
+    db.query(showName, function(err, result) {
+        if (err) {
+            throw err;
+        } else {
+            db.query(changeName, function(err, result) {
+                if (err) {
+                    throw err;
+                } else {
+                    console.log(result)
+                    res.status(200).json(result);
+                }
+            })
+        }
+    })
+}
+
+
+/*
+// Modifier un compte : Troisième Try
+exports.updateUser = (req, res, next) => {
+    const userId = req.params.id;
+    const nom = req.params.nom;
+    const prenom = req.params.prenom;
+    const email = req.params.email;
+    const password = req.params.password;
+    const image = req.params.image;
+}
+*/
