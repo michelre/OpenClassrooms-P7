@@ -6,79 +6,11 @@
         <!-- Test bloc post (composant ?) -->
         <main class="main-wall">
 
-            <AddPost/>
+        <AddPost/>
 
-            <section class="wall-card">
-                <div class="post-card-header">
-                    <a href="/profil" class="post-header-pic"> 
-                        <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
-                    </a>
-                    <div class="post-header-name-date">
-                        <div class="post-header-name">
-                            <p>Witch-King of Angmar<br></p>
-                        </div>
-                        <div class="post-header-date">
-                            <p>27 septembre 2021</p>
-                        </div>
-                    </div>
-                    <div class="dropdown">
-                        <button 
-                            @click="menuActive = !menuActive" 
-                            v-click-outside="clickOutside" 
-                            class="dropdown-btn"
-                        >
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-                        <div v-if="menuActive" id="myDropdown" class="dropdown-content">
-                            <a href="#">
-                                <i class="far fa-edit"></i>
-                                <span class="dropdown-options">Modifier</span></a>
-                            <a href="#">
-                                <i class="far fa-trash-alt"></i><span class="dropdown-options">Supprimer</span></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="post-content">
-                    <div class="post-description">
-                        <p class="post-txt">Do you not know death when you see it, old man?</p>
-                    </div>
-                    <div class="post-img">
-                        <img src="../assets/Gandalf_vs_WitchKing.png" class="wall-img">
-                    </div>
-                    <div class="post-likes">
-                        <img src="../assets/pouce.png" class="wall-likes">
-                        <p>18</p>
-                    </div>
-                </div>
-
-                <hr class="card-sep">
-                <div class="post-actions">
-                    <div class="post-action-like">
-                        <i class="far fa-thumbs-up" id="icon-like"></i>
-                        <span class="like-txt">J'aime</span>
-                    </div>
-                    <div class="post-action-comment">
-                        <i class="far fa-comment-alt" id="icon-comment"></i>
-                        <span class="comment-txt">Commenter</span>
-                    </div>
-                </div>
-                <hr class="card-sep">
-
-                <div class="comment">
-                    <div class="comment-auth">
-                        <img src="../assets/merry.jpg" width="40" class="comment-pic-round">
-                        <div class="comment-user"> 
-                            <span class="comment-user-name">Merry</span> 
-                            <p class="comment-text">C'mon Pippin !</p>
-                        </div>
-                    </div>
-
-                    <div class="comment-input">
-                        <input type="text" class="com-input" placeholder="Écrivez un commentaire ici...">
-                    </div>
-                </div>
-            </section>
+        <Post v-for="post in posts" 
+        :key="post.id"
+        :post="post" />
 
             <!-- Bouton Scroll to Top-->
             <button class="toTop" @click="toTop" aria-label="Retour en haut de page">
@@ -96,19 +28,27 @@
 
     import HeaderWall from '../components/HeaderWall.vue'
     import AddPost from '../components/AddPost.vue'
+    import Post from '../components/Post.vue'
 
     export default {
         name: 'Wall',
         components: {
             HeaderWall,
-            AddPost
+            AddPost,
+            Post
         },
         data() {
             return {
                 menuActive: false,
                 scTimer: 0,
-                scY: 0
+                scY: 0,
+                posts: []
             }
+        },
+        created() {
+            fetch("http://localhost:3000/api/posts").then(res => res.json()).then(res => {
+                this.posts = res;
+            }) 
         },
 
         methods: {

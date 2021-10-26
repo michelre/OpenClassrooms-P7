@@ -43,7 +43,7 @@ exports.deleteComment = (req, res, next) => {
     });
 };
 
-// QUESTION : Récupérer l'intégralité des commentaires publication par publication vis leurs id ? 
+// QUESTION : Récupérer l'intégralité des commentaires publication par publication vis leurs id ? rename getAllCommentsByPost
 
 // Récupération de l'intégralité des commentaires
 exports.getAllComments = (req, res, next) => {

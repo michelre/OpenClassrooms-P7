@@ -12,7 +12,7 @@ exports.createPost = (req, res, next) => {
     let media = null;
 
         // Si la publication contient une image
-        if (req.file.filename !== undefined) {
+        if (req.file && req.file.filename !== undefined) {
             // Paramètrage de l'url
             media = `/images/${req.file.filename}`;
         } 
@@ -79,10 +79,17 @@ exports.getAllPosts = (req, res, next) => {
 /* --------------------------------------------- FONCTION MODIFICATION PUBLICATION ---------------------------------------- */
 
 
-
-// Modification d'une publication : FONCTIONNEL UNIQUEMENT POUR LE MESSAGE, A COMPLETER AVEC LE MEDIA 
+// Modification d'une publication : Fonctionnel pour le message ET l'image MAIS empêche de faire soit l'un soit l'autre et présentant des erreurs
 exports.updatePost = (req, res, next) => {
-    db.query(`UPDATE publications SET message = ? WHERE id = ?`, [req.body.message, req.params.id], (error, result) => {
+    let media = req.body.media;
+    let message = req.body.message || '';
+    // Si la publication contient une image
+    if (req.file && req.file.filename !== undefined) {
+        // Paramètrage de l'url
+        media = `/images/${req.file.filename}`;
+    } 
+
+    db.query(`UPDATE publications SET message=?, media=? WHERE id = ?`, [message, media, req.params.id], (error, result) => {
         if (error) {
             return res.status(400).json({ error: "Le post n'a pas pu être modifié" })
         }

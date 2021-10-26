@@ -111,96 +111,16 @@ exports.getAllUsers = (req, res, next) => {
 /* --------------------------------------------- FONCTION MODIFICATION DE PROFIL ---------------------------------------- */
 
 
-/*
-// Modifier un compte : Premier Try NON FONCTIONNEL
+// Modifier un compte, 4e try reprise totale 
 exports.updateUser = (req, res, next) => {
-    const id = req.params.id;
-    const nom = req.params.nom;
-    db.query(`UPDATE utilisateurs SET (nom) = '${nom}' WHERE id = 1`, (error, result) => {
-        if (error) {
-            return res.status(400).json({ error: 'Utilisateur non trouvé ! '}); 
-        }
-        // Si les utilisateurs ont été trouvés, affichage de tous les comptes
-        return res.status(200).json(result);
-    });
-}
-*/
-
-
-/*
-// Modifier un compte : Second Try, FONCTIONNEL AVEC ERREURS
-exports.updateUser = (req, res, next) => {
-    const id = req.params.id;
-    const nom = req.params.nom;
-    var changeName = `UPDATE utilisateurs SET nom = '${nom}' WHERE id =`+id;
-    var showName = `SELECT * FROM utilisateurs WHERE id=`+id;
-
-    db.query(showName, function(err, result) {
-        if (err) {
-            throw err;
-        } else {
-            db.query(changeName, function(err, result) {
-                if (err) {
-                    throw err;
-                } else {
-                    console.log(result)
-                    res.status(200).json(result);
+    bcrypt.hash(req.body.password, 10)
+        .then(hash => {
+            db.query(`UPDATE utilisateurs SET nom=?, prenom=?, email=?, password=? WHERE id = ?`, [req.body.nom, req.body.prenom, req.body.email, hash, req.params.id], (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
                 }
+                return res.status(200).json(result);
             })
-        }
-    })
-}
-*/
-
-
-/*
-// Modifier un compte : 3e try reprise totale NON FONCTIONNELLE
-exports.updateUser = (req, res, next) => {
-    // Check si l'utilisation à modifier existe via la vérification de son id
-    if (req.params.id) {
-        db.query('SELECT * FROM utilisateurs WHERE id = ?', [req.params.id], function (err, result) {
-            if (err) return res.status(500).json({ error: err })
-            if (result.length === 0) {
-                return res.status(404).json({ error: 'Profil inconnu' })
-            // Check si l'email de l'utilisateur séléctionné n'existe pas déjà 
-            } else {
-                db.query(`SELECT email, id FROM utilisateurs WHERE email = ?`, [req.body.email], function (problem, result) {
-                    if (problem) return res.status(500).json({ error: problem });
-                    if ((result[0] !== undefined || result === []) && req.params.id != result[0].id) {
-                        return res.status(500).json({ message: 'Email déjà utilisé' })
-                    }
-                    // Vérification du mot de passe via le hash utilisateur
-                    bcrypt.hash(req.body.password, 10, (err, hash) => {
-                        const time = new Date();
-                        // Modification des champs nom et prénom sans maj de l'email
-                        if (req.body.email === null) {
-                            db.query(`UPDATE utilisateurs SET nom=?, prenom=?, password=? WHERE id=${req.params.id}`, [req.body.nom, req.body.prenom, hash, time], function (err, sucess) {
-                                if (err) return res.status(500).json({ error: err });
-                                return res.status(200).json({ message: 'Profil mis à jour avec succès !' })
-                            })
-                        // Modification des champs nom prénom ET email
-                        } else {
-                            db.query(`UPDATE utilisateurs SET nom=?, prenom=?, email=?, password=? WHERE id=${req.params.id}`, [req.body.nom, req.body.prenom, req.body.email, hash, time],
-                            function (err, success) {
-                                if (err) return res.status(500).json({ error: err});
-                                return res.status(200).json({ message: 'Profil mis à jour avec succès !' })
-                            })
-                        }
-                    })
-                })
-            }
         })
-    }
-}
-*/
-
-
-// Modifier un compte, 4e try reprise totale
-exports.updateUser = (req, res, next) => {
-    db.query(`UPDATE utilisateurs SET nom = ? WHERE id = ?`, [req.body.nom, req.params.id], (error, result) => {
-        if (error) {
-            return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
-        }
-        return res.status(200).json(result);
-    })
 }
