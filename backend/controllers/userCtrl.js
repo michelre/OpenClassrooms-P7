@@ -108,6 +108,8 @@ exports.getAllUsers = (req, res, next) => {
     });
 };
 
+/* --------------------------------------------- FONCTION MODIFICATION DE PROFIL ---------------------------------------- */
+
 
 /*
 // Modifier un compte : Premier Try NON FONCTIONNEL
@@ -125,7 +127,7 @@ exports.updateUser = (req, res, next) => {
 */
 
 
-// Modifier un compte : Second Try, FONCTIONNEL AVEC ERREUR
+// Modifier un compte : Second Try, FONCTIONNEL AVEC ERREURS
 exports.updateUser = (req, res, next) => {
     const id = req.params.id;
     const nom = req.params.nom;
@@ -149,14 +151,48 @@ exports.updateUser = (req, res, next) => {
 }
 
 
+
+
 /*
-// Modifier un compte : Troisième Try
+// Modifier un compte : 3e try reprise totale NON FONCTIONNELLE
 exports.updateUser = (req, res, next) => {
-    const userId = req.params.id;
-    const nom = req.params.nom;
-    const prenom = req.params.prenom;
-    const email = req.params.email;
-    const password = req.params.password;
-    const image = req.params.image;
+    // Check si l'utilisation à modifier existe via la vérification de son id
+    if (req.params.id) {
+        db.query('SELECT * FROM utilisateurs WHERE id = ?', [req.params.id], function (err, result) {
+            if (err) return res.status(500).json({ error: err })
+            if (result.length === 0) {
+                return res.status(404).json({ error: 'Profil inconnu' })
+            // Check si l'email de l'utilisateur séléctionné n'existe pas déjà 
+            } else {
+                db.query(`SELECT email, id FROM utilisateurs WHERE email = ?`, [req.body.email], function (problem, result) {
+                    if (problem) return res.status(500).json({ error: problem });
+                    if ((result[0] !== undefined || result === []) && req.params.id != result[0].id) {
+                        return res.status(500).json({ message: 'Email déjà utilisé' })
+                    }
+                    // Vérification du mot de passe via le hash utilisateur
+                    bcrypt.hash(req.body.password, 10, (err, hash) => {
+                        const time = new Date();
+                        // Modification des champs nom et prénom sans maj de l'email
+                        if (req.body.email === null) {
+                            db.query(`UPDATE utilisateurs SET nom=?, prenom=?, password=? WHERE id=${req.params.id}`, [req.body.nom, req.body.prenom, hash, time], function (err, sucess) {
+                                if (err) return res.status(500).json({ error: err });
+                                return res.status(200).json({ message: 'Profil mis à jour avec succès !' })
+                            })
+                        // Modification des champs nom prénom ET email
+                        } else {
+                            db.query(`UPDATE utilisateurs SET nom=?, prenom=?, email=?, password=? WHERE id=${req.params.id}`, [req.body.nom, req.body.prenom, req.body.email, hash, time],
+                            function (err, success) {
+                                if (err) return res.status(500).json({ error: err});
+                                return res.status(200).json({ message: 'Profil mis à jour avec succès !' })
+                            })
+                        }
+                    })
+                })
+            }
+        })
+    }
 }
 */
+
+
+// Modifier un compte, 4e try reprise totale

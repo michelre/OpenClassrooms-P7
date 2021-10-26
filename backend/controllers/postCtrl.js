@@ -33,11 +33,6 @@ exports.createPost = (req, res, next) => {
 };
 
 
-// Modification d'une publication
-exports.updatePost = (req, res, next) => {
-
-}
-
 // Suppression d'une publication
 exports.deletePost = (req, res, next) => {
     const id = req.params.id;
@@ -52,6 +47,7 @@ exports.deletePost = (req, res, next) => {
     });
 };
 
+
 // Récupération d'une publication
 exports.getOnePost = (req, res, next) => {
     const id = req.params.id;
@@ -65,6 +61,7 @@ exports.getOnePost = (req, res, next) => {
     });
 };
 
+
 // Récupération de l'intégralité des publications  
 exports.getAllPosts = (req, res, next) => {
     db.query(`SELECT * FROM publications`, (error, result) => {
@@ -76,3 +73,19 @@ exports.getAllPosts = (req, res, next) => {
         return res.status(200).json(result);
     });
 };
+
+
+
+/* --------------------------------------------- FONCTION MODIFICATION PUBLICATION ---------------------------------------- */
+
+
+
+// Modification d'une publication : FONCTIONNEL UNIQUEMENT POUR LE MESSAGE, A COMPLETER AVEC LE MEDIA 
+exports.updatePost = (req, res, next) => {
+    db.query(`UPDATE publications SET message = ? WHERE id = ?`, [req.body.message, req.params.id], (error, result) => {
+        if (error) {
+            return res.status(400).json({ error: "Le post n'a pas pu être modifié" })
+        }
+        return res.status(200).json(result);
+    })
+}
