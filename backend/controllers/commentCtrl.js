@@ -21,7 +21,12 @@ exports.addComment = (req, res, next) => {
 
 // Modification d'un commentaire
 exports.updateComment = (req, res, next) => {
-
+    db.query(`UPDATE commentaires SET message = ? WHERE id = ?`, [req.body.message, req.params.id], (error, result) => {
+        if (error) {
+            return res.status(400).json({ error: "Le commentaire n'a pas pu être modifié" })
+        }
+        return res.status(200).json(result);
+    })
 }
 
 // Suppression d'un commentaire

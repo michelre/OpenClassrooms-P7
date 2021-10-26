@@ -127,6 +127,7 @@ exports.updateUser = (req, res, next) => {
 */
 
 
+/*
 // Modifier un compte : Second Try, FONCTIONNEL AVEC ERREURS
 exports.updateUser = (req, res, next) => {
     const id = req.params.id;
@@ -149,8 +150,7 @@ exports.updateUser = (req, res, next) => {
         }
     })
 }
-
-
+*/
 
 
 /*
@@ -196,3 +196,11 @@ exports.updateUser = (req, res, next) => {
 
 
 // Modifier un compte, 4e try reprise totale
+exports.updateUser = (req, res, next) => {
+    db.query(`UPDATE utilisateurs SET nom = ? WHERE id = ?`, [req.body.nom, req.params.id], (error, result) => {
+        if (error) {
+            return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
+        }
+        return res.status(200).json(result);
+    })
+}
