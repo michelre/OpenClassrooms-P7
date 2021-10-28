@@ -3,14 +3,13 @@
 
         <HeaderWall/>
 
-        <!-- Test bloc post (composant ?) -->
         <main class="main-wall">
 
-        <AddPost/>
+            <AddPost/>
 
-        <Post v-for="post in posts" 
-        :key="post.id"
-        :post="post" />
+            <Post v-for="post in posts" 
+            :key="post.id"
+            :post="post" />
 
             <!-- Bouton Scroll to Top-->
             <button class="toTop" @click="toTop" aria-label="Retour en haut de page">

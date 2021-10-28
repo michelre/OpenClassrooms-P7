@@ -10,7 +10,6 @@
                 <div class="community-title">
                     <h1>Membres de l'équipe</h1>
                 </div>
-
                 <div class="community-search">
                     <input type="text" name="pseudo" id="pseudo" class="community-input" placeholder="Rechercher un collègue">
                     <button type="submit">
@@ -19,68 +18,33 @@
                 </div>
             </section>
 
-            <div class="community-list">
+            <div class="community-list" v-for="user in users" :key="user.id_user">
                 <div class="community-member">
                     <div class="member-pic">
-                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
+                        <img class="member-pic-img" :src="user.image">
                     </div>
-                    <h2 class="member-name">Witch-King of Angmar</h2>
-                </div>
-                <div class="community-member">
-                    <div class="member-pic">
-                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                    </div>
-                    <h2 class="member-name">Witch-King of Angmar</h2>
-                </div>
-                <div class="community-member">
-                    <div class="member-pic">
-                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                    </div>
-                    <h2 class="member-name">Witch-King of Angmar</h2>
-                </div>
-                <div class="community-member">
-                    <div class="member-pic">
-                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                    </div>
-                    <h2 class="member-name">Witch-King of Angmar</h2>
-                </div>
-                <div class="community-member">
-                    <div class="member-pic">
-                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                    </div>
-                    <h2 class="member-name">Witch-King of Angmar</h2>
-                </div>
-                <div class="community-member">
-                    <div class="member-pic">
-                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                    </div>
-                    <h2 class="member-name">Witch-King of Angmar</h2>
-                </div>
-                <div class="community-member">
-                    <div class="member-pic">
-                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                    </div>
-                    <h2 class="member-name">Witch-King of Angmar</h2>
-                </div>
-                <div class="community-member">
-                    <div class="member-pic">
-                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                    </div>
-                    <h2 class="member-name">Witch-King of Angmar</h2>
-                </div>
-                <div class="community-member">
-                    <div class="member-pic">
-                        <img src="../assets/witchKing.jpeg" class="member-pic-img">
-                    </div>
-                    <h2 class="member-name">Witch-King of Angmar</h2>
+                    <h2 class="member-name">{{user.nom}} {{user.prenom}}</h2>
                 </div>
             </div>
+                
+        <!-- Test 1 sur le modèle posts
+                <div class="community-member">
+            <User v-for="user in users"
+            :key="user.id"
+            :user="user" />
+                    <div class="member-pic">
+                        <img :src="`http://localhost:3000${users.image}`" class="member-pic-img">
+                    </div>
+                    <h2 class="member-name">{{users.nom}} {{users.prenom}}</h2>
+                </div>
+        -->
 
-            
+                
         </main>
 
     </div>
 </template>
+
 
 
 <script>
@@ -92,6 +56,19 @@
         components: {
             HeaderWall
         },
+        props: {
+            user: Object
+        },
+        data() {
+            return {
+                users: []
+            }
+        },
+        created() {
+            fetch("http://localhost:3000/api/users").then(res => res.json()).then(res => {
+                this.users = res;
+            }) 
+        }
     }
 
 </script>

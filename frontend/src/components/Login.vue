@@ -62,6 +62,64 @@
 </script>
 
 
+<!-- TEST NON FONCTIONNEL
+<script>
+
+const axios = require('axios').default;
+
+export default {
+  name: 'Login',
+    props: {
+        changeForm: Function 
+    },
+    data() {
+          return {
+              formData: {
+                email: '',
+                mdp: '' , 
+              },
+              registerActive: false
+          }
+        },
+    methods:{
+        envoiForm() {
+        
+            if (this.email == "" || this.password == "") {
+                alert(
+                "Veuillez entrer votre email et votre mot de passe pour vous connecter"
+                );
+            } else {
+            axios
+            .post(
+                "http://localhost:3000/api/login",
+                {
+                email: this.email,
+                password: this.password
+                },
+            )
+            .then(function (response) {
+            if(response){ 
+                if(response.status == 200 && response.data.token){ 
+                    localStorage.setItem('ID',response.data.userId) 
+                    localStorage.setItem('EMAIL',response.data.email) 
+                    window.location.replace("http://localhost:8080/wall");
+                    }
+            }
+        })
+            .catch(() => {
+                console.log("Identifiant ou mot de passe incorrect"); 
+                window.alert("Identifiant ou mot de passe incorrect");
+            });
+        }
+        }
+    },
+}
+
+</script>
+--> 
+
+
+
 
 <style scoped>
 
