@@ -1,16 +1,16 @@
 <template>
     <section class="post-container">
 
-        <form class="post-card">
+        <form class="post-card" v-on:submit.prevent="envoiForm">
             <h1>Exprimez-vous...</h1>
 
             <div class="post-infos">
                 <label for="postTitle" class="hidden">Nouvelle publication</label>
-                <textarea name="postTitle" id="postTitle" placeholder="Que voulez-vous partager ?"></textarea>
+                <textarea name="postTitle" id="postTitle" placeholder="Que voulez-vous partager ?" v-model="postForm.message"></textarea>
             </div>
 
             <div class="post-content">
-                <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?">
+                <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?" >
                 <div class="post-img">
                     <label  title="Ajouter un fichier" for="addContent"><i class="far fa-file-image"></i></label>
                     <input type="file"
@@ -19,7 +19,7 @@
                         accept="image/*"
                     >
                 </div>
-                <button type="submit" class="post-btn">Publier</button>
+                <button class="post-btn">Publier</button>
             </div>
             
         </form>            
@@ -31,9 +31,45 @@
 
 <script>
 
+    import axios from "axios";
+
     export default {
-        name: 'AddPost'
+        name: 'AddPost',
+        data() {
+            return {
+                postForm: {
+                    message: '',
+                }
+            }
+        },
+        methods: {
+            envoiForm() {
+                const message = this.postForm.message;
+
+                var formData = new FormData();
+                    formData.append('message', message);
+                    alert("Publication ajouté !")
+                    axios({
+                            method: "post",
+                            url: "http://localhost:3000/api/posts",
+                            data: this.postForm,
+                            headers: { "Content-Type": "application/json" },
+                            })
+                        .then(reponse => { console.log(reponse)
+                         
+                    }); 
+            },
+            /*
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.createImage(files[0]);
+                },
+            */
+        }
     }
+    
 
 </script>
 

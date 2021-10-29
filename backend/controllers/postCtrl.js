@@ -10,6 +10,7 @@ const db = require('../database');
 exports.createPost = (req, res, next) => {
     // Contenu de la publication
     let media = null;
+    /* date_ajout = `SELECT date_ajout (getdate(), 'd', 'fr-FR') as date`; */
 
         // Si la publication contient une image
         if (req.file && req.file.filename !== undefined) {
