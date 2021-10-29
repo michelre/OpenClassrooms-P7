@@ -18,8 +18,8 @@
                 </div>
             </section>
 
-            <div class="community-list" v-for="user in users" :key="user.id_user">
-                <div class="community-member">
+            <div class="community-list" >
+                <div class="community-member" v-for="user in users" :key="user.id_user">
                     <div class="member-pic">
                         <img class="member-pic-img" :src="user.image">
                     </div>
@@ -27,19 +27,7 @@
                 </div>
             </div>
                 
-        <!-- Test 1 sur le modèle posts
-                <div class="community-member">
-            <User v-for="user in users"
-            :key="user.id"
-            :user="user" />
-                    <div class="member-pic">
-                        <img :src="`http://localhost:3000${users.image}`" class="member-pic-img">
-                    </div>
-                    <h2 class="member-name">{{users.nom}} {{users.prenom}}</h2>
-                </div>
-        -->
-
-                
+     
         </main>
 
     </div>
@@ -81,7 +69,7 @@
         background-image: url("../assets/test2.jpg");
         background-repeat: no-repeat;
         background-size: cover;
-        height: auto;
+        height: 500px;
         padding: 3%;
     }
 

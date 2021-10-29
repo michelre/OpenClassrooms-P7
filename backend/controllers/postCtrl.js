@@ -17,7 +17,7 @@ exports.createPost = (req, res, next) => {
             media = `/images/${req.file.filename}`;
         } 
         // Préparation de la requête SQL
-        let sqlCreatePost = `INSERT INTO publications (utilisateur_id, message, media, date_ajout) VALUES ('${1}', '${req.body.message}', '${media}', NOW())`;
+        let sqlCreatePost = `INSERT INTO publications (utilisateur_id, message, media, date_ajout) VALUES ('${4}', '${req.body.message}', '${media}', NOW())`;
         console.log(req.body.message);
         console.log(media);
         
@@ -64,7 +64,7 @@ exports.getOnePost = (req, res, next) => {
 
 // Récupération de l'intégralité des publications  
 exports.getAllPosts = (req, res, next) => {
-    db.query(`SELECT * FROM publications`, (error, result) => {
+    db.query(`SELECT * FROM publications JOIN utilisateurs ON publications.utilisateur_id = utilisateurs.id`, (error, result) => {
         // Si les publications n'ont pas été trouvées
         if (error) {
             return res.status(400).json({ error: 'Publications non trouvées' });

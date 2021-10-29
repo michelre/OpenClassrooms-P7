@@ -7,10 +7,10 @@
             </a>
             <div class="post-header-name-date">
                 <div class="post-header-name">
-                    <p>Witch-King of Angmar<br></p>
+                    <p>{{post.nom}} {{post.prenom}}<br></p>
                 </div>
                 <div class="post-header-date">
-                    <p>27 septembre 2021</p>
+                    <p>{{post.date_ajout}}</p>
                 </div>
             </div>
             <div class="dropdown">
@@ -83,6 +83,18 @@
         name: 'Post',
         props: {
             post: Object
+        },
+        data() {
+            return {
+                menuActive: false,
+                scTimer: 0,
+                scY: 0,
+            }
+        },
+        methods: {
+            clickOutside() {
+                this.menuActive = false 
+            },
         }
     }
 

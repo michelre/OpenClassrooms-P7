@@ -38,9 +38,6 @@
         },
         data() {
             return {
-                menuActive: false,
-                scTimer: 0,
-                scY: 0,
                 posts: []
             }
         },
@@ -51,9 +48,7 @@
         },
 
         methods: {
-            clickOutside() {
-                this.menuActive = false
-            },
+            
             toTop() {
                 window.scrollTo({
                 top: 0,

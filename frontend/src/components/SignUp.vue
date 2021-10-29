@@ -3,7 +3,7 @@
 
         <h1>Créer un compte</h1>
 
-        <form class="form-card">
+        <form class="form-card" v-on:submit.prevent="envoiForm">
 
             <div class="form-group">
                 <label for="Nom">Nom</label>
@@ -32,7 +32,7 @@
             </div>
      
 
-            <button v-on:click.prevent="envoiForm" class="form-btn">Se connecter</button>
+            <button class="form-btn">Se connecter</button>
         </form>
 
         <div class="sign-card">
@@ -82,11 +82,18 @@
                     formData.append('email', email);
                     formData.append('password', password);
                     alert("utilisateur enregistré !");
-                    axios
-                        .post('/signup', formData)
+                        axios({
+                            method: "post",
+                            url: "http://localhost:3000/api/users/signup",
+                            data: this.signUpForm,
+                            headers: { "Content-Type": "application/json" },
+                            })
                         .then(reponse => { console.log(reponse)
                             this.$router.push({ name:'Wall' }); 
-                    });
+                    }); 
+
+                   
+
             }
         }
     }
