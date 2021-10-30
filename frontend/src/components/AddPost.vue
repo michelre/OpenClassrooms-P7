@@ -56,7 +56,6 @@
                             headers: { "Content-Type": "application/json" },
                             })
                         .then(reponse => { console.log(reponse)
-                         
                     }); 
             },
             /*

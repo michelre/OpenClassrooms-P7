@@ -24,9 +24,20 @@
                 <div v-if="menuActive" id="myDropdown" class="dropdown-content">
                     <a href="#">
                         <i class="far fa-edit"></i>
-                        <span class="dropdown-options">Modifier</span></a>
-                    <a href="#">
-                    <i class="far fa-trash-alt"></i><span class="dropdown-options">Supprimer</span></a>
+                        <span class="dropdown-options">Modifier</span>
+                    </a>
+
+
+                    <!-- TEST SUPPRESSION PUBLICATION 
+            Authentification : v-if="statut === 'admin' || post.id_user === userId"
+                    -->
+                    <button id="post-delete"
+                            @click="deletePost">
+                        <i class="far fa-trash-alt"></i>
+                        <span class="dropdown-options">Supprimer</span>
+                    </button>
+
+
                 </div>
             </div>
         </div>
@@ -79,6 +90,8 @@
 
 <script>
 
+    import axios from 'axios'
+
     export default {
         name: 'Post',
         props: {
@@ -95,7 +108,99 @@
             clickOutside() {
                 this.menuActive = false 
             },
-        }
+
+              
+            /* TEST METHODE 1 SUPPRESSION PUBLICATION
+            deletePost () {
+                axios.delete('http://localhost:3000/api/posts', {
+                    headers: {
+                    authorization: localStorage.token
+                    }
+                })
+                .then(function (response) {
+                    if(response.status == 200) {
+                    console.log('post supprimé');
+                    window.location.reload();
+                    }
+                })
+                .catch(error => console.log(error))
+                },
+            */
+
+
+            /* TEST 2E METHODE SUPPRESSION PUBLICATION
+            deletePost(id){                              
+                const publicationId = id;
+                axios.delete(`/posts/${publicationId}`)
+                .then((res) => {
+                if(res.status === 200) {
+                    location.href = '/';
+                }
+            })}
+            */
+
+            /* TEST 3e METHODE SUPPRESSION PUBLICATION
+            deletePost(postId) {
+            this.$axios
+                .delete("post/" + postId)
+                .then(() => {
+                const indexPost = this.$data.posts
+                    .map((e) => {
+                    return e.postID;
+                    })
+                    .indexOf(parseInt(postId));
+                this.$data.posts.splice(indexPost, 1);
+                this.alertActive("alert-warning", "Post supprimé !");
+                })
+                .catch((e) => console.log(e));
+            },
+            */
+
+           /* TEST 4e METHODE SUPPRESSION PUBLICATION
+            deletePost() {
+                const token = localStorage.getItem('token')
+                const postId = this.$route.params.id
+                axios.delete("http://localhost:3000/api/posts" + postId, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(res => {
+                    if (res) {
+                        this.$router.push({ name:'Wall' }); 
+                    }
+                })
+                .catch(error => {
+                    console.log("Le post n'a pas pu être supprimé /" + error )
+                }) 
+            },
+            */
+
+
+        //  TEST EN COURS SUPPRESSION PUBLICATION - PREMIER PROBLEME AU NIVEAU DE L'ID DU POST, INTROUVABLE OU NULL ATM
+            deletePost() {
+                const token = localStorage.getItem('token')
+                console.log(token);
+                // const postId = this.$route.params.id; 
+                const postId = localStorage.getItem('publication_id'); 
+                console.log(postId);
+                axios
+                    .delete(`http://localhost:3000/api/posts/${postId}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    })
+                    .then(() => {
+                    location.href = "/";
+                    console.log("Post supprimé !");
+                    });
+                },
+        
+
+  
+        }  
     }
 
 </script>
