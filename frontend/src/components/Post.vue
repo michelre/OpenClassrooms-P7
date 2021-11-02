@@ -1,6 +1,7 @@
  <template>
     <section class="wall-card">
 
+        <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom et la date d'ajout du post -->
         <div class="post-card-header">
             <a href="/profil" class="post-header-pic"> 
                 <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
@@ -13,6 +14,8 @@
                     <p>{{post.date_ajout}}</p>
                 </div>
             </div>
+
+            <!-- Bouton dropdown permettant de modifier/supprimer le post -->
             <div class="dropdown">
                 <button 
                     @click="menuActive = !menuActive" 
@@ -26,22 +29,20 @@
                         <i class="far fa-edit"></i>
                         <span class="dropdown-options">Modifier</span>
                     </a>
-
-
                     <!-- TEST SUPPRESSION PUBLICATION 
             Authentification : v-if="statut === 'admin' || post.id_user === userId"
                     -->
                     <button id="post-delete"
-                            @click="deletePost">
+                            @click="deletePost(post.id)">
                         <i class="far fa-trash-alt"></i>
                         <span class="dropdown-options">Supprimer</span>
                     </button>
-
 
                 </div>
             </div>
         </div>
 
+        <!-- Corps du post avec le message, l'image, et le nombre de likes -->
         <div class="post-content">
             <div class="post-description">
                 <p class="post-txt">{{post.message}}</p>
@@ -57,6 +58,7 @@
 
         <hr class="card-sep">
 
+        <!-- Boutons permettant de liker/commenter le post -->
         <div class="post-actions">
             <div class="post-action-like">
                 <i class="far fa-thumbs-up" id="icon-like"></i>
@@ -70,6 +72,7 @@
 
         <hr class="card-sep">
 
+        <!-- Partie réservée aux commentaires regroupant l'auteur et sa photo -->
         <div class="comment">
             <div class="comment-auth">
                 <img src="../assets/merry.jpg" width="40" class="comment-pic-round">
@@ -78,7 +81,7 @@
                     <p class="comment-text">C'mon Pippin !</p>
                 </div>
             </div>
-
+            <!-- Ecriture de commentaire -->
             <div class="comment-input">
                 <input type="text" class="com-input" placeholder="Écrivez un commentaire ici...">
             </div>
@@ -90,12 +93,12 @@
 
 <script>
 
-    import axios from 'axios'
 
     export default {
         name: 'Post',
         props: {
-            post: Object
+            post: Object,
+            deletePost: Function
         },
         data() {
             return {
@@ -108,99 +111,7 @@
             clickOutside() {
                 this.menuActive = false 
             },
-
-              
-            /* TEST METHODE 1 SUPPRESSION PUBLICATION
-            deletePost () {
-                axios.delete('http://localhost:3000/api/posts', {
-                    headers: {
-                    authorization: localStorage.token
-                    }
-                })
-                .then(function (response) {
-                    if(response.status == 200) {
-                    console.log('post supprimé');
-                    window.location.reload();
-                    }
-                })
-                .catch(error => console.log(error))
-                },
-            */
-
-
-            /* TEST 2E METHODE SUPPRESSION PUBLICATION
-            deletePost(id){                              
-                const publicationId = id;
-                axios.delete(`/posts/${publicationId}`)
-                .then((res) => {
-                if(res.status === 200) {
-                    location.href = '/';
-                }
-            })}
-            */
-
-            /* TEST 3e METHODE SUPPRESSION PUBLICATION
-            deletePost(postId) {
-            this.$axios
-                .delete("post/" + postId)
-                .then(() => {
-                const indexPost = this.$data.posts
-                    .map((e) => {
-                    return e.postID;
-                    })
-                    .indexOf(parseInt(postId));
-                this.$data.posts.splice(indexPost, 1);
-                this.alertActive("alert-warning", "Post supprimé !");
-                })
-                .catch((e) => console.log(e));
-            },
-            */
-
-           /* TEST 4e METHODE SUPPRESSION PUBLICATION
-            deletePost() {
-                const token = localStorage.getItem('token')
-                const postId = this.$route.params.id
-                axios.delete("http://localhost:3000/api/posts" + postId, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                .then(res => {
-                    if (res) {
-                        this.$router.push({ name:'Wall' }); 
-                    }
-                })
-                .catch(error => {
-                    console.log("Le post n'a pas pu être supprimé /" + error )
-                }) 
-            },
-            */
-
-
-        //  TEST EN COURS SUPPRESSION PUBLICATION - PREMIER PROBLEME AU NIVEAU DE L'ID DU POST, INTROUVABLE OU NULL ATM
-            deletePost() {
-                const token = localStorage.getItem('token')
-                console.log(token);
-                // const postId = this.$route.params.id; 
-                const postId = localStorage.getItem('publication_id'); 
-                console.log(postId);
-                axios
-                    .delete(`http://localhost:3000/api/posts/${postId}`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    })
-                    .then(() => {
-                    location.href = "/";
-                    console.log("Post supprimé !");
-                    });
-                },
-        
-
-  
-        }  
+        }
     }
 
 </script>

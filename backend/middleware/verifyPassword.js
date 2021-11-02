@@ -11,3 +11,5 @@ module.exports = (req, res, next) => {
         next();
     }
 };
+
+// Rajouter une condition vérifiant l'exactitude des deux mots de passe

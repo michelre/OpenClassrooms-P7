@@ -31,10 +31,11 @@
 
 <script>
 
-    import axios from "axios";
-
     export default {
         name: 'AddPost',
+        props: {
+            createPost: Function
+        },
         data() {
             return {
                 postForm: {
@@ -45,18 +46,10 @@
         methods: {
             envoiForm() {
                 const message = this.postForm.message;
-
                 var formData = new FormData();
                     formData.append('message', message);
-                    alert("Publication ajouté !")
-                    axios({
-                            method: "post",
-                            url: "http://localhost:3000/api/posts",
-                            data: this.postForm,
-                            headers: { "Content-Type": "application/json" },
-                            })
-                        .then(reponse => { console.log(reponse)
-                    }); 
+                    alert("Publication ajoutée !")
+                    this.createPost(this.postForm);
             },
             /*
             onFileChange(e) {

@@ -6,10 +6,9 @@
         <!-- Test bloc profil -->
         <main class="main-profil">
 
-             <ProfilAvatar style="display: none" />
+            <ProfilAvatar style="display: none" />
       
             <section class="profil-card">
-
 
                 <div class="profil-pic-name">
 
@@ -25,7 +24,7 @@
                         <button @click="validPic()">Valider</button>
                     </div>
 
-                    <h1 class="profil-name">Witch-King of Angmar</h1>
+                    <h1 class="profil-name">{{user.nom}} {{user.prenom}}</h1>
                 </div>
 
                 <hr class="profil-sep">
@@ -34,26 +33,21 @@
                     <form class="form-profil">
 
                         <div class="form-group">
-                            <label for="pseudo">Pseudo</label>
-                            <input type="text" v-model="formData.pseudo" name="pseudo" id="pseudo" class="form-input">
+                            <label for="nom">Nom</label>
+                            <input type="text" v-model="user.nom" name="nom" id="nom" class="form-input">
+                            <div class="form-err"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom">Prénom</label>
+                            <input type="text" v-model="user.prenom" name="prenom" id="prenom" class="form-input">
                             <div class="form-err"></div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" v-model="formData.email" name="email" id="email" class="form-input">
+                            <input type="text" v-model="user.email" name="email" id="email" class="form-input">
                             <div class="form-err"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="mdp">Mot de passe actuel</label>
-                            <input type="password" v-model="formData.mdp" name="mdp" id="mdp" class="form-input">
-                            <div class="form-err"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="mdp">Nouveau mot de passe</label>
-                            <input type="password" v-model="formData.mdp" name="mdp" id="mdp" class="form-input">
-                            <div class="form-err"></div>
-                        </div>
-
+         
                         <button v-on:click="envoiForm" class="form-btn">Enregistrer les modifications</button>
 
                     </form>
@@ -61,7 +55,7 @@
 
             <hr class="profil-sep">
 
-                <button v-on:click="envoiForm" class="suppr-btn">Supprimer le compte</button>
+                <button class="suppr-btn" >Supprimer le compte</button>
 
             </section>
 
@@ -89,18 +83,41 @@
         },
         data() {
             return {
-                formData:
+                profilForm:
                     {
-                    pseudo: '',
-                    email: '',
-                    mdp: ''
-                    }
-                }
+                        nom: '',
+                        prenom: '',
+                        email: '',
+                        password: '',
+                        newPassword: ''
+                    },
+                user: {}
+            }
+        },
+        created() {
+            this.getUserProfil();
         },
         methods: {
             envoiForm() {
                 
             },
+            // Récupération des données de l'utilisateur
+            getUserProfil() {
+                const userId = JSON.parse(localStorage.id);
+                console.log(userId);
+                axios.get(`http://localhost:3000/api/users/${userId}`, {
+                    headers: {
+                        "Content-Type" : "application/json",
+                    },
+                }).then((res) => {
+                    this.user = res.data;
+                    console.log(this.user);
+                });
+            },
+        },
+
+
+        /*
             validPic() {
                 // Récupération de l'image
                 let img = document.getElementById('profilPic').files[0]
@@ -116,7 +133,59 @@
                             console.log(err.response)
                         })   
                     }     
-                }
+                },
+        */
+         
+
+            // Try modification de profil .
+                    updateProfil(formData) {
+                        const userId = JSON.parse(localStorage.id);
+                        axios({
+                                method: "put",
+                                url: `http://localhost:3000/api/users/${userId}`,
+                                data: formData,
+                                headers: { "Content-Type": "application/json" },
+                                })
+                            .then(reponse => { 
+                            this.posts.push(reponse.data)
+                        }); 
+            },
+
+
+            /*
+            updateProfil() {
+                // Dans le cas où l'utilisateur ne modifie pas son mot de passe
+                if (newPassord === "") {
+                        data = {
+                            nom: this.nom,
+                            prenom: this.prenom,
+                            email: this.email,
+                            password: this.password
+                    };
+                } else // l'utilisateur modifie son mot de passe
+                        data = {
+                            nom: this.nom,
+                            prenom: this.prenom,
+                            email: this.email,
+                            password: this.password,
+                            newPassword: this.newPassword
+                        };
+                    axios.put(`http://localhost:3000/api/users/${userId}`, {
+                            headers: {
+                                "Content-Type" : "application/json",
+                                "Authorization" : `Bearer ${token}`
+                            }
+                        }).then(res => {
+                            if (res) {
+                                this.$router.push('/profil');
+                            }
+                        }).catch(error => {
+                            console.log (error)
+                        })
+                    }
+                */
+        
+
     }
 
 </script>  

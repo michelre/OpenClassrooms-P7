@@ -5,11 +5,15 @@
 
         <main class="main-wall">
 
-            <AddPost/>
+            <AddPost
+            :createPost="createPost"
+            />
 
             <Post v-for="post in posts" 
             :key="post.id"
-            :post="post" />
+            :post="post"
+            :deletePost="deletePost"
+             />
 
             <!-- Bouton Scroll to Top-->
             <button class="toTop" @click="toTop" aria-label="Retour en haut de page">
@@ -24,6 +28,8 @@
 
 
 <script>
+
+    import axios from 'axios';
 
     import HeaderWall from '../components/HeaderWall.vue'
     import AddPost from '../components/AddPost.vue'
@@ -48,13 +54,44 @@
         },
 
         methods: {
-            
             toTop() {
                 window.scrollTo({
                 top: 0,
                 behavior: "smooth"
                 });
             },
+            
+            createPost(formData) {
+                    axios({
+                            method: "post",
+                            url: "http://localhost:3000/api/posts",
+                            data: formData,
+                            headers: { "Content-Type": "application/json" },
+                            })
+                        .then(reponse => { 
+                        this.posts.push(reponse.data)
+                    }); 
+            },
+
+            deletePost(postId) {
+                console.log(postId);
+                const token = localStorage.getItem('token')
+                console.log(token); 
+                axios
+                    .delete(`http://localhost:3000/api/posts/${postId}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    })
+                    .then(() => {
+                        this.posts = this.posts.filter( post => {
+                            return post.id != postId;
+                    })
+                    console.log("Post supprimé !");
+                    }); 
+                },
+
         }
     }
 

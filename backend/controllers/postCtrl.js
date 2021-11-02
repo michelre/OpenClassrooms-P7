@@ -25,12 +25,14 @@ exports.createPost = (req, res, next) => {
         // Envoi de la requête à la BDD
         db.query(sqlCreatePost, (error, publication) => {
             if (!error) {
-                res.status(201).json({ message: "Publication enregistrée !" });
-            } else {
-                console.log(error);
-                res.status(400).json({ message: "Erreur lors de la création de la publication !" });
-            }
-        }); 
+                db.query(`SELECT publications.*, utilisateurs.nom, utilisateurs.prenom FROM publications JOIN utilisateurs ON publications.utilisateur_id = utilisateurs.id WHERE publications.id = LAST_INSERT_ID()`,(error, publication) => {
+                    res.status(201).json(publication[0]); 
+                })
+                } else {
+                    console.log(error);
+                    res.status(400).json({ message: "Erreur lors de la création de la publication !" });
+                }
+            }); 
 };
 
 
@@ -65,7 +67,7 @@ exports.getOnePost = (req, res, next) => {
 
 // Récupération de l'intégralité des publications  
 exports.getAllPosts = (req, res, next) => {
-    db.query(`SELECT * FROM publications JOIN utilisateurs ON publications.utilisateur_id = utilisateurs.id`, (error, result) => {
+    db.query(`SELECT publications.*, utilisateurs.nom, utilisateurs.prenom FROM publications JOIN utilisateurs ON publications.utilisateur_id = utilisateurs.id`, (error, result) => {
         // Si les publications n'ont pas été trouvées
         if (error) {
             return res.status(400).json({ error: 'Publications non trouvées' });
