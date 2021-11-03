@@ -48,7 +48,7 @@
                             <div class="form-err"></div>
                         </div>
          
-                        <button v-on:click="envoiForm" class="form-btn">Enregistrer les modifications</button>
+                        <button class="form-btn" @click="updateProfil()">Enregistrer les modifications</button>
 
                     </form>
                 </div>
@@ -98,10 +98,8 @@
             this.getUserProfil();
         },
         methods: {
-            envoiForm() {
-                
-            },
-            // Récupération des données de l'utilisateur
+
+            // Récupération des données de l'utilisateur - FONCTIONNEL 
             getUserProfil() {
                 const userId = JSON.parse(localStorage.id);
                 console.log(userId);
@@ -116,8 +114,64 @@
             },
         },
 
+            // Try 1 modification de profil .
+            updateProfil(profilForm) {
+                const userId = JSON.parse(localStorage.id);
+                axios({
+                    method: "put",
+                    url: `http://localhost:3000/api/users/${userId}`,
+                    data: profilForm,
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then(reponse => { 
+                this.user.push(reponse.data)
+            }); 
+        },
 
-            // TRY SUPPRESSION PROFIL
+/*
+            // Try 2 modification de profil - NON FONCTIONNEL
+            updateProfil(profilForm) {
+                const userId = localStorage.getItem('id');
+                axios({
+                    method: "put",
+                    url: `http://localhost:3000/api/users/${userId}`,
+                    data: profilForm,
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then(reponse => { 
+                this.user.push(reponse.data)
+                }); 
+            },
+*/
+
+
+            // TRY 2 SUPPRESSION PROFIL - NON FONCTIONNEL
+            deleteProfil(id) {
+                if (window.confirm("ATTENTION : Vous êtes sur le point de supprimer votre compte ! Toute suppression est définitive, êtes-vous certain de ce choix ?")) {
+                    const token = localStorage.getItem('token')
+                    console.log(token);
+                    axios
+                        .delete(`http://localhost:3000/api/users/${id}`, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                    },
+                    })
+                    .then(res => {
+                        if (res) {
+                            localStorage.removeItem('token');
+                            this.$router.push('/signup'); 
+                        }
+                    })
+                    .catch(error => {
+                        console.log( error )
+                    })
+                
+                }
+            },
+
+/*
+            // TRY 1 SUPPRESSION PROFIL
             deleteProfil(userId) {
                 console.log(userId);
                 const token = localStorage.getItem('token')
@@ -132,52 +186,12 @@
                     alert('Etes-vous certain de vouloir supprimer votre compte ?')
                     console.log("Utilisateur supprimé !");
                 },
+*/
 
 
 
-    /*
-            // Try modification de profil .
-            updateProfil(formData) {
-                const userId = JSON.parse(localStorage.id);
-                axios({
-                    method: "put",
-                    url: `http://localhost:3000/api/users/${userId}`,
-                    data: formData,
-                    headers: { "Content-Type": "application/json" },
-                                }).then((res) => {
-                    this.user = res.data;
-                    console.log(this.user);
-                });
-            
-        },
-    */
-
-    
-
-    
-
-
-
-
-
-    /* TRY DE BASE SESSION MENTORAT - NON FONCTIONNEL
-            // Try modification de profil .
-            updateProfil(profilForm) {
-                const userId = JSON.parse(localStorage.id);
-                axios({
-                    method: "put",
-                    url: `http://localhost:3000/api/users/${userId}`,
-                    data: profilForm,
-                    headers: { "Content-Type": "application/json" },
-                })
-                .then(reponse => { 
-                this.user.push(reponse.data)
-            }); 
-        },
-    */
-
-
-        /*
+/* 
+            // Try ajout d'une image de profil
             validPic() {
                 // Récupération de l'image
                 let img = document.getElementById('profilPic').files[0]
@@ -194,7 +208,7 @@
                         })   
                     }     
                 },
-        */
+    */
          
 
     }
