@@ -12,6 +12,7 @@
             <Post v-for="post in posts" 
             :key="post.id"
             :post="post"
+            :updatePost="updatePost"
             :deletePost="deletePost"
              />
 
@@ -44,7 +45,7 @@
         },
         data() {
             return {
-                posts: []
+                posts: [],
             }
         },
         created() {
@@ -61,18 +62,20 @@
                 });
             },
             
+            // Création d'une nouvelle publication - FONCTIONNEL
             createPost(formData) {
-                    axios({
-                            method: "post",
-                            url: "http://localhost:3000/api/posts",
-                            data: formData,
-                            headers: { "Content-Type": "application/json" },
-                            })
-                        .then(reponse => { 
-                        this.posts.push(reponse.data)
-                    }); 
+                axios({
+                        method: "post",
+                        url: "http://localhost:3000/api/posts",
+                        data: formData,
+                        headers: { "Content-Type": "application/json" },
+                    })
+                    .then(reponse => { 
+                    this.posts.push(reponse.data)
+                }); 
             },
 
+            // Suppression d'une publication - FONCTIONNEL 
             deletePost(postId) {
                 console.log(postId);
                 const token = localStorage.getItem('token')
@@ -91,6 +94,37 @@
                     console.log("Post supprimé !");
                     }); 
                 },
+
+
+            // Modification d'une publication - NON FONCTIONNEL 
+            updatePost(postId) {
+                console.log(postId)
+                const token = localStorage.getItem('token')
+                console.log(token);
+                axios({
+                    method: "put",
+                    url: `http://localhost:3000/api/posts/${postId}`,
+                    data: formData,
+                    headers: { "Content-Type": "application/json" },
+                })
+            /*  UNE FOIS LES VERIFICATIONS EFFECTUEES, REDIRIGER VERS LE COMPOSANT ADDPOST POUR MODIFIER LE POST
+                .then(() => {
+                    this.$router.push({ name: "AddPost" });
+                })
+
+            */
+                const message = this.postForm.message;
+                var formData = new FormData();
+                    formData.append('message', message);
+                    alert("Publication ajoutée !")
+                    this.createPost(this.postForm);
+            }
+    
+
+
+
+    
+
 
         }
     }

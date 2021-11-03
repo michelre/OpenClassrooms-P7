@@ -55,7 +55,7 @@
 
             <hr class="profil-sep">
 
-                <button class="suppr-btn" >Supprimer le compte</button>
+                <button class="suppr-btn" @click="deleteProfil(user.id)">Supprimer le compte</button>
 
             </section>
 
@@ -117,6 +117,66 @@
         },
 
 
+            // TRY SUPPRESSION PROFIL
+            deleteProfil(userId) {
+                console.log(userId);
+                const token = localStorage.getItem('token')
+                console.log(token); 
+                axios
+                    .delete(`http://localhost:3000/api/users/${userId}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    }),
+                    alert('Etes-vous certain de vouloir supprimer votre compte ?')
+                    console.log("Utilisateur supprimé !");
+                },
+
+
+
+    /*
+            // Try modification de profil .
+            updateProfil(formData) {
+                const userId = JSON.parse(localStorage.id);
+                axios({
+                    method: "put",
+                    url: `http://localhost:3000/api/users/${userId}`,
+                    data: formData,
+                    headers: { "Content-Type": "application/json" },
+                                }).then((res) => {
+                    this.user = res.data;
+                    console.log(this.user);
+                });
+            
+        },
+    */
+
+    
+
+    
+
+
+
+
+
+    /* TRY DE BASE SESSION MENTORAT - NON FONCTIONNEL
+            // Try modification de profil .
+            updateProfil(profilForm) {
+                const userId = JSON.parse(localStorage.id);
+                axios({
+                    method: "put",
+                    url: `http://localhost:3000/api/users/${userId}`,
+                    data: profilForm,
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then(reponse => { 
+                this.user.push(reponse.data)
+            }); 
+        },
+    */
+
+
         /*
             validPic() {
                 // Récupération de l'image
@@ -136,55 +196,6 @@
                 },
         */
          
-
-            // Try modification de profil .
-                    updateProfil(formData) {
-                        const userId = JSON.parse(localStorage.id);
-                        axios({
-                                method: "put",
-                                url: `http://localhost:3000/api/users/${userId}`,
-                                data: formData,
-                                headers: { "Content-Type": "application/json" },
-                                })
-                            .then(reponse => { 
-                            this.posts.push(reponse.data)
-                        }); 
-            },
-
-
-            /*
-            updateProfil() {
-                // Dans le cas où l'utilisateur ne modifie pas son mot de passe
-                if (newPassord === "") {
-                        data = {
-                            nom: this.nom,
-                            prenom: this.prenom,
-                            email: this.email,
-                            password: this.password
-                    };
-                } else // l'utilisateur modifie son mot de passe
-                        data = {
-                            nom: this.nom,
-                            prenom: this.prenom,
-                            email: this.email,
-                            password: this.password,
-                            newPassword: this.newPassword
-                        };
-                    axios.put(`http://localhost:3000/api/users/${userId}`, {
-                            headers: {
-                                "Content-Type" : "application/json",
-                                "Authorization" : `Bearer ${token}`
-                            }
-                        }).then(res => {
-                            if (res) {
-                                this.$router.push('/profil');
-                            }
-                        }).catch(error => {
-                            console.log (error)
-                        })
-                    }
-                */
-        
 
     }
 

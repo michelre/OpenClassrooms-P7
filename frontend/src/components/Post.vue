@@ -11,7 +11,7 @@
                     <p>{{post.nom}} {{post.prenom}}<br></p>
                 </div>
                 <div class="post-header-date">
-                    <p>{{post.date_ajout}}</p>
+                    <p>{{ datePost(post.date_ajout) }}</p>
                 </div>
             </div>
 
@@ -25,13 +25,14 @@
                     <i class="fas fa-ellipsis-v"></i>
                 </button>
                 <div v-if="menuActive" id="myDropdown" class="dropdown-content">
-                    <a href="#">
+    <!-- TEST MODIFICATION - SUPPRESSION PUBLICATION 
+        Authentification : v-if="statut === 'admin' || post.id_user === userId"
+    -->
+                    <button id="post-modify"
+                            @click="updatePost(post.id)">
                         <i class="far fa-edit"></i>
                         <span class="dropdown-options">Modifier</span>
-                    </a>
-                    <!-- TEST SUPPRESSION PUBLICATION 
-            Authentification : v-if="statut === 'admin' || post.id_user === userId"
-                    -->
+                    </button>
                     <button id="post-delete"
                             @click="deletePost(post.id)">
                         <i class="far fa-trash-alt"></i>
@@ -98,19 +99,26 @@
         name: 'Post',
         props: {
             post: Object,
-            deletePost: Function
+            deletePost: Function,
+            updatePost: Function
         },
         data() {
             return {
                 menuActive: false,
                 scTimer: 0,
                 scY: 0,
+                likes: Number
             }
         },
         methods: {
             clickOutside() {
                 this.menuActive = false 
             },
+            datePost(date){
+                const event = new Date(date);
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+            return event.toLocaleDateString('fr-Fr', options);
+            }
         }
     }
 
