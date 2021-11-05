@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Wall from'../views/Wall.vue'
 import Profil from '../views/Profil.vue'
 import Community from '../views/Community.vue'
+import ModifyPost from '../views/ModifyPost.vue'
 
 
 Vue.use(VueRouter)
@@ -28,6 +29,11 @@ const routes = [
     path: '/community',
     name: 'Community',
     component: Community
+  },
+  {
+    path: '/modifyPost',
+    name: 'ModifyPost',
+    component: ModifyPost
   }
 ]
 

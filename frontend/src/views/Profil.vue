@@ -12,7 +12,7 @@
 
                 <div class="profil-pic-name">
 
-                    <div class="profil-pic">
+                    <form class="profil-pic">
                         <label for="profilPic" class="testpic">
                             <i class="fas fa-user-circle"></i>
                         </label>
@@ -22,7 +22,7 @@
                             accept="image/*"
                         >
                         <button @click="validPic()">Valider</button>
-                    </div>
+                    </form>
 
                     <h1 class="profil-name">{{user.nom}} {{user.prenom}}</h1>
                 </div>
@@ -34,17 +34,17 @@
 
                         <div class="form-group">
                             <label for="nom">Nom</label>
-                            <input type="text" v-model="user.nom" name="nom" id="nom" class="form-input">
+                            <input type="text" v-model.lazy="user.nom" name="nom" id="nom" class="form-input">
                             <div class="form-err"></div>
                         </div>
                         <div class="form-group">
                             <label for="prenom">Prénom</label>
-                            <input type="text" v-model="user.prenom" name="prenom" id="prenom" class="form-input">
+                            <input type="text" v-model.lazy="user.prenom" name="prenom" id="prenom" class="form-input">
                             <div class="form-err"></div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" v-model="user.email" name="email" id="email" class="form-input">
+                            <input type="text" v-model.lazy="user.email" name="email" id="email" class="form-input">
                             <div class="form-err"></div>
                         </div>
          
@@ -55,12 +55,12 @@
 
             <hr class="profil-sep">
 
-                <button class="suppr-btn" @click="deleteProfil(user.id)">Supprimer le compte</button>
+                <button class="suppr-btn" @click="deleteUser(user.id)">Supprimer le compte</button>
 
             </section>
 
    
-
+ 
         </main>
 
     </div>
@@ -88,10 +88,8 @@
                         nom: '',
                         prenom: '',
                         email: '',
-                        password: '',
-                        newPassword: ''
                     },
-                user: {}
+                user: {},
             }
         },
         created() {
@@ -114,7 +112,7 @@
             },
         },
 
-            // Try 1 modification de profil .
+            // Try 1 modification de profil - NON FONCTIONNEL
             updateProfil(profilForm) {
                 const userId = JSON.parse(localStorage.id);
                 axios({
@@ -145,8 +143,7 @@
 */
 
 
-            // TRY 2 SUPPRESSION PROFIL - NON FONCTIONNEL
-            deleteProfil(id) {
+            deleteUser(id) {
                 if (window.confirm("ATTENTION : Vous êtes sur le point de supprimer votre compte ! Toute suppression est définitive, êtes-vous certain de ce choix ?")) {
                     const token = localStorage.getItem('token')
                     console.log(token);
@@ -170,6 +167,60 @@
                 }
             },
 
+
+
+/*
+            // TRY 2 SUPPRESSION PROFIL - NON FONCTIONNEL -EN COURS
+            deleteUser(id) {
+                if (window.confirm("ATTENTION : Vous êtes sur le point de supprimer votre compte ! Toute suppression est définitive, êtes-vous certain de ce choix ?")) {
+                    const token = localStorage.getItem('token')
+                    console.log(token);
+                    axios
+                        .delete(`http://localhost:3000/api/users/${id}`, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                    },
+                    })
+                    .then(res => {
+                        if (res) {
+                            localStorage.removeItem('token');
+                            this.$router.push('/signup'); 
+                        }
+                    })
+                    .catch(error => {
+                        console.log( error )
+                    })
+                
+                }
+            },
+*/
+
+/*
+           // TRY 3 SUPPRESSION PROFIL - NON FONCTIONNEL
+        deleteUser() {
+        const token = localStorage.getItem('token')
+        const id = localStorage.getItem('id')
+        
+        axios.delete('http://localhost:3000/api/delete/' + id, {
+                headers: {
+                    "Content-Type" : "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+            .then(res => {
+                if (res) {
+                    localStorage.removeItem('token');
+                    this.$router.push('/signup'); 
+                }
+            })
+            .catch(error => {
+                console.log( error )
+            })
+        }
+*/
+
+
 /*
             // TRY 1 SUPPRESSION PROFIL
             deleteProfil(userId) {
@@ -189,8 +240,15 @@
 */
 
 
+/*
+            // TEST IMAGE 
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.createImage(files[0]);
+                },
 
-/* 
             // Try ajout d'une image de profil
             validPic() {
                 // Récupération de l'image
@@ -207,8 +265,10 @@
                             console.log(err.response)
                         })   
                     }     
-                },
-    */
+*/ 
+            
+    
+    
          
 
     }

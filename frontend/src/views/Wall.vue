@@ -12,7 +12,6 @@
             <Post v-for="post in posts" 
             :key="post.id"
             :post="post"
-            :updatePost="updatePost"
             :deletePost="deletePost"
              />
 

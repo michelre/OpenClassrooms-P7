@@ -29,7 +29,7 @@
         Authentification : v-if="statut === 'admin' || post.id_user === userId"
     -->
                     <button id="post-modify"
-                            @click="updatePost(post.id)">
+                            @click="updatePost">
                         <i class="far fa-edit"></i>
                         <span class="dropdown-options">Modifier</span>
                     </button>
@@ -100,14 +100,14 @@
         props: {
             post: Object,
             deletePost: Function,
-            updatePost: Function
         },
         data() {
             return {
                 menuActive: false,
                 scTimer: 0,
                 scY: 0,
-                likes: Number
+                likes: Number,
+                commentaires: []
             }
         },
         methods: {
@@ -118,6 +118,9 @@
                 const event = new Date(date);
                 const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
             return event.toLocaleDateString('fr-Fr', options);
+            },
+            updatePost() {
+                this.$router.push({ name:'ModifyPost' });
             }
         }
     }
