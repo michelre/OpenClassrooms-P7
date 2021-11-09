@@ -93,9 +93,30 @@
                     console.log("Post supprimé !");
                     }); 
                 },
+                
 
+/*
+            // Fonction pour récupérer un seul post
+            getOnePost(postId) {
+            //const postId = this.$route.params.id;
+            const token = localStorage.getItem('token')
+            console.log("publication id:" + postId);
+            axios
+                .get(`http://localhost:3000/api/posts/${postId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                })
+                .then((res) => {
+                this.post = res.data.result[0];
+                console.log(this.post);
+                });
+            },
+*/
 
-            // Modification d'une publication - NON FONCTIONNEL 
+/*
+            // Modification d'une publication - NON FONCTIONNEL A AJOUTER A MODIFY POST UNE FOIS QUE LAFFICHAGE DE LA PUBLICATION Y SERA INTEGREE
             updatePost(postId) {
                 console.log(postId)
                 const token = localStorage.getItem('token')
@@ -106,18 +127,17 @@
                     data: formData,
                     headers: { "Content-Type": "application/json" },
                 })
-            /*  UNE FOIS LES VERIFICATIONS EFFECTUEES, REDIRIGER VERS LE COMPOSANT ADDPOST POUR MODIFIER LE POST
+            //  UNE FOIS LES VERIFICATIONS EFFECTUEES, REDIRIGER VERS LE COMPOSANT ADDPOST POUR MODIFIER LE POST
                 .then(() => {
                     this.$router.push({ name: "AddPost" });
                 })
-
-            */
                 const message = this.postForm.message;
                 var formData = new FormData();
                     formData.append('message', message);
                     alert("Publication ajoutée !")
                     this.createPost(this.postForm);
             }
+*/
     
 
 

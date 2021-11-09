@@ -110,7 +110,7 @@
                     console.log(this.user);
                 });
             },
-        },
+        
 
             // Try 1 modification de profil - NON FONCTIONNEL
             updateProfil(profilForm) {
@@ -142,7 +142,7 @@
             },
 */
 
-
+            // Suppression d'un profil - FONCTIONNEL 
             deleteUser(id) {
                 if (window.confirm("ATTENTION : Vous êtes sur le point de supprimer votre compte ! Toute suppression est définitive, êtes-vous certain de ce choix ?")) {
                     const token = localStorage.getItem('token')
@@ -157,7 +157,7 @@
                     .then(res => {
                         if (res) {
                             localStorage.removeItem('token');
-                            this.$router.push('/signup'); 
+                            this.$router.push('/'); 
                         }
                     })
                     .catch(error => {
@@ -167,7 +167,8 @@
                 }
             },
 
-
+        }
+    }
 
 /*
             // TRY 2 SUPPRESSION PROFIL - NON FONCTIONNEL -EN COURS
@@ -271,7 +272,7 @@
     
          
 
-    }
+    
 
 </script>  
 

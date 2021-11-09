@@ -29,7 +29,7 @@
         Authentification : v-if="statut === 'admin' || post.id_user === userId"
     -->
                     <button id="post-modify"
-                            @click="updatePost">
+                            @click="updatePost(post.id)">
                         <i class="far fa-edit"></i>
                         <span class="dropdown-options">Modifier</span>
                     </button>
