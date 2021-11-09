@@ -31,7 +31,7 @@ const routes = [
     component: Community
   },
   {
-    path: '/modifyPost',
+    path: '/modifyPost/:id',
     name: 'ModifyPost',
     component: ModifyPost
   }

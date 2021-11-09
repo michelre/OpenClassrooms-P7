@@ -13,6 +13,7 @@
             :key="post.id"
             :post="post"
             :deletePost="deletePost"
+            :addLike="addLike"
              />
 
             <!-- Bouton Scroll to Top-->
@@ -94,50 +95,30 @@
                     }); 
                 },
                 
-
-/*
-            // Fonction pour récupérer un seul post
-            getOnePost(postId) {
-            //const postId = this.$route.params.id;
-            const token = localStorage.getItem('token')
-            console.log("publication id:" + postId);
-            axios
-                .get(`http://localhost:3000/api/posts/${postId}`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                })
-                .then((res) => {
-                this.post = res.data.result[0];
-                console.log(this.post);
-                });
-            },
-*/
-
-/*
-            // Modification d'une publication - NON FONCTIONNEL A AJOUTER A MODIFY POST UNE FOIS QUE LAFFICHAGE DE LA PUBLICATION Y SERA INTEGREE
-            updatePost(postId) {
-                console.log(postId)
-                const token = localStorage.getItem('token')
-                console.log(token);
+            // Ajout d'un like
+            addLike(postId) {
                 axios({
-                    method: "put",
-                    url: `http://localhost:3000/api/posts/${postId}`,
-                    data: formData,
-                    headers: { "Content-Type": "application/json" },
-                })
-            //  UNE FOIS LES VERIFICATIONS EFFECTUEES, REDIRIGER VERS LE COMPOSANT ADDPOST POUR MODIFIER LE POST
-                .then(() => {
-                    this.$router.push({ name: "AddPost" });
-                })
-                const message = this.postForm.message;
-                var formData = new FormData();
-                    formData.append('message', message);
-                    alert("Publication ajoutée !")
-                    this.createPost(this.postForm);
-            }
-*/
+                        method: "post",
+                        url: "http://localhost:3000/api/likes",
+                        data: { postId },
+                        headers: { "Content-Type": "application/json" },
+                    })
+                    .then(reponse => { 
+                            for (let post in this.posts) {
+                                if (this.posts[post].id == postId) {
+                                    if (reponse.status == 204) {
+                                        this.posts[post].likes -= 1
+                                    }
+                                    if (reponse.status == 201) {
+                                        this.posts[post].likes += 1
+                                    }
+                                }
+                            }
+                        }); 
+                    }
+
+
+
     
 
 

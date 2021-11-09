@@ -30,7 +30,7 @@
                 <hr class="profil-sep">
 
                 <div class="profil-informations">
-                    <form class="form-profil">
+                    <form class="form-profil" @submit.prevent="updateProfil(user.id)">
 
                         <div class="form-group">
                             <label for="nom">Nom</label>
@@ -48,7 +48,7 @@
                             <div class="form-err"></div>
                         </div>
          
-                        <button class="form-btn" @click="updateProfil()">Enregistrer les modifications</button>
+                        <button class="form-btn" >Enregistrer les modifications</button>
 
                     </form>
                 </div>
@@ -83,13 +83,12 @@
         },
         data() {
             return {
-                profilForm:
+                user:
                     {
                         nom: '',
                         prenom: '',
                         email: '',
                     },
-                user: {},
             }
         },
         created() {
@@ -110,8 +109,50 @@
                     console.log(this.user);
                 });
             },
-        
 
+
+            // Try 2 modification de profil - FONCTIONNEL
+            updateProfil(id) {
+                axios({
+                    method: "put",
+                    url: `http://localhost:3000/api/users/${id}`,
+                    data: this.user,
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then(() => { 
+                    alert('Profil modifié avec succès !');
+                }); 
+            },
+        
+/*
+            // Try 1 modification de profil - NON FONCTIONNEL
+            updateProfil(id) {
+                const token = JSON.parse(localStorage.user).token;
+                //const userId = this.$rroute.params.id;
+                const nom = document.getElementById("nom").value;
+                const prenom = document.getElementById("prenom").value;
+                const email = document.getElementById("email").value;
+                    axios.put(`http://localhost:3000/api/users/${id}`, {
+                        nom,
+                        prenom,
+                        email
+                    }, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    },
+                    ).then(() => {
+                        console.log('Profil utilisateur modifié !');
+                        this.$router.push('/profil'); 
+                    }).catch ((err) => {
+                        console.log( err + "Erreur lors de la modification du profil")
+                    })
+             
+        },
+*/
+
+/*
             // Try 1 modification de profil - NON FONCTIONNEL
             updateProfil(profilForm) {
                 const userId = JSON.parse(localStorage.id);
@@ -125,7 +166,7 @@
                 this.user.push(reponse.data)
             }); 
         },
-
+*/
 /*
             // Try 2 modification de profil - NON FONCTIONNEL
             updateProfil(profilForm) {

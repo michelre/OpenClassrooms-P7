@@ -114,14 +114,11 @@ exports.getAllUsers = (req, res, next) => {
 
 // Modifier un compte, 4e try reprise totale 
 exports.updateUser = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-            db.query(`UPDATE utilisateurs SET nom=?, prenom=?, email=?, password=? WHERE id = ?`, [req.body.nom, req.body.prenom, req.body.email, hash, req.params.id], (error, result) => {
-                if (error) {
-                    console.log(error);
-                    return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
-                }
-                return res.status(200).json(result);
-            })
-        })
+    db.query(`UPDATE utilisateurs SET nom=?, prenom=?, email=? WHERE id = ?`, [req.body.nom, req.body.prenom, req.body.email, req.params.id], (error, result) => {
+        if (error) {
+            console.log(error);
+            return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
+        }
+        return res.status(200).json(result);
+    })
 }

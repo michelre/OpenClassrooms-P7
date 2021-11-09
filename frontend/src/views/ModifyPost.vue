@@ -36,9 +36,16 @@
 
         <!-- Corps du post avec le message, l'image, et le nombre de likes -->
         <div class="post-content">
-            <div class="post-description">
-                <p class="post-txt">{{post.message}}</p>
-            </div>
+            <form class="post-description" @submit.prevent="updatePost">
+                <input class="post-txt" v-model="post.message">
+
+                <div class="boutons">
+                    <button class="btn-annuler" @click="cancelModify">Annuler</button>
+                    <button class="btn-image">Modifier l'image</button>
+                    <button class="btn-valider" type="submit">Enregistrer les modifications</button>
+                 </div>
+            </form>
+
             <div class="post-img">
                 <img :src="`http://localhost:3000${post.media}`" class="wall-img">
             </div>
@@ -47,11 +54,7 @@
         <hr class="card-sep">
 
 
-        <div class="boutons">
-            <button class="btn-annuler" @click="cancelModify">Annuler</button>
-            <button class="btn-image">Modifier l'image</button>
-            <button class="btn-valider">Enregistrer les modifications</button>
-        </div>
+
 
 
         </section>
@@ -82,13 +85,6 @@
         created() {
             this.getOnePost();
         },
-        /*
-        created() {
-            fetch("http://localhost:3000/api/posts").then(res => res.json()).then(res => {
-            this.posts = res;
-            }) 
-        },
-        */
         methods: {
             cancelModify() {
                 this.$router.push({ name:'Wall' });
@@ -103,8 +99,8 @@
             },
             
             // Fonction pour récupérer un seul post avant de procéder à la modification
-            getOnePost(postId) {
-            //const postId = this.$route.params.id;
+            getOnePost() {
+            const postId = this.$route.params.id;
             const token = localStorage.getItem('token')
             console.log("publication id:" + postId);
             axios
@@ -115,32 +111,28 @@
                 },
                 })
                 .then((res) => {
-                this.post = res.data.result[0];
+                this.post = res.data;
                 console.log(this.post);
                 });
             },
 
-
-/*
-            // Fonction pour récupérer un seul post - NON FONCTIONNEL
-            getOnePost(postId) {
-            console.log(postId)
-            //const postId = this.$route.params.id;
-            const token = localStorage.getItem('token')
-            console.log("publication id:" + postId);
-            axios
-                .get(`http://localhost:3000/api/posts/${postId}`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
+            // Modification d'une publication - NON FONCTIONNEL A AJOUTER A MODIFY POST UNE FOIS QUE LAFFICHAGE DE LA PUBLICATION Y SERA INTEGREE
+            updatePost() {
+                const postId = this.$route.params.id;
+                //const token = localStorage.getItem('token')
+                var formData = new FormData();
+                    formData.append('message', this.post.message);
+                axios({
+                    method: "put",
+                    url: `http://localhost:3000/api/posts/${postId}`,
+                    data: formData,
+                    headers: { "Content-Type": "application/json" },
                 })
-                .then((res) => {
-                this.post = res.data.result[0];
-                console.log(this.post);
-                });
-            },
-*/
+            //  UNE FOIS LES VERIFICATIONS EFFECTUEES, REDIRIGER VERS LE COMPOSANT ADDPOST POUR MODIFIER LE POST
+                .then(() => {
+                    this.$router.push({ name: "Wall" });
+                })
+            }
 
 
         }

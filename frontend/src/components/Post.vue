@@ -53,7 +53,7 @@
             </div>
             <div class="post-likes">
                 <img src="../assets/pouce.png" class="wall-likes">
-                <p>18</p>
+                <p>{{post.likes}}</p>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
 
         <!-- Boutons permettant de liker/commenter le post -->
         <div class="post-actions">
-            <div class="post-action-like">
+            <div class="post-action-like" @click="addLike(post.id)">
                 <i class="far fa-thumbs-up" id="icon-like"></i>
                 <span class="like-txt">J'aime</span>
             </div>
@@ -100,13 +100,13 @@
         props: {
             post: Object,
             deletePost: Function,
+            addLike: Function
         },
         data() {
             return {
                 menuActive: false,
                 scTimer: 0,
                 scY: 0,
-                likes: Number,
                 commentaires: []
             }
         },
@@ -120,7 +120,7 @@
             return event.toLocaleDateString('fr-Fr', options);
             },
             updatePost() {
-                this.$router.push({ name:'ModifyPost' });
+                this.$router.push({ name:'ModifyPost', params:{id:this.post.id} });
             }
         }
     }

@@ -67,7 +67,9 @@ exports.getOnePost = (req, res, next) => {
 
 // Récupération de l'intégralité des publications  
 exports.getAllPosts = (req, res, next) => {
-    db.query(`SELECT publications.*, utilisateurs.nom, utilisateurs.prenom FROM publications JOIN utilisateurs ON publications.utilisateur_id = utilisateurs.id`, (error, result) => {
+    db.query(`SELECT publications.*, utilisateurs.nom, utilisateurs.prenom, 
+    (SELECT COUNT(*) FROM likes WHERE publication_id = publications.id) AS likes
+    FROM publications JOIN utilisateurs ON publications.utilisateur_id = utilisateurs.id`, (error, result) => {
         // Si les publications n'ont pas été trouvées
         if (error) {
             return res.status(400).json({ error: 'Publications non trouvées' });
