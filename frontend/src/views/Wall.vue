@@ -14,6 +14,7 @@
             :post="post"
             :deletePost="deletePost"
             :addLike="addLike"
+            :addComment="addComment"
              />
 
             <!-- Bouton Scroll to Top-->
@@ -65,12 +66,12 @@
             // Création d'une nouvelle publication - FONCTIONNEL
             createPost(formData) {
                 axios({
-                        method: "post",
-                        url: "http://localhost:3000/api/posts",
-                        data: formData,
-                        headers: { "Content-Type": "application/json" },
-                    })
-                    .then(reponse => { 
+                    method: "post",
+                    url: "http://localhost:3000/api/posts",
+                    data: formData,
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then(reponse => { 
                     this.posts.push(reponse.data)
                 }); 
             },
@@ -92,34 +93,45 @@
                             return post.id != postId;
                     })
                     console.log("Post supprimé !");
-                    }); 
-                },
+                }); 
+            },
                 
             // Ajout d'un like
             addLike(postId) {
                 axios({
-                        method: "post",
-                        url: "http://localhost:3000/api/likes",
-                        data: { postId },
-                        headers: { "Content-Type": "application/json" },
-                    })
-                    .then(reponse => { 
-                            for (let post in this.posts) {
-                                if (this.posts[post].id == postId) {
-                                    if (reponse.status == 204) {
-                                        this.posts[post].likes -= 1
-                                    }
-                                    if (reponse.status == 201) {
-                                        this.posts[post].likes += 1
-                                    }
-                                }
+                    method: "post",
+                    url: "http://localhost:3000/api/likes",
+                    data: { postId },
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then(reponse => { 
+                    for (let post in this.posts) {
+                        if (this.posts[post].id == postId) {
+                            if (reponse.status == 204) {
+                                this.posts[post].likes -= 1
                             }
-                        }); 
+                            if (reponse.status == 201) {
+                                this.posts[post].likes += 1
+                            }
+                        }
                     }
+                }); 
+            },
 
 
 
-    
+            // Ajout d'un commentaire
+            addComment(commentData) {
+                axios({
+                    method: "post",
+                    url: "http://localhost:3000/api/comments",
+                    data: commentData,
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then(reponse => { 
+                    this.comments.push(reponse.data)
+                }); 
+            }
 
 
 

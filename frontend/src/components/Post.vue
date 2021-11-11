@@ -65,27 +65,30 @@
                 <i class="far fa-thumbs-up" id="icon-like"></i>
                 <span class="like-txt">J'aime</span>
             </div>
-            <div class="post-action-comment">
+            <div class="post-action-comment" @click="addComment(post.id)">
                 <i class="far fa-comment-alt" id="icon-comment"></i>
-                <span class="comment-txt">Commenter</span>
+                <span class="comment-txt" @click="showComment">Commentaires</span>
             </div>
         </div>
 
         <hr class="card-sep">
 
         <!-- Partie réservée aux commentaires regroupant l'auteur et sa photo -->
-        <div class="comment">
+        <div class="comment" v-if="reveleComment">
             <div class="comment-auth">
                 <img src="../assets/merry.jpg" width="40" class="comment-pic-round">
                 <div class="comment-user"> 
                     <span class="comment-user-name">Merry</span> 
-                    <p class="comment-text">C'mon Pippin !</p>
+                    <p class="comment-text">{{post.comment}}</p>
                 </div>
             </div>
             <!-- Ecriture de commentaire -->
-            <div class="comment-input">
-                <input type="text" class="com-input" placeholder="Écrivez un commentaire ici...">
-            </div>
+            <form class="comment-input" @submit.prevent="commentData">
+                <input type="text"
+                        class="com-input" 
+                        v-model="commentData.message"
+                        placeholder="Écrivez un commentaire ici...">
+            </form>
         </div>
 
     </section>
@@ -100,14 +103,19 @@
         props: {
             post: Object,
             deletePost: Function,
-            addLike: Function
+            addLike: Function,
+            addComment: Function
         },
         data() {
             return {
                 menuActive: false,
                 scTimer: 0,
                 scY: 0,
-                commentaires: []
+                //commentaires: []
+                commentData: {
+                    message: ''
+                },
+                reveleComment: false
             }
         },
         methods: {
@@ -121,6 +129,10 @@
             },
             updatePost() {
                 this.$router.push({ name:'ModifyPost', params:{id:this.post.id} });
+            },
+            // Bouton permettant d'afficher la partie commentaires
+            showComment() {
+                this.reveleComment = true;
             }
         }
     }
