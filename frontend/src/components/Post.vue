@@ -65,9 +65,9 @@
                 <i class="far fa-thumbs-up" id="icon-like"></i>
                 <span class="like-txt">J'aime</span>
             </div>
-            <div class="post-action-comment" @click="addComment(post.id)">
+            <div class="post-action-comment" @click="showComment">
                 <i class="far fa-comment-alt" id="icon-comment"></i>
-                <span class="comment-txt" @click="showComment">Commentaires</span>
+                <span class="comment-txt">Commentaires</span>
             </div>
         </div>
 
@@ -82,13 +82,26 @@
                     <p class="comment-text">{{post.comment}}</p>
                 </div>
             </div>
-            <!-- Ecriture de commentaire -->
+        <!-- Ecriture du commentaire -->
             <form class="comment-input" @submit.prevent="commentData">
                 <input type="text"
                         class="com-input" 
                         v-model="commentData.message"
-                        placeholder="Écrivez un commentaire ici...">
+                        placeholder="Écrivez un commentaire ici..."
+                        @click="addComment(post.id)">
             </form>
+        
+        <!--
+            <form class="comment-input" @submit.prevent="commentData">
+                <textarea type="text"
+                        class="com-input" 
+                        v-model="commentData.message"
+                        placeholder="Écrivez un commentaire ici..."
+                        @click="addComment(post.id)"
+                ></textarea>
+                <button class="btn-sendComment" type="submit">Publier</button>
+            </form>
+        -->
         </div>
 
     </section>
@@ -217,10 +230,12 @@
 
     .post-action-like {
         margin-left: 20%;
+        display: flex;
     }
 
     .post-action-comment {
         margin-right: 20%;
+        display: flex;
     }
 
     .post-action-like, .post-action-comment {
@@ -323,4 +338,5 @@
     .show {
         display: block;
     }
+    
 </style>

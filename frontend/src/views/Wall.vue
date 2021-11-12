@@ -119,8 +119,8 @@
             },
 
 
-
-            // Ajout d'un commentaire
+/*
+            // Ajout d'un commentaire - Test de base NON FONCTIONNEL
             addComment(commentData) {
                 axios({
                     method: "post",
@@ -132,10 +132,44 @@
                     this.comments.push(reponse.data)
                 }); 
             }
+*/
 
+/*          
+            // 2e try - NON FONCTIONNEL
+            addComment(postId) {
+                const token = localStorage.getItem('token');
+                axios
+                    .post(`http://localhost:3000/api/posts/${postId}/comments`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                },)
+                .then(() => {
+                    (this.reveleComment = true), console.log('Commentaire ajouté !');
+                    location.reload();
+                })
+            }
+*/
 
-
-    
+/*
+            // 3e try sur la base des likes - NON FONCTIONNEL
+            addComment(postId) {
+                axios({
+                    method: "post",
+                    url: "http://localhost:3000/api/comments",
+                    data: { postId },
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then(reponse => { 
+                    for (let post in this.posts) {
+                        if (this.posts[post].id == postId) {                    
+                            this.posts.push(reponse.data)   
+                        }
+                    }
+                }); 
+            },
+*/  
 
 
         }
