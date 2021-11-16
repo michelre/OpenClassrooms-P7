@@ -3,80 +3,51 @@
         
         <HeaderWall/>
      
-        <main class="modify-bck"
-            :key="post.id"
-            :post="post"
-        >
+        <main class="modify-bck">
 
-        <section class="modify-card">
+            <section class="modify-card">
 
-            <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom et la date d'ajout du post -->
-            <div class="post-card-header">
-                <a href="/profil" class="post-header-pic"> 
-                    <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
-                </a>
-                <div class="post-header-name-date">
-                    <div class="post-header-name">
-                        <p>{{post.nom}} {{post.prenom}}<br></p>
+                <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom, date d'ajout, et bouton retour au Wall -->
+                <div class="post-card-header">
+                    <a href="/profil" class="post-header-pic"> 
+                        <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
+                    </a>
+                    <div class="post-header-name-date">
+                        <div class="post-header-name">
+                            <p>{{post.nom}} {{post.prenom}}<br></p>
+                        </div>
+                        <div class="post-header-date">
+                            <p>{{ datePost(post.date_ajout) }}</p>
+                        </div>
                     </div>
-                    <div class="post-header-date">
-                        <p>{{ datePost(post.date_ajout) }}</p>
-                    </div>
+                    <button class="btn-annuler" title="Retour au Wall" @click="cancelModify">
+                        <i class="far fa-times-circle"></i>
+                    </button>
                 </div>
-                <button class="btn-annuler" @click="cancelModify">
-                    <i class="far fa-times-circle"></i>
-                </button>
-            </div>
 
-<!--
-             Corps du post avec le message, l'image, et le nombre de likes 
-            <div class="post-content">
-                <form class="post-description" @submit.prevent="updatePost">
-                    <input class="post-txt" v-model="post.message">
-
-                    <div class="boutons">
-                        <button class="btn-annuler" @click="cancelModify">Annuler</button>
-                        <button class="btn-image">Modifier l'image</button>
-                        <button class="btn-valider" type="submit">Enregistrer les modifications</button>
-                    </div>
-                </form>
-
-                <div class="post-img">
-                    <img :src="`http://localhost:3000${post.media}`" class="wall-img">
+                <!-- Contenu de la publication à modifier -->
+                <div class="post-content">
+                    <form class="post-description" @submit.prevent="updatePost">
+                        <input class="post-txt" v-model="post.message">
+                        <div class="post-media">
+                            <img :src="`http://localhost:3000${post.media}`" class="wall-img">
+                        </div>
+                        <div class="post-modif">
+                            <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?" >
+                                <div class="post-img">
+                                    <label  title="Ajouter un fichier" for="addContent"><i class="far fa-file-image"></i></label>
+                                    <input type="file"
+                                    id="addContent"
+                                    name="addContent"
+                                    accept="image/*"
+                                    >
+                                </div>
+                            <button class="post-btn">Enregistrer les modifications</button>
+                        </div>
+                    </form>
                 </div>
-            </div>
--->
 
-            <div class="post-content">
-
-                <form class="post-description" @submit.prevent="updatePost">
-                    <input class="post-txt" v-model="post.message">
-
-                    <div class="post-media">
-                        <img :src="`http://localhost:3000${post.media}`" class="wall-img">
-                    </div>
-
-                    <div class="post-modif">
-                        <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?" >
-                            <div class="post-img">
-                                <label  title="Ajouter un fichier" for="addContent"><i class="far fa-file-image"></i></label>
-                                <input type="file"
-                                id="addContent"
-                                name="addContent"
-                                accept="image/*"
-                                >
-                            </div>
-                        <button class="post-btn">Enregistrer les modifications</button>
-                    </div>
-
-                </form>
-                    
-
-            </div>
-
-
-        </section>
-
+            </section>
         </main>
     </div>
 </template>
@@ -150,12 +121,10 @@
                 })
             }
 
-
         }
     }
 
 </script>
-
 
 
 
@@ -210,6 +179,10 @@
         border: none;
         font-size: 1.5em;
         color: rgb(30, 51, 121);
+    }
+
+    .btn-annuler :hover {
+        color: red;
     }
 
     .post-txt {

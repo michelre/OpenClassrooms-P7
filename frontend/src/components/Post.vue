@@ -21,6 +21,7 @@
                     @click="menuActive = !menuActive" 
                     v-click-outside="clickOutside" 
                     class="dropdown-btn"
+                    title="Options"
                 >
                     <i class="fas fa-ellipsis-v"></i>
                 </button>
@@ -29,11 +30,13 @@
         Authentification : v-if="statut === 'admin' || post.id_user === userId"
     -->
                     <button id="post-modify"
+                            title="Modifier la publication"
                             @click="updatePost(post.id)">
                         <i class="far fa-edit"></i>
                         <span class="dropdown-options">Modifier</span>
                     </button>
                     <button id="post-delete"
+                            title="Supprimer la publication"
                             @click="deletePost(post.id)">
                         <i class="far fa-trash-alt"></i>
                         <span class="dropdown-options">Supprimer</span>
@@ -65,7 +68,7 @@
                 <i class="far fa-thumbs-up" id="icon-like"></i>
                 <span class="like-txt">J'aime</span>
             </div>
-            <div class="post-action-comment" @click="showComment">
+            <div class="post-action-comment" @click="showComment(post.id)">
                 <i class="far fa-comment-alt" id="icon-comment"></i>
                 <span class="comment-txt">Commentaires</span>
             </div>
@@ -75,33 +78,28 @@
 
         <!-- Partie réservée aux commentaires regroupant l'auteur et sa photo -->
         <div class="comment" v-if="reveleComment">
-            <div class="comment-auth">
+            <div class="comment-auth" :key="commentaire.id" v-for="commentaire in commentaires">
                 <img src="../assets/merry.jpg" width="40" class="comment-pic-round">
                 <div class="comment-user"> 
                     <span class="comment-user-name">Merry</span> 
-                    <p class="comment-text">{{post.comment}}</p>
+                    <p class="comment-text">{{commentaire.message}}</p>
                 </div>
+                    <button id="post-delete"
+                            title="Supprimer la publication"
+                            @click="deleteComment(post.id, commentaire.id)">
+                        <i class="far fa-trash-alt"></i>
+                        <span class="dropdown-options">Supprimer</span>
+                    </button>
             </div>
         <!-- Ecriture du commentaire -->
-            <form class="comment-input" @submit.prevent="commentData">
+            <form class="comment-input" @submit.prevent="addComment(post.id, commentData.message)">
                 <input type="text"
-                        class="com-input" 
-                        v-model="commentData.message"
-                        placeholder="Écrivez un commentaire ici..."
-                        @click="addComment(post.id)">
+                    class="com-input" 
+                    v-model="commentData.message"
+                    placeholder="Écrivez un commentaire ici..."
+                >
             </form>
         
-        <!--
-            <form class="comment-input" @submit.prevent="commentData">
-                <textarea type="text"
-                        class="com-input" 
-                        v-model="commentData.message"
-                        placeholder="Écrivez un commentaire ici..."
-                        @click="addComment(post.id)"
-                ></textarea>
-                <button class="btn-sendComment" type="submit">Publier</button>
-            </form>
-        -->
         </div>
 
     </section>
@@ -110,14 +108,16 @@
 
 <script>
 
-
     export default {
         name: 'Post',
         props: {
             post: Object,
             deletePost: Function,
             addLike: Function,
-            addComment: Function
+            addComment: Function,
+            loadComments: Function,
+            commentaires: Array,
+            deleteComment: Function
         },
         data() {
             return {
@@ -130,6 +130,9 @@
                 },
                 reveleComment: false
             }
+        },
+        mounted() {
+            console.log(this.commentaires);
         },
         methods: {
             clickOutside() {
@@ -144,9 +147,12 @@
                 this.$router.push({ name:'ModifyPost', params:{id:this.post.id} });
             },
             // Bouton permettant d'afficher la partie commentaires
-            showComment() {
+            showComment(postId) {
                 this.reveleComment = true;
-            }
+                this.loadComments(postId)
+            },
+
+
         }
     }
 
@@ -292,23 +298,18 @@
     }
 
 /* Boutons options de post */
-    .dropdown-btn {
-        color: black;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-
     .dropdown {
         margin-left: auto;
         position: relative;
         display: flex;
     }
 
-    .dropdown-options {
-        margin-left: 10%;
-        font-weight: bold;
+    .dropdown-btn {
+        color: black;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
     }
 
     .dropdown-content {
@@ -320,23 +321,12 @@
         position: absolute;
         top: 55px;
         right: 10px;
-        
     }
 
-    .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        margin: 1%;
+    .dropdown-options {
+        margin: 3%;
+        font-weight: bold;
     }
 
-    .dropdown-content a:hover {
-        background-color: #ddd;
-    }
-
-    .show {
-        display: block;
-    }
     
 </style>

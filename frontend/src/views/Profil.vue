@@ -53,14 +53,11 @@
                     </form>
                 </div>
 
-            <hr class="profil-sep">
+                <hr class="profil-sep">
 
                 <button class="suppr-btn" @click="deleteUser(user.id)">Supprimer le compte</button>
 
             </section>
-
-   
- 
         </main>
 
     </div>
@@ -110,8 +107,7 @@
                 });
             },
 
-
-            // Try 2 modification de profil - FONCTIONNEL
+            // Modification de profil - FONCTIONNEL
             updateProfil(id) {
                 axios({
                     method: "put",
@@ -124,65 +120,6 @@
                 }); 
             },
         
-/*
-            // Try 1 modification de profil - NON FONCTIONNEL
-            updateProfil(id) {
-                const token = JSON.parse(localStorage.user).token;
-                //const userId = this.$rroute.params.id;
-                const nom = document.getElementById("nom").value;
-                const prenom = document.getElementById("prenom").value;
-                const email = document.getElementById("email").value;
-                    axios.put(`http://localhost:3000/api/users/${id}`, {
-                        nom,
-                        prenom,
-                        email
-                    }, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    },
-                    ).then(() => {
-                        console.log('Profil utilisateur modifié !');
-                        this.$router.push('/profil'); 
-                    }).catch ((err) => {
-                        console.log( err + "Erreur lors de la modification du profil")
-                    })
-             
-        },
-*/
-
-/*
-            // Try 1 modification de profil - NON FONCTIONNEL
-            updateProfil(profilForm) {
-                const userId = JSON.parse(localStorage.id);
-                axios({
-                    method: "put",
-                    url: `http://localhost:3000/api/users/${userId}`,
-                    data: profilForm,
-                    headers: { "Content-Type": "application/json" },
-                })
-                .then(reponse => { 
-                this.user.push(reponse.data)
-            }); 
-        },
-*/
-/*
-            // Try 2 modification de profil - NON FONCTIONNEL
-            updateProfil(profilForm) {
-                const userId = localStorage.getItem('id');
-                axios({
-                    method: "put",
-                    url: `http://localhost:3000/api/users/${userId}`,
-                    data: profilForm,
-                    headers: { "Content-Type": "application/json" },
-                })
-                .then(reponse => { 
-                this.user.push(reponse.data)
-                }); 
-            },
-*/
-
             // Suppression d'un profil - FONCTIONNEL 
             deleteUser(id) {
                 if (window.confirm("ATTENTION : Vous êtes sur le point de supprimer votre compte ! Toute suppression est définitive, êtes-vous certain de ce choix ?")) {
@@ -211,79 +148,9 @@
         }
     }
 
-/*
-            // TRY 2 SUPPRESSION PROFIL - NON FONCTIONNEL -EN COURS
-            deleteUser(id) {
-                if (window.confirm("ATTENTION : Vous êtes sur le point de supprimer votre compte ! Toute suppression est définitive, êtes-vous certain de ce choix ?")) {
-                    const token = localStorage.getItem('token')
-                    console.log(token);
-                    axios
-                        .delete(`http://localhost:3000/api/users/${id}`, {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                    },
-                    })
-                    .then(res => {
-                        if (res) {
-                            localStorage.removeItem('token');
-                            this.$router.push('/signup'); 
-                        }
-                    })
-                    .catch(error => {
-                        console.log( error )
-                    })
-                
-                }
-            },
-*/
 
 /*
-           // TRY 3 SUPPRESSION PROFIL - NON FONCTIONNEL
-        deleteUser() {
-        const token = localStorage.getItem('token')
-        const id = localStorage.getItem('id')
-        
-        axios.delete('http://localhost:3000/api/delete/' + id, {
-                headers: {
-                    "Content-Type" : "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-            .then(res => {
-                if (res) {
-                    localStorage.removeItem('token');
-                    this.$router.push('/signup'); 
-                }
-            })
-            .catch(error => {
-                console.log( error )
-            })
-        }
-*/
-
-
-/*
-            // TRY 1 SUPPRESSION PROFIL
-            deleteProfil(userId) {
-                console.log(userId);
-                const token = localStorage.getItem('token')
-                console.log(token); 
-                axios
-                    .delete(`http://localhost:3000/api/users/${userId}`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    }),
-                    alert('Etes-vous certain de vouloir supprimer votre compte ?')
-                    console.log("Utilisateur supprimé !");
-                },
-*/
-
-
-/*
-            // TEST IMAGE 
+            // TEST MODIFICATION IMAGE
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
                 if (!files.length)
@@ -309,30 +176,24 @@
                     }     
 */ 
             
-    
-    
-         
-
-    
-
 </script>  
 
 
 
 <style scoped>
 
-.profil-pic > input {
-    display: none;
-}
+    .profil-pic > input {
+        display: none;
+    }
 
-.profil-pic {
-    display: flex;
-    flex-direction: column;
-}
+    .profil-pic {
+        display: flex;
+        flex-direction: column;
+    }
 
-.testpic {
-    font-size: 3em;
-}
+    .testpic {
+        font-size: 3em;
+    }
 
     .container {
         overflow: hidden;

@@ -54,7 +54,7 @@ exports.deletePost = (req, res, next) => {
 // Récupération d'une publication
 exports.getOnePost = (req, res, next) => {
     const id = req.params.id;
-    db.query(`SELECT * FROM publications WHERE id = ?`, id, (error, result) => {
+    db.query(`SELECT * FROM publications INNER JOIN utilisateurs ON utilisateurs.id = publications.utilisateur_id WHERE publications.id = ?`, id, (error, result) => {
         // Si la publication n'a pas été trouvée
         if (error) {
             return res.status(400).json({ error: 'Publication non trouvée' });

@@ -15,6 +15,9 @@
             :deletePost="deletePost"
             :addLike="addLike"
             :addComment="addComment"
+            :loadComments="loadComments"
+            :commentaires="comments[post.id]"
+            :deleteComment="deleteComment"
              />
 
             <!-- Bouton Scroll to Top-->
@@ -47,6 +50,7 @@
         data() {
             return {
                 posts: [],
+                comments: {}
             }
         },
         created() {
@@ -56,6 +60,8 @@
         },
 
         methods: {
+
+            // Bouton retour en haut de page - FONCTIONNEL
             toTop() {
                 window.scrollTo({
                 top: 0,
@@ -96,7 +102,7 @@
                 }); 
             },
                 
-            // Ajout d'un like
+            // Ajout d'un like - FONCTIONNEL
             addLike(postId) {
                 axios({
                     method: "post",
@@ -118,59 +124,39 @@
                 }); 
             },
 
-
-/*
-            // Ajout d'un commentaire - Test de base NON FONCTIONNEL
-            addComment(commentData) {
+            // Ajout d'un commentaire - FONCTIONNEL
+            addComment(postId, message) {
                 axios({
                     method: "post",
                     url: "http://localhost:3000/api/comments",
-                    data: commentData,
+                    data: { postId, message },
                     headers: { "Content-Type": "application/json" },
                 })
-                .then(reponse => { 
-                    this.comments.push(reponse.data)
-                }); 
-            }
-*/
-
-/*          
-            // 2e try - NON FONCTIONNEL
-            addComment(postId) {
-                const token = localStorage.getItem('token');
-                axios
-                    .post(`http://localhost:3000/api/posts/${postId}/comments`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                },)
-                .then(() => {
-                    (this.reveleComment = true), console.log('Commentaire ajouté !');
-                    location.reload();
-                })
-            }
-*/
-
-/*
-            // 3e try sur la base des likes - NON FONCTIONNEL
-            addComment(postId) {
-                axios({
-                    method: "post",
-                    url: "http://localhost:3000/api/comments",
-                    data: { postId },
-                    headers: { "Content-Type": "application/json" },
-                })
-                .then(reponse => { 
-                    for (let post in this.posts) {
-                        if (this.posts[post].id == postId) {                    
-                            this.posts.push(reponse.data)   
-                        }
-                    }
+                .then(() => { 
+                    this.loadComments(postId);
                 }); 
             },
-*/  
 
+            // Chargement des commentaires du post - FONCTIONNEL 
+            loadComments(postId) {
+                axios({
+                    method: "get",
+                    url: `http://localhost:3000/api/comments/${postId}`,
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then((response) => {
+                    this.comments = {
+                        ...this.comments,
+                        [postId]:response.data
+                    }
+                })
+            },
+
+            // Suppression de commentaire - FONCTIONNEL
+            deleteComment(postId, commentId) {
+                axios.delete(`http://localhost:3000/api/comments/${commentId}`)
+                    .then(() => this.loadComments(postId))
+            }
 
         }
     }
