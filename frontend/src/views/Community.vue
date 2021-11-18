@@ -11,23 +11,35 @@
                     <h1>Membres de l'équipe</h1>
                 </div>
                 <div class="community-search">
-                    <input type="text" name="pseudo" id="pseudo" class="community-input" placeholder="Rechercher un collègue">
+                    <input type="text" name="pseudo" id="pseudo" class="community-input" placeholder="Rechercher un collègue"
+                    v-model="searchKey"
+                    autocomplete="off"
+                    >
                     <button type="submit">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
+                <!-- Affichage du nombre de résultats -->
+                <span class="search-result" v-if="searchKey && filteredList.length >= 1">
+                    {{ filteredList.length }} Résultat<span v-if="filteredList.length >= 2">s</span>
+                </span>
+                <!-- En cas de recherche infructueuse -->
+                <div class="search-no-result" v-if="filteredList.length == []">
+                    <h2>Désolé</h2>
+                    <p>Aucun résultat trouvé</p>
+                </div>
             </section>
 
+            <!-- Affichage de l'intégralité des membres -->
             <div class="community-list" >
-                <div class="community-member" v-for="user in users" :key="user.id_user">
+                <div class="community-member" v-for="user in filteredList" :key="user.id_user">
                     <div class="member-pic">
                         <img class="member-pic-img" :src="user.image">
                     </div>
                     <h2 class="member-name">{{user.nom}} {{user.prenom}}</h2>
                 </div>
             </div>
-                
-     
+
         </main>
 
     </div>
@@ -49,20 +61,42 @@
         },
         data() {
             return {
-                users: []
+                users: [],
+                searchKey: ''
+            }
+        },
+        computed: {
+            filteredList() {
+                return this.users.filter((user) => {
+                    return user.nom.toLowerCase().includes(this.searchKey.toLowerCase());
+                })
             }
         },
         created() {
             fetch("http://localhost:3000/api/users").then(res => res.json()).then(res => {
                 this.users = res;
+                console.log(res);
             }) 
-        }
+        },
     }
 
 </script>
 
 
 <style scoped>
+
+    .search-result {
+        font-size: 1.2em;
+        display: flex;
+        justify-content: center;
+        margin-top: 2%;
+        font-weight: bold;
+    }
+
+    .search-no-result {
+        text-align: center;
+        font-weight: bold;
+    }
 
     .main-community {
         background-attachment: fixed;

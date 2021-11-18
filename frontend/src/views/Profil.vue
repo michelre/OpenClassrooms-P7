@@ -20,8 +20,9 @@
                             name="profilPic" 
                             id="profilPic"
                             accept="image/*"
+                            v-on:change="onFileChange($event)"
                         >
-                        <button @click="validPic()">Valider</button>
+                        <button type="submit" @keyup.enter="sendPostImage">Valider</button>
                     </form>
 
                     <h1 class="profil-name">{{user.nom}} {{user.prenom}}</h1>
@@ -85,6 +86,7 @@
                         nom: '',
                         prenom: '',
                         email: '',
+                        image: ''
                     },
             }
         },
@@ -145,12 +147,98 @@
                 }
             },
 
-        }
-    }
+        },
+
+
+        // TRY 4 AJOUT IMAGE - NON FONCTIONNEL
+        onFileChange(event) {
+            console.log(event)
+            this.image = event.target.files[0]
+        },
+        updatePic (){  
+            const userId = JSON.parse(localStorage.id);
+            const token = localStorage.getItem('token')
+            const header = {
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+            const fd = new FormData();
+            fd.append('images', this.image)
+            console.log(fd)
+            axios.put(`http://localhost:3000/api/users/${userId}`,fd, header,)
+            .then((response) => {
+                console.log(response)
+                this.image = null  
+                location.reload()
+            }).catch((err) => {
+                console.log({err: err})
+            })
+        },
+
+
+   
+
+/*
+        // TRY 3 AJOUT IMAGE - NON FONCTIONNEL
+        updatePic(event) {
+            const id = this.$route.params.id;
+            const image = event.target.files[0];
+            const formData = new FormData();
+            formData.append("image", image);
+                axios({
+                    method: "put",
+                    url: `http://localhost:3000/api/users/${id}`,
+                    data: formData,
+                    headers: { "Content-Type": "application/json" },
+                })
+                    .then(() => {
+                    this.getUserProfil();
+                    })
+                    .catch((e) => {
+                    console.log(e);
+                    });
+                },
+*/
 
 
 /*
-            // TEST MODIFICATION IMAGE
+        // TRY 2 AJOUT IMAGE - NON FONCTIONNEL
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+            return;
+            this.createImage(files[0]);
+            },
+        updatePic(file) {
+            var reader = new FileReader();
+            var vm = this;
+            vm.image = new Image ();
+            reader.onload = (e) => {
+                vm.image = e.target.result;
+            };
+            reader.readAsDataURL(file);
+            },
+            removeImage: function () {
+            this.image = '';
+            },
+            postImage (id) {
+                axios.put(`http://localhost:3000/api/users/${id}`, {
+                imageUrl: this.image,
+                })
+                .then(function (response) {
+                    if(response.status == 200) {
+                        window.location.reload();
+                    } else {
+                        window.alert("Problème avec l'ajout de votre image.")
+                    }
+                })
+            },
+*/   
+
+/*
+            // TEST MODIFICATION IMAGE - NON FONCTIONNEL
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
                 if (!files.length)
@@ -175,7 +263,9 @@
                         })   
                     }     
 */ 
-            
+    
+    }
+
 </script>  
 
 

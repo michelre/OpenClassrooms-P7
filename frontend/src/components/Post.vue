@@ -26,9 +26,9 @@
                     <i class="fas fa-ellipsis-v"></i>
                 </button>
                 <div v-if="menuActive" id="myDropdown" class="dropdown-content">
-    <!-- TEST MODIFICATION - SUPPRESSION PUBLICATION 
-        Authentification : v-if="statut === 'admin' || post.id_user === userId"
-    -->
+                                        <!-- TEST MODIFICATION - SUPPRESSION PUBLICATION 
+                                            Authentification : v-if="statut === 'admin' || post.id_user === userId"
+                                        -->
                     <button id="post-modify"
                             title="Modifier la publication"
                             @click="updatePost(post.id)">
@@ -84,13 +84,28 @@
                     <span class="comment-user-name">Merry</span> 
                     <p class="comment-text">{{commentaire.message}}</p>
                 </div>
-                    <button id="post-delete"
-                            title="Supprimer la publication"
-                            @click="deleteComment(post.id, commentaire.id)">
-                        <i class="far fa-trash-alt"></i>
-                        <span class="dropdown-options">Supprimer</span>
+                <!-- Menu dropdown permettant de supprimer un commentaire -->
+                <div class="dropdown-comments">
+                    <button 
+                        @click="menuActiveComments = !menuActiveComments" 
+                        v-click-outside-comments="clickOutsideComments" 
+                        class="dropdown-btn-comments"
+                        title="Option"
+                    >
+                        <i class="fas fa-ellipsis-v"></i>
                     </button>
+                    <div v-if="menuActiveComments" id="myDropdownComments" class="dropdown-content-comments">
+                        <button id="comment-delete"
+                                title="Supprimer le commentaire"
+                                @click="deleteComment(post.id, commentaire.id)"
+                                >
+                            <i class="far fa-trash-alt"></i>
+                            <span class="dropdown-options-comments">Supprimer</span>
+                        </button>
+                    </div>
+                </div>
             </div>
+
         <!-- Ecriture du commentaire -->
             <form class="comment-input" @submit.prevent="addComment(post.id, commentData.message)">
                 <input type="text"
@@ -122,9 +137,9 @@
         data() {
             return {
                 menuActive: false,
+                menuActiveComments: false,
                 scTimer: 0,
                 scY: 0,
-                //commentaires: []
                 commentData: {
                     message: ''
                 },
@@ -136,7 +151,10 @@
         },
         methods: {
             clickOutside() {
-                this.menuActive = false 
+                this.menuActive = false
+            },
+            clickOutsideComments() {
+                this.menuActiveComments = false 
             },
             datePost(date){
                 const event = new Date(date);
@@ -328,5 +346,34 @@
         font-weight: bold;
     }
 
+/* Boutons options commentaires */
+    .dropdown-comments {
+        margin-left: auto;
+        position: relative;
+        display: flex;
+    }
+
+    .dropdown-btn-comments {
+        color: black;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown-content-comments {
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        position: absolute;
+        top: 10px;
+        right: 40px;
+    }
+
+    .dropdown-options-comments {
+        margin: 3%;
+        font-weight: bold;
+    }
     
 </style>
