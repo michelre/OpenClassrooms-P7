@@ -17,6 +17,7 @@
                         id="addContent"
                         name="addContent"
                         accept="image/*"
+                        @change="onFileSelected"
                     >
                 </div>
                 <button class="post-btn">Publier</button>
@@ -40,17 +41,35 @@
             return {
                 postForm: {
                     message: '',
+                    media: ''
                 }
             }
         },
         methods: {
             envoiForm() {
                 const message = this.postForm.message;
+    // TEST IMAGE
+    const media = this.postForm.media;
+    console.log(media)
                 var formData = new FormData();
                     formData.append('message', message);
+    // TEST IMAGE
+    formData.append('media', media);    
                     alert("Publication ajoutée !")
                     this.createPost(this.postForm);
             },
+
+
+            // TEST AJOUT IMAGE
+            onFileSelected(event) {
+                console.log(event);
+                this.postForm.media = event.target.files[0];
+                console.log(this.postForm.media);
+            }
+
+
+
+
             /*
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
@@ -59,6 +78,8 @@
                 this.createImage(files[0]);
                 },
             */
+
+
         }
     }
     

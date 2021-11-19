@@ -10,6 +10,8 @@
                 <div class="community-title">
                     <h1>Membres de l'équipe</h1>
                 </div>
+
+                <!-- Input de recherche de membre -->
                 <div class="community-search">
                     <input type="text" name="pseudo" id="pseudo" class="community-input" placeholder="Rechercher un collègue"
                     v-model="searchKey"
@@ -19,13 +21,14 @@
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
+                
                 <!-- Affichage du nombre de résultats -->
                 <span class="search-result" v-if="searchKey && filteredList.length >= 1">
                     {{ filteredList.length }} Résultat<span v-if="filteredList.length >= 2">s</span>
                 </span>
                 <!-- En cas de recherche infructueuse -->
                 <div class="search-no-result" v-if="filteredList.length == []">
-                    <h2>Désolé</h2>
+                    <h2>Désolé..</h2>
                     <p>Aucun résultat trouvé</p>
                 </div>
             </section>
@@ -75,7 +78,6 @@
         created() {
             fetch("http://localhost:3000/api/users").then(res => res.json()).then(res => {
                 this.users = res;
-                console.log(res);
             }) 
         },
     }

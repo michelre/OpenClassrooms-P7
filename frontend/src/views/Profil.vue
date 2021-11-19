@@ -12,7 +12,7 @@
 
                 <div class="profil-pic-name">
 
-                    <form class="profil-pic">
+                    <div class="profil-pic">
                         <label for="profilPic" class="testpic">
                             <i class="fas fa-user-circle"></i>
                         </label>
@@ -20,10 +20,10 @@
                             name="profilPic" 
                             id="profilPic"
                             accept="image/*"
-                            v-on:change="onFileChange($event)"
+                            
                         >
-                        <button type="submit" @keyup.enter="sendPostImage">Valider</button>
-                    </form>
+                        <button type="submit" >Valider</button>
+                    </div>
 
                     <h1 class="profil-name">{{user.nom}} {{user.prenom}}</h1>
                 </div>
@@ -150,6 +150,41 @@
         },
 
 
+/*
+        // TEST 6 AJOUT IMAGE - NON FONCTIONNEL
+        envoi(id) {
+            // Récupérer l'image
+            const image = document.getElementById('profilPic').files[0]
+            console.log(image)
+                // Création d'un formData pour l'envoi de l'image
+                var formData = new FormData()
+                formData.append('image', image)
+                axios.post(`http://localhost:3000/api/users/${id}`, formData)
+                .then((resp) => {
+                    console.log(resp)
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                })
+        }
+*/
+
+/*      // TEST 5 AJOUT IMAGE - NON FONCTIONNEL
+        onFileSelected(event) {
+            this.image = event.target.files[0]
+        },
+        onUpluoad() {
+            const id = localStorage.getItem('id');
+            const fd = new FormData();
+            fd.append('image', this.image, this.image.name)
+            axios.post(`http://localhost:3000/api/users/${id}`, fd)
+                .then(res => {
+                    console.log(res)
+                })
+        }
+*/
+
+/*
         // TRY 4 AJOUT IMAGE - NON FONCTIONNEL
         onFileChange(event) {
             console.log(event)
@@ -176,7 +211,7 @@
                 console.log({err: err})
             })
         },
-
+*/
 
    
 
