@@ -27,10 +27,11 @@
 
                 <!-- Contenu de la publication à modifier -->
                 <div class="post-content">
-                    <form class="post-description" @submit.prevent="updatePost">
+                    <form class="post-description" @submit.prevent="updatePost($event)">
                         <input class="post-txt" v-model="post.message">
                         <div class="post-media">
-                            <img :src="`http://localhost:3000${post.media}`" class="wall-img">
+                            <img :src="`http://localhost:3000${post.media}`" class="wall-img" v-if="post.media != 'null'">
+                            <img :src="post.link" class="wall-img" v-if="post.link && post.media =='null'">
                         </div>
                         <div class="post-modif">
                             <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?" >
@@ -38,7 +39,7 @@
                                     <label  title="Ajouter un fichier" for="addContent"><i class="far fa-file-image"></i></label>
                                     <input type="file"
                                     id="addContent"
-                                    name="addContent"
+                                    name="image"
                                     accept="image/*"
                                     >
                                 </div>
@@ -104,16 +105,18 @@
             },
 
             // Modification d'une publication - FONCTIONNEL (à compléter avec l'image)
-            updatePost() {
+            updatePost(event) {
                 const postId = this.$route.params.id;
                 //const token = localStorage.getItem('token')
                 var formData = new FormData();
                     formData.append('message', this.post.message);
+                    formData.append('image', event.target.image.files[0]);
+                    formData.append('link', this.post.link);
                 axios({
                     method: "put",
                     url: `http://localhost:3000/api/posts/${postId}`,
                     data: formData,
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "multipart/form-data" },
                 })
                 // Une fois les vérifications et modifications effectuées, rediriger l'utilisateur vers le Wall
                 .then(() => {

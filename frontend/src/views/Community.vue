@@ -27,7 +27,7 @@
                     {{ filteredList.length }} Résultat<span v-if="filteredList.length >= 2">s</span>
                 </span>
                 <!-- En cas de recherche infructueuse -->
-                <div class="search-no-result" v-if="filteredList.length == []">
+                <div class="search-no-result" v-if="filteredList.length == 0">
                     <h2>Désolé..</h2>
                     <p>Aucun résultat trouvé</p>
                 </div>

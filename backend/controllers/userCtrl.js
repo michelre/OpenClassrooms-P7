@@ -112,9 +112,10 @@ exports.getAllUsers = (req, res, next) => {
 /* --------------------------------------------- FONCTION MODIFICATION DE PROFIL ---------------------------------------- */
 
 
-// Modifier un compte, 4e try reprise totale 
+
+// Modifier un compte - Data
 exports.updateUser = (req, res, next) => {
-    db.query(`UPDATE utilisateurs SET nom=?, prenom=?, email=? WHERE id = ?`, [req.body.nom, req.body.prenom, req.body.email, req.params.id], (error, result) => {
+    db.query(`UPDATE utilisateurs SET nom=?, prenom=?, email=?, image=? WHERE id = ?`, [req.body.nom, req.body.prenom, req.body.email, req.body.image, req.params.id], (error, result) => {
         if (error) {
             console.log(error);
             return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
@@ -122,3 +123,35 @@ exports.updateUser = (req, res, next) => {
         return res.status(200).json(result);
     })
 }
+
+// Modifier un compte - Image 
+exports.updateUserImage = (req, res, next) => {
+    db.query(`UPDATE utilisateurs SET image=? WHERE id=?`, [req.file.path, req.params.id], (error) => {
+        if (error) {
+            console.log(error);
+            return res.status(400).json({ error: "Photo de profil mise à jour" }) 
+        }
+        return res.status(200).json(req.file);
+    })
+}
+
+
+/* TEST AJOUT IMAGE - REACTIF MAIS NULL
+// Modifier un compte 
+exports.updateUser = (req, res, next) => {
+    let image = req.body.image;
+    // Si la publication contient une image
+    if (req.file && req.file.filename !== undefined) {
+        // Paramètrage de l'url
+        image = `/images/${req.file.filename}`;
+    } 
+
+    db.query(`UPDATE utilisateurs SET image=? WHERE id = ?`, [image, req.params.id], (error, result) => {
+        if (error) {
+            console.log(error);
+            return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
+        }
+        return res.status(200).json(result);
+    }) 
+}
+*/

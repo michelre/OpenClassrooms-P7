@@ -8,9 +8,14 @@ const db = require('../database');
 
 // Création d'une nouvelle publication
 exports.createPost = (req, res, next) => {
+    // Vérification post
+    if (!req.body.message){
+        res.status(400).json({ message: "Erreur lors de la création de la publication !" });
+        return
+    }
+
     // Contenu de la publication
     let media = null;
-    /* date_ajout = `SELECT date_ajout (getdate(), 'd', 'fr-FR') as date`; */
 
         // Si la publication contient une image
         if (req.file && req.file.filename !== undefined) {
@@ -18,7 +23,7 @@ exports.createPost = (req, res, next) => {
             media = `/images/${req.file.filename}`;
         } 
         // Préparation de la requête SQL
-        let sqlCreatePost = `INSERT INTO publications (utilisateur_id, message, media, date_ajout) VALUES ('${4}', '${req.body.message}', '${media}', NOW())`;
+        let sqlCreatePost = `INSERT INTO publications (utilisateur_id, message, media, link, date_ajout) VALUES ('${1}', '${req.body.message}', '${media}', '${req.body.link}', NOW())`;
         console.log(req.body.message);
         console.log(media);
         
@@ -86,15 +91,17 @@ exports.getAllPosts = (req, res, next) => {
 
 // Modification d'une publication : Fonctionnel pour le message ET l'image MAIS empêche de faire soit l'un soit l'autre et présentant des erreurs
 exports.updatePost = (req, res, next) => {
-    let media = req.body.media;
+    let media = null;
     let message = req.body.message || '';
+    let link = req.body.link || '';
+
     // Si la publication contient une image
     if (req.file && req.file.filename !== undefined) {
         // Paramètrage de l'url
         media = `/images/${req.file.filename}`;
     } 
 
-    db.query(`UPDATE publications SET message=?, media=? WHERE id = ?`, [message, media, req.params.id], (error, result) => {
+    db.query(`UPDATE publications SET message=?, media=?, link=? WHERE id = ?`, [message, media, link,req.params.id], (error, result) => {
         if (error) {
             return res.status(400).json({ error: "Le post n'a pas pu être modifié" })
         }

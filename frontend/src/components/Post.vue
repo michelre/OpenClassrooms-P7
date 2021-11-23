@@ -52,7 +52,8 @@
                 <p class="post-txt">{{post.message}}</p>
             </div>
             <div class="post-img">
-                <img :src="`http://localhost:3000${post.media}`" class="wall-img">
+                <img :src="`http://localhost:3000${post.media}`" class="wall-img" v-if="post.media != 'null'">
+                <img :src="post.link" class="wall-img" v-if="post.link && post.media =='null'">
             </div>
             <div class="post-likes">
                 <img src="../assets/pouce.png" class="wall-likes">
@@ -60,7 +61,7 @@
             </div>
         </div>
 
-        <hr class="card-sep">
+        <hr class="card-sep"> 
 
         <!-- Boutons permettant de liker/commenter le post -->
         <div class="post-actions">
@@ -87,14 +88,15 @@
                 <!-- Menu dropdown permettant de supprimer un commentaire -->
                 <div class="dropdown-comments">
                     <button 
-                        @click="menuActiveComments = !menuActiveComments" 
-                        v-click-outside-comments="clickOutsideComments" 
+                        :data-id="commentaire.id"
+                        @click="menuActiveComments = {...menuActiveComments, [commentaire.id]:!menuActiveComments[commentaire.id]}" 
+                        v-click-outside="clickOutsideComment" 
                         class="dropdown-btn-comments"
                         title="Option"
                     >
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
-                    <div v-if="menuActiveComments" id="myDropdownComments" class="dropdown-content-comments">
+                    <div v-if="menuActiveComments[commentaire.id]" id="myDropdownComments" class="dropdown-content-comments">
                         <button id="comment-delete"
                                 title="Supprimer le commentaire"
                                 @click="deleteComment(post.id, commentaire.id)"
@@ -137,7 +139,7 @@
         data() {
             return {
                 menuActive: false,
-                menuActiveComments: false,
+                menuActiveComments: {},
                 scTimer: 0,
                 scY: 0,
                 commentData: {
@@ -153,8 +155,9 @@
             clickOutside() {
                 this.menuActive = false
             },
-            clickOutsideComments() {
-                this.menuActiveComments = false 
+            clickOutsideComment(event, el) {
+                const id = el.dataset['id'];
+                this.menuActiveComments = {...this.menuActiveComments, [id]:false};
             },
             datePost(date){
                 const event = new Date(date);

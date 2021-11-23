@@ -10,13 +10,13 @@ const db = require('../database');
 // Ajout d'un like
 exports.addLike = (req, res) => {
     // Préparation de la requête SQL 
-    let sqlCreateLike = `INSERT INTO likes (utilisateur_id, publication_id) VALUES ('${4}', '${req.body.postId}')`;
+    let sqlCreateLike = `INSERT INTO likes (utilisateur_id, publication_id) VALUES ('${1}', '${req.body.postId}')`;
     // Envoi de la requête à la BDD
     db.query(sqlCreateLike, (error, publication) => {
         if (!error) {
             res.status(201).json({ message: "Like ajouté !" });
         } else {
-            let sqlDeleteLike = `DELETE FROM likes WHERE utilisateur_id = ${4} AND publication_id = ${req.body.postId}`;
+            let sqlDeleteLike = `DELETE FROM likes WHERE utilisateur_id = ${1} AND publication_id = ${req.body.postId}`;
             db.query(sqlDeleteLike, (errorDelete, publication) => {
                 if (!errorDelete) {
                     res.status(204).end();

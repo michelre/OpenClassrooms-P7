@@ -75,7 +75,7 @@
                     method: "post",
                     url: "http://localhost:3000/api/posts",
                     data: formData,
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "multipart/form-data" },
                 })
                 .then(reponse => { 
                     this.posts.push(reponse.data)

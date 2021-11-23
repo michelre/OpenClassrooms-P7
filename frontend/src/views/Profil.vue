@@ -5,25 +5,30 @@
 
         <!-- Test bloc profil -->
         <main class="main-profil">
-
-            <ProfilAvatar style="display: none" />
       
             <section class="profil-card">
 
                 <div class="profil-pic-name">
 
-                    <div class="profil-pic">
+                    <!-- Mise à jour de la photo de profil -->
+                    <form class="profil-pic"
+                        @submit.prevent="updateUserImage($event)"
+                        >
                         <label for="profilPic" class="testpic">
-                            <i class="fas fa-user-circle"></i>
+                            <i class="fas fa-user-circle"
+                                v-if="!user.image"
+                                ></i>
+                            <img 
+                                v-else
+                            width="24" :src="`http://localhost:3000/${user.image}`">
                         </label>
                         <input type="file"
-                            name="profilPic" 
+                            name="avatar" 
                             id="profilPic"
                             accept="image/*"
-                            
                         >
-                        <button type="submit" >Valider</button>
-                    </div>
+                        <button type="submit">Valider</button>
+                    </form>
 
                     <h1 class="profil-name">{{user.nom}} {{user.prenom}}</h1>
                 </div>
@@ -69,7 +74,6 @@
 <script>
 
     import HeaderWall from '../components/HeaderWall.vue'
-    import ProfilAvatar from '../components/ProfilAvatar.vue'
 
     import axios from 'axios'
 
@@ -77,7 +81,6 @@
         name: 'Profil',
         components: {
             HeaderWall,
-            ProfilAvatar
         },
         data() {
             return {
@@ -98,7 +101,6 @@
             // Récupération des données de l'utilisateur - FONCTIONNEL 
             getUserProfil() {
                 const userId = JSON.parse(localStorage.id);
-                console.log(userId);
                 axios.get(`http://localhost:3000/api/users/${userId}`, {
                     headers: {
                         "Content-Type" : "application/json",
@@ -147,7 +149,33 @@
                 }
             },
 
+
+        // TRY 3 AJOUT IMAGE - NON FONCTIONNEL
+
+        updateUserImage(event) { 
+            const image = event.target.avatar.files[0];
+            const id = this.user.id;
+            console.log(image);
+            const formData = new FormData();
+            formData.append("image", image);
+                axios({
+                    method: "post",
+                    url: `http://localhost:3000/api/users/${id}/image`,
+                    data: formData,
+                    headers: { "Content-Type": "multipart/form-data" },
+                })
+                    .then((res) => {
+                        this.user.image = res.data.path
+                    })
+                    .catch((e) => {
+                    console.log(e);
+                    });
+                },
         },
+
+        
+
+
 
 
 /*

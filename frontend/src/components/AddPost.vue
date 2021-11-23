@@ -1,23 +1,24 @@
 <template>
     <section class="post-container">
 
-        <form class="post-card" v-on:submit.prevent="envoiForm">
+        <form class="post-card" v-on:submit.prevent="envoiForm($event)" >
             <h1>Exprimez-vous...</h1>
 
             <div class="post-infos">
                 <label for="postTitle" class="hidden">Nouvelle publication</label>
-                <textarea name="postTitle" id="postTitle" placeholder="Que voulez-vous partager ?" v-model="postForm.message"></textarea>
+                <textarea name="postTitle" id="postTitle" placeholder="Que voulez-vous partager ?" v-model="postForm.message" required></textarea>
             </div>
 
             <div class="post-content">
-                <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?" >
+                <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?"
+                    v-model="postForm.link"
+                     >
                 <div class="post-img">
                     <label  title="Ajouter un fichier" for="addContent"><i class="far fa-file-image"></i></label>
                     <input type="file"
                         id="addContent"
-                        name="addContent"
+                        name="image"
                         accept="image/*"
-                        @change="onFileSelected"
                     >
                 </div>
                 <button class="post-btn">Publier</button>
@@ -41,43 +42,54 @@
             return {
                 postForm: {
                     message: '',
-                    media: ''
+                    media: '',
+                    link: ''
                 }
             }
         },
         methods: {
-            envoiForm() {
+            envoiForm(event) { 
                 const message = this.postForm.message;
-    // TEST IMAGE
-    const media = this.postForm.media;
-    console.log(media)
+                const media = event.target.image.files[0];
+                const link = this.postForm.link;
+
                 var formData = new FormData();
                     formData.append('message', message);
-    // TEST IMAGE
-    formData.append('media', media);    
+                    formData.append('image', media);    
+                    formData.append('link', link);
                     alert("Publication ajoutée !")
-                    this.createPost(this.postForm);
+                    this.createPost(formData);
             },
 
 
-            // TEST AJOUT IMAGE
+
+
+
+/*
+            // TRY 3 AJOUT IMAGE
+            onFileSelected() {
+                this.media = this.$refs.file.files[0]
+            }
+*/
+
+/*
+            // TRY 2 AJOUT IMAGE
             onFileSelected(event) {
                 console.log(event);
                 this.postForm.media = event.target.files[0];
                 console.log(this.postForm.media);
             }
+*/
 
-
-
-
-            /*
-            onFileChange(e) {
+/*          
+            // TRY AJOUT IMAGE
+            onFileSelected(e) {
                 var files = e.target.files || e.dataTransfer.files;
                 if (!files.length)
                     return;
-                this.createImage(files[0]);
+                this.envoiForm(files[0]);
                 },
-            */
+*/            
 
 
         }
