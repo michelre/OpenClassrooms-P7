@@ -11,16 +11,19 @@
                 <div class="profil-pic-name">
 
                     <!-- Mise à jour de la photo de profil -->
-                    <form class="profil-pic"
+                    <form class="profil-pic-form"
                         @submit.prevent="updateUserImage($event)"
                         >
-                        <label for="profilPic" class="testpic">
+                        <label for="profilPic" class="profil-avatar">
                             <i class="fas fa-user-circle"
+                                id="profil-avatar-icon"
                                 v-if="!user.image"
                                 ></i>
                             <img 
+                                id="profil-avatar-img"
+                                :src="`http://localhost:3000/${user.image}`"
                                 v-else
-                            width="24" :src="`http://localhost:3000/${user.image}`">
+                            >
                         </label>
                         <input type="file"
                             name="avatar" 
@@ -149,185 +152,28 @@
                 }
             },
 
-
-        // TRY 3 AJOUT IMAGE - NON FONCTIONNEL
-
-        updateUserImage(event) { 
-            const image = event.target.avatar.files[0];
-            const id = this.user.id;
-            console.log(image);
-            const formData = new FormData();
-            formData.append("image", image);
-                axios({
-                    method: "post",
-                    url: `http://localhost:3000/api/users/${id}/image`,
-                    data: formData,
-                    headers: { "Content-Type": "multipart/form-data" },
-                })
-                    .then((res) => {
-                        this.user.image = res.data.path
+            // Ajout d'une image de profil/avatar - FONCTIONNEL
+            updateUserImage(event) { 
+                const image = event.target.avatar.files[0];
+                const id = this.user.id;
+                console.log(image);
+                const formData = new FormData();
+                formData.append("image", image);
+                    axios({
+                        method: "post",
+                        url: `http://localhost:3000/api/users/${id}/image`,
+                        data: formData,
+                        headers: { "Content-Type": "multipart/form-data" },
                     })
-                    .catch((e) => {
-                    console.log(e);
-                    });
-                },
-        },
-
-        
-
-
-
-
-/*
-        // TEST 6 AJOUT IMAGE - NON FONCTIONNEL
-        envoi(id) {
-            // Récupérer l'image
-            const image = document.getElementById('profilPic').files[0]
-            console.log(image)
-                // Création d'un formData pour l'envoi de l'image
-                var formData = new FormData()
-                formData.append('image', image)
-                axios.post(`http://localhost:3000/api/users/${id}`, formData)
-                .then((resp) => {
-                    console.log(resp)
-                })
-                .catch((err) => {
-                    console.log(err.response)
-                })
-        }
-*/
-
-/*      // TEST 5 AJOUT IMAGE - NON FONCTIONNEL
-        onFileSelected(event) {
-            this.image = event.target.files[0]
-        },
-        onUpluoad() {
-            const id = localStorage.getItem('id');
-            const fd = new FormData();
-            fd.append('image', this.image, this.image.name)
-            axios.post(`http://localhost:3000/api/users/${id}`, fd)
-                .then(res => {
-                    console.log(res)
-                })
-        }
-*/
-
-/*
-        // TRY 4 AJOUT IMAGE - NON FONCTIONNEL
-        onFileChange(event) {
-            console.log(event)
-            this.image = event.target.files[0]
-        },
-        updatePic (){  
-            const userId = JSON.parse(localStorage.id);
-            const token = localStorage.getItem('token')
-            const header = {
-                headers: {
-                    'Content-type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            };
-            const fd = new FormData();
-            fd.append('images', this.image)
-            console.log(fd)
-            axios.put(`http://localhost:3000/api/users/${userId}`,fd, header,)
-            .then((response) => {
-                console.log(response)
-                this.image = null  
-                location.reload()
-            }).catch((err) => {
-                console.log({err: err})
-            })
-        },
-*/
-
-   
-
-/*
-        // TRY 3 AJOUT IMAGE - NON FONCTIONNEL
-        updatePic(event) {
-            const id = this.$route.params.id;
-            const image = event.target.files[0];
-            const formData = new FormData();
-            formData.append("image", image);
-                axios({
-                    method: "put",
-                    url: `http://localhost:3000/api/users/${id}`,
-                    data: formData,
-                    headers: { "Content-Type": "application/json" },
-                })
-                    .then(() => {
-                    this.getUserProfil();
-                    })
-                    .catch((e) => {
-                    console.log(e);
-                    });
-                },
-*/
-
-
-/*
-        // TRY 2 AJOUT IMAGE - NON FONCTIONNEL
-        onFileChange(e) {
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-            return;
-            this.createImage(files[0]);
-            },
-        updatePic(file) {
-            var reader = new FileReader();
-            var vm = this;
-            vm.image = new Image ();
-            reader.onload = (e) => {
-                vm.image = e.target.result;
-            };
-            reader.readAsDataURL(file);
-            },
-            removeImage: function () {
-            this.image = '';
-            },
-            postImage (id) {
-                axios.put(`http://localhost:3000/api/users/${id}`, {
-                imageUrl: this.image,
-                })
-                .then(function (response) {
-                    if(response.status == 200) {
-                        window.location.reload();
-                    } else {
-                        window.alert("Problème avec l'ajout de votre image.")
-                    }
-                })
-            },
-*/   
-
-/*
-            // TEST MODIFICATION IMAGE - NON FONCTIONNEL
-            onFileChange(e) {
-                var files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.createImage(files[0]);
-                },
-
-            // Try ajout d'une image de profil
-            validPic() {
-                // Récupération de l'image
-                let img = document.getElementById('profilPic').files[0]
-                    // Ajout de l'envoi de l'image au formData
-                    var formData = new FormData()
-                    formData.append('img', img)
-                    // Envoi des données sur l'url du serveur
-                    axios.post('http://localhost:8000/upload_image', formData)
-                        .then((resp) => {
-                            console.log(resp)
+                        .then((res) => {
+                            this.user.image = res.data.path
                         })
-                        .catch((err) => {
-                            console.log(err.response)
-                        })   
-                    }     
-*/ 
-    
-    }
+                        .catch((e) => {
+                        console.log(e);
+                        });
+                    },
+                }
+            }
 
 </script>  
 
@@ -335,17 +181,38 @@
 
 <style scoped>
 
-    .profil-pic > input {
+    .profil-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    #profil-avatar-icon {  
+        font-size: 3em;
+    }
+
+    #profil-avatar-img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50% !important;
+    }
+
+/* Test encart image (redimension)
+    #profil-avatar-img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 50% !important;
+    }
+*/
+
+    .profil-pic-form > input {
         display: none;
     }
 
-    .profil-pic {
+    .profil-pic-form {
         display: flex;
         flex-direction: column;
-    }
-
-    .testpic {
-        font-size: 3em;
+        align-items: center;
     }
 
     .container {
@@ -379,12 +246,6 @@
         align-items: center;
         margin-top: 2%;
         margin-bottom: 3%;
-    }
-
-    .profil-pic-img {
-        border-radius: 50% !important;
-        width: 100px;
-        height: 100px;
     }
 
     .profil-name {

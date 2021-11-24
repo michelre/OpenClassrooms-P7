@@ -37,7 +37,9 @@
             <div class="community-list" >
                 <div class="community-member" v-for="user in filteredList" :key="user.id_user">
                     <div class="member-pic">
-                        <img class="member-pic-img" :src="user.image">
+                        <img class="member-pic-img" 
+                            :src="`http://localhost:3000/${user.image}`"
+                        >
                     </div>
                     <h2 class="member-name">{{user.nom}} {{user.prenom}}</h2>
                 </div>
