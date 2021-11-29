@@ -42,6 +42,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        align-content: center;
     }
 
     .logo-header {
@@ -66,10 +67,26 @@
     i:hover {
         border-radius: 100%;
         transform: rotate(720deg);
+    }
 
-        /*
-        transform: scale(1.3)
-        */
+
+
+    /* Small device (smartphone, to 767px max) */
+    @media screen and (max-width: 767px) {
+
+        nav {
+            padding-top: 1%;
+        }
+
+        .logo-header {
+            margin-right: 10%;
+            margin-left: 3%;
+        }
+
+        .logo-img {
+            height: 45px;
+        }
+
     }
 
 </style>

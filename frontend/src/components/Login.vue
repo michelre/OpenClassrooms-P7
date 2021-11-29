@@ -7,13 +7,13 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" v-model="formData.email" id="email" class="form-control">
+                <input type="text" v-model="formData.email" id="email" class="form-control" required>
                 <div class="form-err"></div>
             </div>
 
             <div class="form-group">
                 <label for="mdp">Mot de passe</label>
-                <input type="password" v-model="formData.password" id="password" class="form-control">
+                <input type="password" v-model="formData.password" id="password" class="form-control" required>
                 <div class="form-err"></div>
             </div>
 
@@ -51,7 +51,11 @@
             }
         },
         methods: {
-           envoiForm() {
+
+
+
+            // LOGIN FONCTIONNEL SANS AUTH
+            envoiForm() {
                 axios.post('http://localhost:3000/api/users/login', {
                     email: this.formData.email,
                     password: this.formData.password
@@ -67,7 +71,33 @@
                     window.alert("Identifiant ou mot de passe incorrect");
                 });    
             }  
+
+
+/* 
+            // TRY LOGIN AVEC AUTH - NON FONCTINNEL
+            envoiForm() {
+                axios.post('http://localhost:3000/api/auth/login', {
+                    email: this.formData.email,
+                    password: this.formData.password
+                })
+                .then ( (response) => {
+                    if(response.status === 200 ) {
+                        const groupomaniaUser = response.data
+                        localStorage.setItem('groupomaniaUser', JSON.stringify(groupomaniaUser))
+                        this.$router.push({ name:'Wall' }); 
+                    }
+                })
+                .catch(() => {
+                    console.log("Identifiant ou mot de passe incorrect"); 
+                    window.alert("Identifiant ou mot de passe incorrect");
+                });    
+            }  
+*/
+
+
+
         },
+
         clicRegister(e) {
             e.preventDefault()
             this.changeForm(true) 
@@ -122,6 +152,17 @@
     .sign-card {
         font-style: italic;
         text-align: center;
+    }
+
+
+
+    /* Small device (smartphone, to 767px max) */
+    @media screen and (max-width: 767px) {
+
+        h1 {
+            font-size: 1.5em;
+        } 
+
     }
 
 </style>

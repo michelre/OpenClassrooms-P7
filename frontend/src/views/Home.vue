@@ -125,4 +125,28 @@
         color: white;
     }
 
+
+
+    /* Medium devices (tablets, 768px and up) */
+    @media screen and (max-width: 1023px) {
+
+        .register-card {
+            width: 60%;
+        }
+    } 
+
+
+    /* Small device (smartphone, to 767px max) */
+    @media screen and (max-width: 767px) {
+
+        .register-card {
+            width: 80%;
+        }
+
+        button {
+            font-size: 10px;
+        }
+
+    }
+
 </style>

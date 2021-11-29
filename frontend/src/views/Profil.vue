@@ -24,13 +24,15 @@
                                 :src="`http://localhost:3000/${user.image}`"
                                 v-else
                             >
+                            <!-- TEST OVERLAY : <span class="overlay">+</span> -->
+
                         </label>
                         <input type="file"
                             name="avatar" 
                             id="profilPic"
                             accept="image/*"
                         >
-                        <button type="submit">Valider</button>
+                        <button type="submit" class="profil-avatar-btn">Valider</button>
                     </form>
 
                     <h1 class="profil-name">{{user.nom}} {{user.prenom}}</h1>
@@ -43,17 +45,17 @@
 
                         <div class="form-group">
                             <label for="nom">Nom</label>
-                            <input type="text" v-model.lazy="user.nom" name="nom" id="nom" class="form-input">
+                            <input type="text" v-model.lazy="user.nom" name="nom" id="nom" class="form-input" required>
                             <div class="form-err"></div>
                         </div>
                         <div class="form-group">
                             <label for="prenom">Prénom</label>
-                            <input type="text" v-model.lazy="user.prenom" name="prenom" id="prenom" class="form-input">
+                            <input type="text" v-model.lazy="user.prenom" name="prenom" id="prenom" class="form-input" required>
                             <div class="form-err"></div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" v-model.lazy="user.email" name="email" id="email" class="form-input">
+                            <input type="text" v-model.lazy="user.email" name="email" id="email" class="form-input" required>
                             <div class="form-err"></div>
                         </div>
          
@@ -194,7 +196,22 @@
         height: 50px;
         width: 50px;
         border-radius: 50% !important;
+        box-shadow: 0 0 3px #000000b3;
     }
+
+/* TEST OVERLAY
+.overlay {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 100px;
+    opacity: 0;
+    transition: all 0.3s ease 0s; 
+    border: 3px solid red;
+}
+.overlay:hover {
+    opacity: 0.8;
+}
+*/
 
 /* Test encart image (redimension)
     #profil-avatar-img {
@@ -204,6 +221,10 @@
         border-radius: 50% !important;
     }
 */
+
+    .profil-avatar-btn {
+        margin-top: 15%;
+    }
 
     .profil-pic-form > input {
         display: none;
@@ -290,6 +311,29 @@
     .profil-sep {
         color: rgb(30, 51, 121);
         margin: 3%;
+    }
+
+
+
+    /* Medium devices (tablets, 768px and up) */
+    @media screen and (max-width: 1023px) {
+
+        .profil-card {
+            width: 50%;
+            margin-top: 3%;
+        }
+
+    } 
+
+
+    /* Small device (smartphone, to 767px max) */
+    @media screen and (max-width: 767px) {
+
+        .profil-card {
+            width: 80%;
+            margin-top: 5%;
+        }
+
     }
 
 </style>

@@ -50,7 +50,7 @@
         data() {
             return {
                 posts: [],
-                comments: {}
+                comments: {},
             }
         },
         created() {
@@ -156,7 +156,7 @@
             deleteComment(postId, commentId) {
                 axios.delete(`http://localhost:3000/api/comments/${commentId}`)
                     .then(() => this.loadComments(postId))
-            }
+            },
 
         }
     }
@@ -166,6 +166,10 @@
 
 
 <style scoped>
+
+    .container {
+        margin: 0;
+    }
 
     .main-wall {
         background-attachment: fixed;
@@ -365,6 +369,28 @@
         position: absolute;
         right: 0;
         margin-right: 5%;
+    }
+
+
+
+    /* Medium devices (tablets, 768px and up) */
+    @media screen and (max-width: 1023px) {
+
+        .wall-card {
+            width: 60%;
+            margin-bottom: 5%;
+        }
+
+    } 
+
+
+    /* Small device (smartphone, to 767px max) */
+    @media screen and (max-width: 767px) {
+
+        .wall-card {
+            width: 80%;
+        }
+
     }
 
 </style>

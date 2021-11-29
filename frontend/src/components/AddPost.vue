@@ -61,37 +61,6 @@
                     this.createPost(formData);
             },
 
-
-
-
-
-/*
-            // TRY 3 AJOUT IMAGE
-            onFileSelected() {
-                this.media = this.$refs.file.files[0]
-            }
-*/
-
-/*
-            // TRY 2 AJOUT IMAGE
-            onFileSelected(event) {
-                console.log(event);
-                this.postForm.media = event.target.files[0];
-                console.log(this.postForm.media);
-            }
-*/
-
-/*          
-            // TRY AJOUT IMAGE
-            onFileSelected(e) {
-                var files = e.target.files || e.dataTransfer.files;
-                if (!files.length)
-                    return;
-                this.envoiForm(files[0]);
-                },
-*/            
-
-
         }
     }
     
@@ -175,6 +144,27 @@
         color: white;
         height: 3em;
         border-radius: 10px;
+    }
+
+
+
+    /* Medium devices (tablets, 768px and up) */
+    @media screen and (max-width: 1023px) {
+
+        .post-container {
+            width: 60%;
+        }
+
+    } 
+
+
+    /* Small device (smartphone, to 767px max) */
+    @media screen and (max-width: 767px) {
+
+        .post-container {
+            width: 80%;
+        }
+
     }
 
 </style>

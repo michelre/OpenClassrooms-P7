@@ -246,4 +246,27 @@
         border-radius: 10px;
     }
 
+
+
+    /* Medium devices (tablets, 768px and up) */
+    @media screen and (max-width: 1023px) {
+
+        .modify-card {
+            width: 60%;
+            margin-top: 3%;
+        }
+
+    } 
+
+
+    /* Small device (smartphone, to 767px max) */
+    @media screen and (max-width: 767px) {
+
+        .modify-card {
+            width: 80%;
+            margin-top: 5%;
+        }
+
+    }
+
 </style>

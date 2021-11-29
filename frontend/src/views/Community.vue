@@ -188,4 +188,44 @@
         height: 80px;
     }
 
+
+
+
+    /* Medium devices (tablets, 768px and up) */
+    @media screen and (max-width: 1023px) {
+
+        .community-card {
+            width: 50%;
+        }
+
+        .community-title {
+            font-size: .9em;
+        }
+
+        .community-list {
+            width: 70%;
+        }
+
+    } 
+
+
+    /* Small device (smartphone, to 767px max) */
+    @media screen and (max-width: 767px) {
+
+        .community-card {
+            width: 80%;
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+
+        .community-list {
+            width: 80%;
+        }
+
+        .community-member {
+            width: 40%;
+        }
+
+    }
+
 </style>

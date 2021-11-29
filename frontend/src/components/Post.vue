@@ -1,10 +1,10 @@
- <template>
+ <template> 
     <section class="wall-card">
 
         <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom et la date d'ajout du post -->
         <div class="post-card-header">
             <a href="/profil" class="post-header-pic"> 
-                <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
+                <img  width="50" class="post-header-pic-round">
             </a>
             <div class="post-header-name-date">
                 <div class="post-header-name">
@@ -114,6 +114,7 @@
                     class="com-input" 
                     v-model="commentData.message"
                     placeholder="Écrivez un commentaire ici..."
+                    required
                 >
             </form>
         
@@ -151,6 +152,11 @@
         mounted() {
             console.log(this.commentaires);
         },
+        /* TRY AFFICHAGE NOM/PRENOM/AVATAR SUR CHAQUE POST
+        created() {
+            this.getUserProfil();
+        },
+        */
         methods: {
             clickOutside() {
                 this.menuActive = false
@@ -173,6 +179,21 @@
                 this.loadComments(postId)
             },
 
+
+/*          TRY AFFICHAGE NOM/PRENOM/AVATAR SUR CHAQUE POST
+            // Récupération des données de l'utilisateur - FONCTIONNEL 
+            getUserProfil() {
+                const userId = JSON.parse(localStorage.id);
+                axios.get(`http://localhost:3000/api/users/${userId}`, {
+                    headers: {
+                        "Content-Type" : "application/json",
+                    },
+                }).then((res) => {
+                    this.user = res.data;
+                    console.log(this.user);
+                });
+            },
+*/
 
         }
     }
