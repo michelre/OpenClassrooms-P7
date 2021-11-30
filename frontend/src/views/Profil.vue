@@ -99,6 +99,7 @@
             }
         },
         created() {
+            this.token = localStorage.getItem('token');
             this.getUserProfil();
         },
         methods: {
@@ -109,6 +110,7 @@
                 axios.get(`http://localhost:3000/api/users/${userId}`, {
                     headers: {
                         "Content-Type" : "application/json",
+                        Authorization: `Bearer ${this.token}`,
                     },
                 }).then((res) => {
                     this.user = res.data;
@@ -122,7 +124,8 @@
                     method: "put",
                     url: `http://localhost:3000/api/users/${id}`,
                     data: this.user,
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json",
+                                Authorization: `Bearer ${this.token}`, },
                 })
                 .then(() => { 
                     alert('Profil modifié avec succès !');
@@ -138,7 +141,7 @@
                         .delete(`http://localhost:3000/api/users/${id}`, {
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
+                            Authorization: `Bearer ${this.token}`,
                     },
                     })
                     .then(res => {
@@ -165,7 +168,8 @@
                         method: "post",
                         url: `http://localhost:3000/api/users/${id}/image`,
                         data: formData,
-                        headers: { "Content-Type": "multipart/form-data" },
+                        headers: { "Content-Type": "multipart/form-data",
+                                    Authorization: `Bearer ${this.token}`, },
                     })
                         .then((res) => {
                             this.user.image = res.data.path

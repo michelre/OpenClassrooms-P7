@@ -16,7 +16,7 @@
             </div>
 
             <!-- Bouton dropdown permettant de modifier/supprimer le post -->
-            <div class="dropdown">
+            <div class="dropdown" v-if="post.editable">
                 <button 
                     @click="menuActive = !menuActive" 
                     v-click-outside="clickOutside" 
@@ -82,11 +82,11 @@
             <div class="comment-auth" :key="commentaire.id" v-for="commentaire in commentaires">
                 <img src="../assets/merry.jpg" width="40" class="comment-pic-round">
                 <div class="comment-user"> 
-                    <span class="comment-user-name">Merry</span> 
+                    <span class="comment-user-name">{{commentaire.utilisateur_id}}</span> 
                     <p class="comment-text">{{commentaire.message}}</p>
                 </div>
                 <!-- Menu dropdown permettant de supprimer un commentaire -->
-                <div class="dropdown-comments">
+                <div class="dropdown-comments" v-if="commentaire.editable">
                     <button 
                         :data-id="commentaire.id"
                         @click="menuActiveComments = {...menuActiveComments, [commentaire.id]:!menuActiveComments[commentaire.id]}" 

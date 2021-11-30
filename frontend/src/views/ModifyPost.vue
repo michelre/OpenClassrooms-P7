@@ -71,6 +71,7 @@
             }
         },
         created() {
+            this.token = localStorage.getItem('token');
             this.getOnePost();
         },
         methods: {
@@ -89,13 +90,12 @@
             // Fonction pour récupérer un seul post avant de procéder à la modification
             getOnePost() {
             const postId = this.$route.params.id;
-            const token = localStorage.getItem('token')
             console.log("publication id:" + postId);
             axios
                 .get(`http://localhost:3000/api/posts/${postId}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${this.token}`,
                 },
                 })
                 .then((res) => {
@@ -109,6 +109,7 @@
                 const postId = this.$route.params.id;
                 //const token = localStorage.getItem('token')
                 var formData = new FormData();
+                    formData.append('media', this.post.media);
                     formData.append('message', this.post.message);
                     formData.append('image', event.target.image.files[0]);
                     formData.append('link', this.post.link);
@@ -116,7 +117,8 @@
                     method: "put",
                     url: `http://localhost:3000/api/posts/${postId}`,
                     data: formData,
-                    headers: { "Content-Type": "multipart/form-data" },
+                    headers: { "Content-Type": "multipart/form-data",
+                                Authorization: `Bearer ${this.token}` },
                 })
                 // Une fois les vérifications et modifications effectuées, rediriger l'utilisateur vers le Wall
                 .then(() => {

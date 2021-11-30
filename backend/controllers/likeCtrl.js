@@ -10,7 +10,7 @@ const db = require('../database');
 // Ajout d'un like
 exports.addLike = (req, res) => {
     // Préparation de la requête SQL 
-    let sqlCreateLike = `INSERT INTO likes (utilisateur_id, publication_id) VALUES ('${1}', '${req.body.postId}')`;
+    let sqlCreateLike = `INSERT INTO likes (utilisateur_id, publication_id) VALUES ('${req.userId}', '${req.body.postId}')`;
     // Envoi de la requête à la BDD
     db.query(sqlCreateLike, (error, publication) => {
         if (!error) {

@@ -78,7 +78,13 @@
             }
         },
         created() {
-            fetch("http://localhost:3000/api/users").then(res => res.json()).then(res => {
+            this.token = localStorage.getItem('token')
+            fetch("http://localhost:3000/api/users", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.token}`,
+                },
+            }).then(res => res.json()).then(res => {
                 this.users = res;
             }) 
         },
@@ -219,11 +225,13 @@
         }
 
         .community-list {
-            width: 80%;
+            width: 90%;
+            justify-content: space-evenly;
+            font-size: 12px;
         }
 
         .community-member {
-            width: 40%;
+            width: 45%;
         }
 
     }

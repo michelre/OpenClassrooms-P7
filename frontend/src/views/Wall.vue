@@ -54,7 +54,13 @@
             }
         },
         created() {
-            fetch("http://localhost:3000/api/posts").then(res => res.json()).then(res => {
+            this.token = localStorage.getItem('token')
+            fetch("http://localhost:3000/api/posts", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.token}`,
+                },
+                }).then(res => res.json()).then(res => {
                 this.posts = res;
             }) 
         },
@@ -75,7 +81,8 @@
                     method: "post",
                     url: "http://localhost:3000/api/posts",
                     data: formData,
-                    headers: { "Content-Type": "multipart/form-data" },
+                    headers: { "Content-Type": "multipart/form-data",
+                                Authorization: `Bearer ${this.token}`},
                 })
                 .then(reponse => { 
                     this.posts.push(reponse.data)
@@ -91,7 +98,7 @@
                     .delete(`http://localhost:3000/api/posts/${postId}`, {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${this.token}`,
                     },
                     })
                     .then(() => {
@@ -108,7 +115,8 @@
                     method: "post",
                     url: "http://localhost:3000/api/likes",
                     data: { postId },
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json",
+                                Authorization: `Bearer ${this.token}` },
                 })
                 .then(reponse => { 
                     for (let post in this.posts) {
@@ -130,7 +138,8 @@
                     method: "post",
                     url: "http://localhost:3000/api/comments",
                     data: { postId, message },
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json",
+                                Authorization: `Bearer ${this.token}`},
                 })
                 .then(() => { 
                     this.loadComments(postId);
@@ -142,7 +151,8 @@
                 axios({
                     method: "get",
                     url: `http://localhost:3000/api/comments/${postId}`,
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json",
+                                Authorization: `Bearer ${this.token}` },
                 })
                 .then((response) => {
                     this.comments = {
@@ -154,7 +164,12 @@
 
             // Suppression de commentaire - FONCTIONNEL
             deleteComment(postId, commentId) {
-                axios.delete(`http://localhost:3000/api/comments/${commentId}`)
+                axios.delete(`http://localhost:3000/api/comments/${commentId}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${this.token}`,
+                    },
+                })
                     .then(() => this.loadComments(postId))
             },
 
@@ -389,6 +404,7 @@
 
         .wall-card {
             width: 80%;
+            margin-bottom: 8%;
         }
 
     }

@@ -7,7 +7,7 @@ const db = require('../database');
 // Ajout d'un nouveau commentaire
 exports.addComment = (req, res, next) => {
     // Préparation de la requête SQL
-    let sqlCreateComment = `INSERT INTO commentaires (utilisateur_id, publication_id, message, date_ajout) VALUES ('${1}', '${req.body.postId}', '${req.body.message}', NOW())`;
+    let sqlCreateComment = `INSERT INTO commentaires (utilisateur_id, publication_id, message, date_ajout) VALUES ('${req.userId}', '${req.body.postId}', '${req.body.message}', NOW())`;
     // Envoi de la requête à la BDD
     db.query(sqlCreateComment, (error, publication) => {
         if (!error) {
@@ -36,7 +36,7 @@ exports.deleteComment = (req, res, next) => {
 // Chargement des commentaires d'une publication
 exports.getPostComments = (req, res, next) => {
     const id = req.params.postId;
-    db.query(`SELECT * FROM commentaires WHERE publication_id = ?`, id, (error, result) => {
+    db.query(`SELECT *, IF(commentaires.utilisateur_id = ${req.userId} OR "${req.status}" = "admin", 1, 0) AS editable FROM commentaires WHERE publication_id = ?`, id, (error, result) => {
         // Si les commentaires n'ont pas été trouvés
         if (error) {
             return res.status(400).json({ error: 'Commentaires non trouvés'});

@@ -47,7 +47,7 @@
                     email: '',
                     password: ''
                 },
-                registerActive: false
+                registerActive: false,
             }
         },
         methods: {
@@ -61,6 +61,7 @@
                     password: this.formData.password
                 })
                 .then ( (response) => {
+
                     localStorage.setItem('id',response.data.userId) 
                     localStorage.setItem('token',response.data.token) 
                     localStorage.setItem('email',response.data.email) 
@@ -73,10 +74,10 @@
             }  
 
 
-/* 
+/*
             // TRY LOGIN AVEC AUTH - NON FONCTINNEL
             envoiForm() {
-                axios.post('http://localhost:3000/api/auth/login', {
+                axios.post('http://localhost:3000/api/users/login', {
                     email: this.formData.email,
                     password: this.formData.password
                 })
@@ -93,6 +94,10 @@
                 });    
             }  
 */
+
+
+
+
 
 
 

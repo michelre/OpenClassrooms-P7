@@ -163,6 +163,7 @@
 
         .post-container {
             width: 80%;
+            margin-bottom: 8%;
         }
 
     }
