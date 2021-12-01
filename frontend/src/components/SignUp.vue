@@ -75,13 +75,17 @@
                 const prenom = this.signUpForm.prenom;
                 const email = this.signUpForm.email;
                 const password = this.signUpForm.password;
+
+                if (password != this.signUpForm.passwordConfirm) {
+                    alert("Veuillez sélectionner deux mots de passe identiques tout en sélectionnant le schéma suivant : 8 caractères minimum, 1 majuscule, 2 chiffres !")
+                } else {
                 
                 var formData = new FormData();
                     formData.append('prenom', prenom);
                     formData.append('nom', nom);
                     formData.append('email', email);
                     formData.append('password', password);
-                    alert("utilisateur enregistré !");
+                    
                         axios({
                             method: "post",
                             url: "http://localhost:3000/api/users/signup",
@@ -90,9 +94,13 @@
                             })
                         .then(reponse => { console.log(reponse)
                             this.$router.push({ name:'Wall' }); 
-                    }); 
+                        })
+                        .catch(() => {
+                            alert("Erreur lors de l'inscription")
+                        })
+                }
 
-                   
+
 
             }
         }

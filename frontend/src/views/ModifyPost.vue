@@ -10,7 +10,7 @@
                 <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom, date d'ajout, et bouton retour au Wall -->
                 <div class="post-card-header">
                     <a href="/profil" class="post-header-pic"> 
-                        <img src="../assets/witchKing.jpeg" width="50" class="post-header-pic-round">
+                        <img :src="`http://localhost:3000/${post.image}`" width="50" class="post-header-pic-round">
                     </a>
                     <div class="post-header-name-date">
                         <div class="post-header-name">
