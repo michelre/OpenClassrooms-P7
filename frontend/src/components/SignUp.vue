@@ -93,7 +93,9 @@
                             headers: { "Content-Type": "application/json" },
                             })
                         .then(reponse => { console.log(reponse)
-                            this.$router.push({ name:'Wall' }); 
+                            alert("Inscription réussite ! Veuillez vous connecter pour accéder à votre compte !")
+                            localStorage.clear();
+                            this.$router.go(0); 
                         })
                         .catch(() => {
                             alert("Erreur lors de l'inscription")
