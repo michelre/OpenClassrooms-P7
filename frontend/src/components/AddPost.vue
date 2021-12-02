@@ -6,22 +6,22 @@
 
             <div class="post-infos">
                 <label for="postTitle" class="hidden">Nouvelle publication</label>
-                <textarea name="postTitle" id="postTitle" placeholder="Que voulez-vous partager ?" v-model="postForm.message" required></textarea>
+                <textarea name="postTitle" id="postTitle" placeholder="Que voulez-vous partager ?" v-model="postForm.message" aria-invalid="false" required></textarea>
             </div>
 
             <div class="post-content">
-                <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?"
+                <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?" title="Joindre un lien"
                     v-model="postForm.link"
                      >
                 <div class="post-img">
-                    <label  title="Ajouter un fichier" for="addContent"><i class="far fa-file-image"></i></label>
+                    <label for="addContent"><i class="far fa-file-image" title="Ajouter un fichier"></i></label>
                     <input type="file"
                         id="addContent"
-                        name="image"
+                        name="addContent"
                         accept="image/*"
                     >
                 </div>
-                <button class="post-btn">Publier</button>
+                <button class="post-btn" title="Valider la publication">Publier</button>
             </div>
             
         </form>            

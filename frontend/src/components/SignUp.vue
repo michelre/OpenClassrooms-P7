@@ -6,28 +6,28 @@
         <form class="form-card" v-on:submit.prevent="envoiForm">
 
             <div class="form-group">
-                <label for="Nom">Nom</label>
-                <input type="text" v-model="signUpForm.nom" name="nom" id="nom" class="form-input" required>
+                <label for="nom">Nom</label>
+                <input type="text" v-model="signUpForm.nom" name="nom" id="nom" class="form-input" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
             <div class="form-group">
                 <label for="prenom">Prénom</label>
-                <input type="text" v-model="signUpForm.prenom" name="prenom" id="prenom" class="form-input" required>
+                <input type="text" v-model="signUpForm.prenom" name="prenom" id="prenom" class="form-input" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" v-model="signUpForm.email" name="email" id="email" class="form-input" required>
+                <input type="text" v-model="signUpForm.email" name="email" id="email" class="form-input" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input type="password" v-model="signUpForm.password" name="password" id="password" class="form-input" required>
+                <input type="password" v-model="signUpForm.password" name="password" id="password" class="form-input" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
             <div class="form-group">
                 <label for="passwordConfirm">Confirmez le mot de passe</label>
-                <input type="password" v-model="signUpForm.passwordConfirm" name="passwordConfirm" id="passwordConfirm" class="form-input" required>
+                <input type="password" v-model="signUpForm.passwordConfirm" name="passwordConfirm" id="passwordConfirm" class="form-input" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
      
@@ -76,30 +76,32 @@
                 const email = this.signUpForm.email;
                 const password = this.signUpForm.password;
 
+                // Dans le cas où les deux mots de passe ne seraient pas identiques
                 if (password != this.signUpForm.passwordConfirm) {
                     alert("Veuillez sélectionner deux mots de passe identiques tout en sélectionnant le schéma suivant : 8 caractères minimum, 1 majuscule, 2 chiffres !")
                 } else {
-                
+                // Création du formulaire contenant les datas de l'utilisateur 
                 var formData = new FormData();
                     formData.append('prenom', prenom);
                     formData.append('nom', nom);
                     formData.append('email', email);
                     formData.append('password', password);
-                    
+                        // Envoi du formulaire via la méthode post d'axios 
                         axios({
                             method: "post",
                             url: "http://localhost:3000/api/users/signup",
                             data: this.signUpForm,
                             headers: { "Content-Type": "application/json" },
                             })
+                        // Inscription réussite, maj du localStorage et redirection sur le Login
                         .then(reponse => { console.log(reponse)
                             alert("Inscription réussite ! Veuillez vous connecter pour accéder à votre compte !")
                             localStorage.clear();
                             this.$router.go(0); 
                         })
-                        .catch(() => {
-                            alert("Erreur lors de l'inscription")
-                        })
+                    .catch(() => {
+                        alert("Erreur lors de l'inscription")
+                    })
                 }
 
 

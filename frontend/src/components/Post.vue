@@ -4,7 +4,7 @@
         <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom et la date d'ajout du post -->
         <div class="post-card-header">
             <a href="/profil" class="post-header-pic"> 
-                <img  width="50" class="post-header-pic-round">
+                <img  width="50" title="Avatar de l'auteur" class="post-header-pic-round">
             </a>
             <div class="post-header-name-date">
                 <div class="post-header-name">
@@ -26,9 +26,6 @@
                     <i class="fas fa-ellipsis-v"></i>
                 </button>
                 <div v-if="menuActive" id="myDropdown" class="dropdown-content">
-                                        <!-- TEST MODIFICATION - SUPPRESSION PUBLICATION 
-                                            Authentification : v-if="statut === 'admin' || post.id_user === userId"
-                                        -->
                     <button id="post-modify"
                             title="Modifier la publication"
                             @click="updatePost(post.id)">
@@ -41,7 +38,6 @@
                         <i class="far fa-trash-alt"></i>
                         <span class="dropdown-options">Supprimer</span>
                     </button>
-
                 </div>
             </div>
         </div>
@@ -52,11 +48,11 @@
                 <p class="post-txt">{{post.message}}</p>
             </div>
             <div class="post-img">
-                <img :src="`http://localhost:3000${post.media}`" class="wall-img" v-if="post.media != 'null'">
-                <img :src="post.link" class="wall-img" v-if="post.link && post.media =='null'">
+                <img :src="`http://localhost:3000${post.media}`" title="Image du post" class="wall-img" v-if="post.media != 'null'">
+                <img :src="post.link" title="Image du post" class="wall-img" v-if="post.link && post.media =='null'">
             </div>
             <div class="post-likes">
-                <img src="../assets/pouce.png" class="wall-likes">
+                <img src="../assets/pouce.png" title="Likes" class="wall-likes">
                 <p>{{post.likes}}</p>
             </div>
         </div>
@@ -65,11 +61,11 @@
 
         <!-- Boutons permettant de liker/commenter le post -->
         <div class="post-actions">
-            <div class="post-action-like" @click="addLike(post.id)">
+            <div class="post-action-like" @click="addLike(post.id)" title="J'aime">
                 <i class="far fa-thumbs-up" id="icon-like"></i>
                 <span class="like-txt">J'aime</span>
             </div>
-            <div class="post-action-comment" @click="showComment(post.id)">
+            <div class="post-action-comment" @click="showComment(post.id)" title="Commenter">
                 <i class="far fa-comment-alt" id="icon-comment"></i>
                 <span class="comment-txt">Commentaires</span>
             </div>
@@ -178,6 +174,7 @@
                 this.reveleComment = true;
                 this.loadComments(postId)
             },
+            
 
 
 /*          TRY AFFICHAGE NOM/PRENOM/AVATAR SUR CHAQUE POST
@@ -235,7 +232,7 @@
     }
 
     .post-header-date {
-        color:gray;
+        color:rgb(88, 88, 88);
     }
 
     .post-content {

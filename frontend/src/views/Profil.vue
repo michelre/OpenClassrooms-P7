@@ -21,18 +21,18 @@
                                 ></i>
                             <img 
                                 id="profil-avatar-img"
+                                alt="Avatar"
+                                title="Modifier mon avatar"
                                 :src="`http://localhost:3000/${user.image}`"
                                 v-else
                             >
-                            <!-- TEST OVERLAY : <span class="overlay">+</span> -->
-
                         </label>
                         <input type="file"
                             name="avatar" 
                             id="profilPic"
                             accept="image/*"
                         >
-                        <button type="submit" class="profil-avatar-btn">Valider</button>
+                        <button type="submit" class="profil-avatar-btn" title="Enregistrer le nouvel avatar">Valider</button>
                     </form>
 
                     <h1 class="profil-name">{{user.nom}} {{user.prenom}}</h1>
@@ -59,14 +59,14 @@
                             <div class="form-err"></div>
                         </div>
          
-                        <button class="form-btn" >Enregistrer les modifications</button>
+                        <button class="form-btn" title="Enregistrer les modifications">Enregistrer les modifications</button>
 
                     </form>
                 </div>
 
                 <hr class="profil-sep">
 
-                <button class="suppr-btn" @click="deleteUser(user.id)">Supprimer le compte</button>
+                <button class="suppr-btn" @click="deleteUser(user.id)" title="Supprimer le compte">Supprimer le compte</button>
 
             </section>
         </main>
@@ -306,7 +306,7 @@
         width: 40%;
         display: block;
         margin: auto;
-        background-color: rgb(240, 49, 49);
+        background-color: rgb(235, 1, 1);
         color: white;
         height: 3em;
         border-radius: 10px;

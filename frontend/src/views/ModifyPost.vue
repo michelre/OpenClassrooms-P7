@@ -9,8 +9,8 @@
 
                 <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom, date d'ajout, et bouton retour au Wall -->
                 <div class="post-card-header">
-                    <a href="/profil" class="post-header-pic"> 
-                        <img :src="`http://localhost:3000/${post.image}`" width="50" class="post-header-pic-round">
+                    <a href="/profil" class="post-header-pic" title="Lien vers mon profil"> 
+                        <img :src="`http://localhost:3000/${post.image}`" width="50" alt="Avatar" class="post-header-pic-round">
                     </a>
                     <div class="post-header-name-date">
                         <div class="post-header-name">
@@ -28,22 +28,22 @@
                 <!-- Contenu de la publication à modifier -->
                 <div class="post-content">
                     <form class="post-description" @submit.prevent="updatePost($event)">
-                        <input class="post-txt" v-model="post.message">
+                        <input class="post-txt" title="Modifier le message de la publication" v-model="post.message">
                         <div class="post-media">
-                            <img :src="`http://localhost:3000${post.media}`" class="wall-img" v-if="post.media != 'null'">
-                            <img :src="post.link" class="wall-img" v-if="post.link && post.media =='null'">
+                            <img :src="`http://localhost:3000${post.media}`" alt="Image post" class="wall-img" v-if="post.media != 'null'">
+                            <img :src="post.link" alt="Image post" class="wall-img" v-if="post.link && post.media =='null'">
                         </div>
                         <div class="post-modif">
-                            <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?" >
+                            <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?" title="Joindre un lien">
                                 <div class="post-img">
-                                    <label  title="Ajouter un fichier" for="addContent"><i class="far fa-file-image"></i></label>
+                                    <label for="addContent"><i class="far fa-file-image" title="Ajouter un fichier"></i></label>
                                     <input type="file"
                                     id="addContent"
-                                    name="image"
+                                    name="addContent"
                                     accept="image/*"
                                     >
                                 </div>
-                            <button class="post-btn">Enregistrer les modifications</button>
+                            <button class="post-btn" title="Valider les modifications">Enregistrer les modifications</button>
                         </div>
                     </form>
                 </div>
@@ -177,7 +177,7 @@
     }
 
     .post-header-date {
-        color:gray;
+        color:rgb(88, 88, 88);
     }
 
     .btn-annuler {

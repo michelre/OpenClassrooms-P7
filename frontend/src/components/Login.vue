@@ -7,13 +7,13 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" v-model="formData.email" id="email" class="form-control" required>
+                <input type="text" v-model="formData.email" id="email" class="form-control" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
 
             <div class="form-group">
-                <label for="mdp">Mot de passe</label>
-                <input type="password" v-model="formData.password" id="password" class="form-control" required>
+                <label for="password">Mot de passe</label>
+                <input type="password" v-model="formData.password" id="password" class="form-control" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
 

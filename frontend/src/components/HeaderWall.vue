@@ -3,7 +3,7 @@
 
         <nav>
             <router-link to="/wall" title="Retour à la page d'accueil" class="logo-header">
-                <img src="../assets/main-header.png" alt="" class="logo-img">
+                <img src="../assets/main-header.png" alt="Réseau social d'entreprise Groupomania" class="logo-img">
             </router-link>
             <router-link to="/community" title="Membres de l'équipe" class="users-header">
                 <i class="fas -solid fa-users"></i>
@@ -75,7 +75,7 @@
     @media screen and (max-width: 767px) {
 
         nav {
-            padding-top: 1%;
+            padding-top: 2%;
         }
 
         .logo-header {

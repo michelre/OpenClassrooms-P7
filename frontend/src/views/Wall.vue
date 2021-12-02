@@ -21,7 +21,7 @@
              />
 
             <!-- Bouton Scroll to Top-->
-            <button class="toTop" @click="toTop" aria-label="Retour en haut de page">
+            <button class="toTop" @click="toTop" title="Retour en haut de page">
                 <span class="fa fa-chevron-up"></span>
             </button>
 
@@ -227,7 +227,7 @@
     }
 
     .post-header-date {
-        color:gray;
+        color:rgb(88, 88, 88);
     }
 
     .post-content {

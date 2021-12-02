@@ -13,11 +13,12 @@
 
                 <!-- Input de recherche de membre -->
                 <div class="community-search">
-                    <input type="text" name="pseudo" id="pseudo" class="community-input" placeholder="Rechercher un collègue"
-                    v-model="searchKey"
-                    autocomplete="off"
+                        <input type="text" name="pseudo" id="pseudo" class="community-input" placeholder="Rechercher un collègue"
+                        v-model="searchKey"
+                        autocomplete="off"
+                        title="Espace de recherche"
                     >
-                    <button type="submit">
+                    <button type="submit" aria-label="Recherche membres">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -38,6 +39,7 @@
                 <div class="community-member" v-for="user in filteredList" :key="user.id_user">
                     <div class="member-pic">
                         <img class="member-pic-img" 
+                            alt="Avatar"
                             :src="`http://localhost:3000/${user.image}`"
                         >
                     </div>
@@ -202,6 +204,7 @@
 
         .community-card {
             width: 50%;
+            padding-bottom: 3%;
         }
 
         .community-title {
@@ -225,7 +228,7 @@
         }
 
         .community-list {
-            width: 90%;
+            width: 100%;
             justify-content: space-evenly;
             font-size: 12px;
         }
