@@ -39,7 +39,7 @@
                                     <label for="addContent"><i class="far fa-file-image" title="Ajouter un fichier"></i></label>
                                     <input type="file"
                                     id="addContent"
-                                    name="addContent"
+                                    name="image"
                                     accept="image/*"
                                     >
                                 </div>

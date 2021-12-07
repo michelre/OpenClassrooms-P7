@@ -52,16 +52,13 @@
         },
         methods: {
 
-
-
-            // LOGIN FONCTIONNEL SANS AUTH
+            // LOGIN FONCTIONNEL 
             envoiForm() {
                 axios.post('http://localhost:3000/api/users/login', {
                     email: this.formData.email,
                     password: this.formData.password
                 })
                 .then ( (response) => {
-
                     localStorage.setItem('id',response.data.userId) 
                     localStorage.setItem('token',response.data.token) 
                     localStorage.setItem('email',response.data.email) 
@@ -72,35 +69,6 @@
                     window.alert("Identifiant ou mot de passe incorrect");
                 });    
             }  
-
-
-/*
-            // TRY LOGIN AVEC AUTH - NON FONCTINNEL
-            envoiForm() {
-                axios.post('http://localhost:3000/api/users/login', {
-                    email: this.formData.email,
-                    password: this.formData.password
-                })
-                .then ( (response) => {
-                    if(response.status === 200 ) {
-                        const groupomaniaUser = response.data
-                        localStorage.setItem('groupomaniaUser', JSON.stringify(groupomaniaUser))
-                        this.$router.push({ name:'Wall' }); 
-                    }
-                })
-                .catch(() => {
-                    console.log("Identifiant ou mot de passe incorrect"); 
-                    window.alert("Identifiant ou mot de passe incorrect");
-                });    
-            }  
-*/
-
-
-
-
-
-
-
         },
 
         clicRegister(e) {

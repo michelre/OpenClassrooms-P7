@@ -17,7 +17,7 @@
                     <label for="addContent"><i class="far fa-file-image" title="Ajouter un fichier"></i></label>
                     <input type="file"
                         id="addContent"
-                        name="addContent"
+                        name="image"
                         accept="image/*"
                     >
                 </div>
@@ -59,6 +59,13 @@
                     formData.append('link', link);
                     alert("Publication ajoutée !")
                     this.createPost(formData);
+                    // Vidage des inputs une fois le post envoyé
+                    this.postForm = {
+                        message: '',
+                        media: '',
+                        link: ''
+                    }
+                    event.target.image.value = ''
             },
 
         }

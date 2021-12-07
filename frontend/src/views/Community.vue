@@ -75,7 +75,7 @@
         computed: {
             filteredList() {
                 return this.users.filter((user) => {
-                    return user.nom.toLowerCase().includes(this.searchKey.toLowerCase());
+                    return user.nom.toLowerCase().includes(this.searchKey.toLowerCase()) || user.prenom.toLowerCase().includes(this.searchKey.toLowerCase());
                 })
             }
         },

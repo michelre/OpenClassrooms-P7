@@ -2,9 +2,10 @@
     <section class="wall-card">
 
         <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom et la date d'ajout du post -->
-        <div class="post-card-header">
+        <div class="post-card-header"> 
             <a href="/profil" class="post-header-pic"> 
-                <img  width="50" title="Avatar de l'auteur" class="post-header-pic-round">
+                <img v-if="post.image" :src="`http://localhost:3000/${post.image}`" width="50" title="Avatar de l'auteur" class="post-header-pic-round">
+                <i v-else class="fas fa-user-circle"></i>
             </a>
             <div class="post-header-name-date">
                 <div class="post-header-name">
@@ -76,9 +77,10 @@
         <!-- Partie réservée aux commentaires regroupant l'auteur et sa photo -->
         <div class="comment" v-if="reveleComment">
             <div class="comment-auth" :key="commentaire.id" v-for="commentaire in commentaires">
-                <img src="../assets/merry.jpg" width="40" class="comment-pic-round">
+                <img v-if="commentaire.image" :src="`http://localhost:3000/${commentaire.image}`" width="40" class="comment-pic-round">
+                <i v-else class="fas fa-user-circle"></i>
                 <div class="comment-user"> 
-                    <span class="comment-user-name">{{commentaire.utilisateur_id}}</span> 
+                    <span class="comment-user-name">{{commentaire.nom}} {{commentaire.prenom}}</span> 
                     <p class="comment-text">{{commentaire.message}}</p>
                 </div>
                 <!-- Menu dropdown permettant de supprimer un commentaire -->
@@ -105,7 +107,7 @@
             </div>
 
         <!-- Ecriture du commentaire -->
-            <form class="comment-input" @submit.prevent="addComment(post.id, commentData.message)">
+            <form class="comment-input" @submit.prevent="submitComment">
                 <input type="text"
                     class="com-input" 
                     v-model="commentData.message"
@@ -148,11 +150,6 @@
         mounted() {
             console.log(this.commentaires);
         },
-        /* TRY AFFICHAGE NOM/PRENOM/AVATAR SUR CHAQUE POST
-        created() {
-            this.getUserProfil();
-        },
-        */
         methods: {
             clickOutside() {
                 this.menuActive = false
@@ -174,23 +171,12 @@
                 this.reveleComment = true;
                 this.loadComments(postId)
             },
-            
-
-
-/*          TRY AFFICHAGE NOM/PRENOM/AVATAR SUR CHAQUE POST
-            // Récupération des données de l'utilisateur - FONCTIONNEL 
-            getUserProfil() {
-                const userId = JSON.parse(localStorage.id);
-                axios.get(`http://localhost:3000/api/users/${userId}`, {
-                    headers: {
-                        "Content-Type" : "application/json",
-                    },
-                }).then((res) => {
-                    this.user = res.data;
-                    console.log(this.user);
-                });
-            },
-*/
+            // Ajout de commentaire
+            submitComment (){
+                this.addComment(this.post.id, this.commentData.message);
+                // Vidage de l'input une fois le commentaire ajouté
+                this.commentData.message = "" 
+            }
 
         }
     }

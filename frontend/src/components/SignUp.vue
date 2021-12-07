@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" v-model="signUpForm.email" name="email" id="email" class="form-input" aria-invalid="false" required>
+                <input type="email" v-model="signUpForm.email" name="email" id="email" class="form-input" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
             <div class="form-group">
@@ -76,10 +76,7 @@
                 const email = this.signUpForm.email;
                 const password = this.signUpForm.password;
 
-                // Dans le cas où les deux mots de passe ne seraient pas identiques
-                if (password != this.signUpForm.passwordConfirm) {
-                    alert("Veuillez sélectionner deux mots de passe identiques tout en sélectionnant le schéma suivant : 8 caractères minimum, 1 majuscule, 2 chiffres !")
-                } else {
+                
                 // Création du formulaire contenant les datas de l'utilisateur 
                 var formData = new FormData();
                     formData.append('prenom', prenom);
@@ -99,12 +96,10 @@
                             localStorage.clear();
                             this.$router.go(0); 
                         })
-                    .catch(() => {
-                        alert("Erreur lors de l'inscription")
+                    .catch((err) => {
+                        alert(err.response.data.message)
                     })
-                }
-
-
+                
 
             }
         }

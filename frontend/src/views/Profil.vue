@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" v-model.lazy="user.email" name="email" id="email" class="form-input" required>
+                            <input type="email" v-model.lazy="user.email" name="email" id="email" class="form-input" required>
                             <div class="form-err"></div>
                         </div>
          

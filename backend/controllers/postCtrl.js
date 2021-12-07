@@ -45,6 +45,14 @@ exports.createPost = (req, res, next) => {
 // Suppression d'une publication
 exports.deletePost = (req, res, next) => {
     const id = req.params.id;
+
+    // Supprimer l'image si elle existe du post (delete dans le dossier images)
+    db.query(`SELECT media FROM publications WHERE id = ${id}`, (error, result) => {
+        if (result.length && result[0].media) {
+            fs.unlink(__dirname + '/../' +result[0].media, () => {})
+        }
+    });
+
     // Recherche de la publication via son id avant suppression 
     db.query(`DELETE FROM publications WHERE id = ?`, id, (error, result) => {
         // Si la publication n'a pas été trouvée
@@ -74,10 +82,11 @@ exports.getOnePost = (req, res, next) => {
 // Récupération de l'intégralité des publications  
 exports.getAllPosts = (req, res, next) => {
     console.log(req.status);
-    db.query(`SELECT publications.*, utilisateurs.nom, utilisateurs.prenom,
+    db.query(`SELECT publications.*, utilisateurs.nom, utilisateurs.prenom, utilisateurs.image,
     (SELECT COUNT(*) FROM likes WHERE publication_id = publications.id) AS likes,
     IF(publications.utilisateur_id = ${req.userId} OR "${req.status}" = "admin", 1, 0) AS editable
-    FROM publications JOIN utilisateurs ON publications.utilisateur_id = utilisateurs.id`, (error, result) => {
+    FROM publications JOIN utilisateurs ON publications.utilisateur_id = utilisateurs.id
+    ORDER BY date_ajout desc`, (error, result) => {
         // Si les publications n'ont pas été trouvées
         if (error) {
             return res.status(400).json({ error: 'Publications non trouvées' });

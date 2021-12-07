@@ -16,7 +16,7 @@ exports.addLike = (req, res) => {
         if (!error) {
             res.status(201).json({ message: "Like ajouté !" });
         } else {
-            let sqlDeleteLike = `DELETE FROM likes WHERE utilisateur_id = ${1} AND publication_id = ${req.body.postId}`;
+            let sqlDeleteLike = `DELETE FROM likes WHERE utilisateur_id = ${req.userId} AND publication_id = ${req.body.postId}`;
             db.query(sqlDeleteLike, (errorDelete, publication) => {
                 if (!errorDelete) {
                     res.status(204).end();

@@ -36,7 +36,10 @@ exports.deleteComment = (req, res, next) => {
 // Chargement des commentaires d'une publication
 exports.getPostComments = (req, res, next) => {
     const id = req.params.postId;
-    db.query(`SELECT *, IF(commentaires.utilisateur_id = ${req.userId} OR "${req.status}" = "admin", 1, 0) AS editable FROM commentaires WHERE publication_id = ?`, id, (error, result) => {
+    db.query(`SELECT commentaires.*, utilisateurs.nom, utilisateurs.prenom, utilisateurs.image, 
+    IF(commentaires.utilisateur_id = ${req.userId} OR "${req.status}" = "admin", 1, 0) AS editable FROM commentaires
+    JOIN utilisateurs ON commentaires.utilisateur_id = utilisateurs.id
+    WHERE publication_id = ?`, id, (error, result) => {
         // Si les commentaires n'ont pas été trouvés
         if (error) {
             return res.status(400).json({ error: 'Commentaires non trouvés'});

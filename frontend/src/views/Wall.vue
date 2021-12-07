@@ -84,8 +84,10 @@
                     headers: { "Content-Type": "multipart/form-data",
                                 Authorization: `Bearer ${this.token}`},
                 })
-                .then(reponse => { 
-                    this.posts.push(reponse.data)
+                .then(response => { 
+                    const post = response.data;
+                    post['likes'] = 0;
+                    this.posts = [post].concat(this.posts)
                 }); 
             },
 
