@@ -38,10 +38,12 @@
             <div class="community-list" >
                 <div class="community-member" v-for="user in filteredList" :key="user.id_user">
                     <div class="member-pic">
-                        <img class="member-pic-img" 
+                        <img v-if="user.image" 
+                            class="member-pic-img" 
                             alt="Avatar"
                             :src="`http://localhost:3000/${user.image}`"
                         >
+                        <i v-else id="member-pic-default" class="fas fa-user-circle"></i>
                     </div>
                     <h2 class="member-name">{{user.nom}} {{user.prenom}}</h2>
                 </div>
@@ -196,7 +198,10 @@
         height: 80px;
     }
 
-
+    #member-pic-default {
+        font-size: 50px;
+        color: rgb(30, 51, 121);
+    }
 
 
     /* Medium devices (tablets, 768px and up) */

@@ -5,7 +5,7 @@
         <div class="post-card-header"> 
             <a href="/profil" class="post-header-pic"> 
                 <img v-if="post.image" :src="`http://localhost:3000/${post.image}`" width="50" title="Avatar de l'auteur" class="post-header-pic-round">
-                <i v-else class="fas fa-user-circle"></i>
+                <i v-else id="post-pic-default" class="fas fa-user-circle"></i>
             </a>
             <div class="post-header-name-date">
                 <div class="post-header-name">
@@ -78,7 +78,7 @@
         <div class="comment" v-if="reveleComment">
             <div class="comment-auth" :key="commentaire.id" v-for="commentaire in commentaires">
                 <img v-if="commentaire.image" :src="`http://localhost:3000/${commentaire.image}`" width="40" class="comment-pic-round">
-                <i v-else class="fas fa-user-circle"></i>
+                <i v-else id="comment-pic-default" class="fas fa-user-circle"></i>
                 <div class="comment-user"> 
                     <span class="comment-user-name">{{commentaire.nom}} {{commentaire.prenom}}</span> 
                     <p class="comment-text">{{commentaire.message}}</p>
@@ -208,6 +208,11 @@
         width: 50px
     }
 
+    #post-pic-default {
+        font-size: 50px;
+        color: rgb(30, 51, 121);
+    }
+
     .post-header-name-date {
         margin-left: 5%;
     }
@@ -303,6 +308,11 @@
         border-radius: 50% !important;
         height: 50px;
         width: 50px;
+    }
+
+    #comment-pic-default {
+        font-size: 50px;
+        color: rgb(30, 51, 121);
     }
 
     .com-input {
