@@ -4,7 +4,8 @@ const db = require('../database');
 const User = require('../models/user');
 require('dotenv').config();
 
-// Enregistrement de nouveaux utilisateurs
+
+// Enregistrement d'un nouvel utilisateur
 exports.signup = (req, res, next) => {
     console.log(req.body);
     // Hashage du mot de passe via Bcrypt (10 passages)
@@ -13,9 +14,7 @@ exports.signup = (req, res, next) => {
             console.log(hash, db);
             // Sauvegarde du nouvel utilisateur dans la base de données SQL
             db.query(`INSERT INTO utilisateurs (nom, prenom, email, password, image) VALUES ('${req.body.nom}', '${req.body.prenom}', '${req.body.email}', '${hash}', '')`, (error, result) => {
-                console.log(result);
             if (error) {
-                console.log(error)
                 return res.status(400).json("Erreur, utilisateur non créé !")
             } else {
                 return res.status(201).json({ message: 'Utilisateur créé !'})
@@ -24,7 +23,7 @@ exports.signup = (req, res, next) => {
     })
 } 
 
-// Connexion d'utilisateurs existants   
+// Connexion d'un utilisateur existant 
 exports.login = (req, res, next) => {
     const email = req.body.email;
 	const password = req.body.password;
@@ -41,7 +40,6 @@ exports.login = (req, res, next) => {
                     } else {
                     console.log(email, "s'est connecté")
                     let status = ''
-                    console.log(results);
                     // Vérification du niveau d'accès de l'utilisateur afin de lui attribuer le statut d'admin ou de membre
                         if (results[0].niveau_acces === 1) {
                             status = 'admin'
@@ -68,6 +66,25 @@ exports.login = (req, res, next) => {
     }
 }   
 
+// Modification de compte - Data
+exports.updateUser = (req, res, next) => {
+    db.query(`UPDATE utilisateurs SET nom=?, prenom=?, email=?, image=? WHERE id = ?`, [req.body.nom, req.body.prenom, req.body.email, req.body.image, req.params.id], (error, result) => {
+        if (error) {
+            return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
+        }
+        return res.status(200).json(result);
+    })
+}
+
+// Modification de compte - Avatar (image)
+exports.updateUserImage = (req, res, next) => {
+    db.query(`UPDATE utilisateurs SET image=? WHERE id=?`, [req.file.path, req.params.id], (error) => {
+        if (error) {
+            return res.status(400).json({ error: "Photo de profil mise à jour" }) 
+        }
+        return res.status(200).json(req.file);
+    })
+}
 
 // Suppression d'un compte 
 exports.deleteUser = (req, res, next) => {
@@ -114,27 +131,7 @@ exports.getAllUsers = (req, res, next) => {
 
 
 
-// Modifier un compte - Data
-exports.updateUser = (req, res, next) => {
-    db.query(`UPDATE utilisateurs SET nom=?, prenom=?, email=?, image=? WHERE id = ?`, [req.body.nom, req.body.prenom, req.body.email, req.body.image, req.params.id], (error, result) => {
-        if (error) {
-            console.log(error);
-            return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
-        }
-        return res.status(200).json(result);
-    })
-}
 
-// Modifier un compte - Image 
-exports.updateUserImage = (req, res, next) => {
-    db.query(`UPDATE utilisateurs SET image=? WHERE id=?`, [req.file.path, req.params.id], (error) => {
-        if (error) {
-            console.log(error);
-            return res.status(400).json({ error: "Photo de profil mise à jour" }) 
-        }
-        return res.status(200).json(req.file);
-    })
-}
 
 
 /* TEST AJOUT IMAGE - REACTIF MAIS NULL

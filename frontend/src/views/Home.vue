@@ -3,6 +3,7 @@
 
         <HeaderHome/>
         
+        <!-- Page d'accueil regroupant les formulaire d'inscription et de connexion -->
         <main class="main-hero">
             <div class="register-card">
 
@@ -40,17 +41,14 @@
             }
         },
         methods: {
+            // Fonction permettant de passer d'un formulaire à l'autre (switch entre signup et login)
             changeForm(registerForm) {
                 this.registerForm = registerForm
             },
-            buttonActive() {
-
-            }
         }
     }
 
 </script>
-
 
 
 <style scoped>
@@ -125,8 +123,6 @@
         color: white;
     }
 
-
-
     /* Medium devices (tablets, 768px and up) */
     @media screen and (max-width: 1023px) {
 
@@ -134,7 +130,6 @@
             width: 60%;
         }
     } 
-
 
     /* Small device (smartphone, to 767px max) */
     @media screen and (max-width: 767px) {

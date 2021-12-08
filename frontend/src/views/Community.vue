@@ -3,7 +3,6 @@
 
         <HeaderWall/>
 
-        <!-- Test bloc community -->
         <main class="main-community">
 
             <section class="community-card">
@@ -75,12 +74,14 @@
             }
         },
         computed: {
+            // Fonction permettant de filtrer et d'affiner la recherche en fonction du nom ou du prénom de l'utilisateur rechercher
             filteredList() {
                 return this.users.filter((user) => {
                     return user.nom.toLowerCase().includes(this.searchKey.toLowerCase()) || user.prenom.toLowerCase().includes(this.searchKey.toLowerCase());
                 })
             }
         },
+        // Récupération de la liste de membres inscrits 
         created() {
             this.token = localStorage.getItem('token')
             fetch("http://localhost:3000/api/users", {
@@ -203,7 +204,6 @@
         color: rgb(30, 51, 121);
     }
 
-
     /* Medium devices (tablets, 768px and up) */
     @media screen and (max-width: 1023px) {
 
@@ -221,7 +221,6 @@
         }
 
     } 
-
 
     /* Small device (smartphone, to 767px max) */
     @media screen and (max-width: 767px) {

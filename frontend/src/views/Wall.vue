@@ -3,6 +3,7 @@
 
         <HeaderWall/>
 
+        <!-- Page principale regroupant l'ajout de post et le fil d'actualité -->
         <main class="main-wall">
 
             <AddPost
@@ -29,7 +30,6 @@
 
     </div>
 </template>
-
 
 
 <script>
@@ -66,16 +66,14 @@
         },
 
         methods: {
-
-            // Bouton retour en haut de page - FONCTIONNEL
+            // Bouton permettant un retour rapide en haut de page
             toTop() {
                 window.scrollTo({
                 top: 0,
                 behavior: "smooth"
                 });
             },
-            
-            // Création d'une nouvelle publication - FONCTIONNEL
+            // Création d'une nouvelle publication 
             createPost(formData) {
                 axios({
                     method: "post",
@@ -90,8 +88,7 @@
                     this.posts = [post].concat(this.posts)
                 }); 
             },
-
-            // Suppression d'une publication - FONCTIONNEL 
+            // Suppression d'une publication 
             deletePost(postId) {
                 console.log(postId);
                 const token = localStorage.getItem('token')
@@ -109,9 +106,8 @@
                     })
                     console.log("Post supprimé !");
                 }); 
-            },
-                
-            // Ajout d'un like - FONCTIONNEL
+            }, 
+            // Ajout d'un like 
             addLike(postId) {
                 axios({
                     method: "post",
@@ -133,8 +129,7 @@
                     }
                 }); 
             },
-
-            // Ajout d'un commentaire - FONCTIONNEL
+            // Ajout d'un commentaire 
             addComment(postId, message) {
                 axios({
                     method: "post",
@@ -147,8 +142,7 @@
                     this.loadComments(postId);
                 }); 
             },
-
-            // Chargement des commentaires du post - FONCTIONNEL 
+            // Chargement des commentaires d'un post
             loadComments(postId) {
                 axios({
                     method: "get",
@@ -163,8 +157,7 @@
                     }
                 })
             },
-
-            // Suppression de commentaire - FONCTIONNEL
+            // Suppression de commentaire 
             deleteComment(postId, commentId) {
                 axios.delete(`http://localhost:3000/api/comments/${commentId}`, {
                     headers: {
@@ -172,14 +165,12 @@
                         Authorization: `Bearer ${this.token}`,
                     },
                 })
-                    .then(() => this.loadComments(postId))
+                .then(() => this.loadComments(postId))
             },
-
         }
     }
 
 </script>
-
 
 
 <style scoped>
@@ -388,8 +379,6 @@
         margin-right: 5%;
     }
 
-
-
     /* Medium devices (tablets, 768px and up) */
     @media screen and (max-width: 1023px) {
 
@@ -399,7 +388,6 @@
         }
 
     } 
-
 
     /* Small device (smartphone, to 767px max) */
     @media screen and (max-width: 767px) {

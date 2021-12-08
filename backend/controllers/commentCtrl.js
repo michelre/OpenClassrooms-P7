@@ -13,7 +13,6 @@ exports.addComment = (req, res, next) => {
         if (!error) {
             res.status(201).json({ message: "Commentaire ajouté !" });
         } else {
-            console.log(error);
             res.status(400).json({ message: "Erreur lors de l'ajout du commentaire !" });
         }
     }); 

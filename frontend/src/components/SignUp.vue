@@ -3,8 +3,8 @@
 
         <h1>Créer un compte</h1>
 
+        <!-- Formulaire d'inscription -->
         <form class="form-card" v-on:submit.prevent="envoiForm">
-
             <div class="form-group">
                 <label for="nom">Nom</label>
                 <input type="text" v-model="signUpForm.nom" name="nom" id="nom" class="form-input" aria-invalid="false" required>
@@ -30,8 +30,6 @@
                 <input type="password" v-model="signUpForm.passwordConfirm" name="passwordConfirm" id="passwordConfirm" class="form-input" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
-     
-
             <button class="form-btn">Se connecter</button>
         </form>
 
@@ -43,16 +41,12 @@
 </template>
 
 
-
 <script>
 
     import axios from 'axios';
 
     export default {
         name: 'SignUp',
-        components: {
-
-        },
         props: {
             changeForm: Function 
         },
@@ -69,14 +63,12 @@
             }
         },
         methods: {
-
+            // Enregistrement d'un nouvel utilisateur
             envoiForm(){
                 const nom = this.signUpForm.nom;
                 const prenom = this.signUpForm.prenom;
                 const email = this.signUpForm.email;
                 const password = this.signUpForm.password;
-
-                
                 // Création du formulaire contenant les datas de l'utilisateur 
                 var formData = new FormData();
                     formData.append('prenom', prenom);
@@ -99,15 +91,11 @@
                     .catch((err) => {
                         alert(err.response.data.message)
                     })
-                
-
+                }
             }
         }
-    }
-
 
 </script>
-
 
 
 <style scoped>
@@ -154,7 +142,6 @@
         font-style: italic;
         text-align: center;
     }
-
 
     /* Small device (smartphone, to 767px max) */
     @media screen and (max-width: 767px) {

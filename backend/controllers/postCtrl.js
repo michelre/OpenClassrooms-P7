@@ -13,7 +13,6 @@ exports.createPost = (req, res, next) => {
         res.status(400).json({ message: "Erreur lors de la création de la publication !" });
         return
     }
-
     // Contenu de la publication
     let media = null;
         // Si la publication contient une image
@@ -23,10 +22,7 @@ exports.createPost = (req, res, next) => {
         } 
         // Préparation de la requête SQL
         let sqlCreatePost = `INSERT INTO publications (utilisateur_id, message, media, link, date_ajout) VALUES ('${req.userId}', '${req.body.message}', '${media}', '${req.body.link}', NOW())`;
-        console.log(req.body.message);
-        console.log(media);
-        
-        // Envoi de la requête à la BDD
+        // Envoi de la requête à la BDD en vérifiant le statut de l'utilisateur et maj de l'odre des posts
         db.query(sqlCreatePost, (error, publication) => {
             if (!error) {
                 db.query(`SELECT publications.*, utilisateurs.nom, utilisateurs.prenom,
@@ -35,24 +31,39 @@ exports.createPost = (req, res, next) => {
                     res.status(201).json(publication[0]); 
                 })
                 } else {
-                    console.log(error);
                     res.status(400).json({ message: "Erreur lors de la création de la publication !" });
                 }
             }); 
 };
 
+// Modification d'une publication 
+exports.updatePost = (req, res, next) => {
+    let media = req.body.media;
+    let message = req.body.message || '';
+    let link = req.body.link || '';
+    // Si la publication contient une image
+    if (req.file && req.file.filename !== undefined) {
+        // Paramètrage de l'url
+        media = `/images/${req.file.filename}`;
+    } 
+    // Mise à jour de la publication 
+    db.query(`UPDATE publications SET message=?, media=?, link=? WHERE id = ?`, [message, media, link,req.params.id], (error, result) => {
+        if (error) {
+            return res.status(400).json({ error: "Le post n'a pas pu être modifié" })
+        }
+        return res.status(200).json(result);
+    })
+};
 
 // Suppression d'une publication
 exports.deletePost = (req, res, next) => {
     const id = req.params.id;
-
     // Supprimer l'image si elle existe du post (delete dans le dossier images)
     db.query(`SELECT media FROM publications WHERE id = ${id}`, (error, result) => {
         if (result.length && result[0].media) {
             fs.unlink(__dirname + '/../' +result[0].media, () => {})
         }
     });
-
     // Recherche de la publication via son id avant suppression 
     db.query(`DELETE FROM publications WHERE id = ?`, id, (error, result) => {
         // Si la publication n'a pas été trouvée
@@ -63,7 +74,6 @@ exports.deletePost = (req, res, next) => {
         return res.status(204).end();
     });
 };
-
 
 // Récupération d'une publication
 exports.getOnePost = (req, res, next) => {
@@ -77,7 +87,6 @@ exports.getOnePost = (req, res, next) => {
         return res.status(200).json(result[0]);
     });
 };
-
 
 // Récupération de l'intégralité des publications  
 exports.getAllPosts = (req, res, next) => {
@@ -98,25 +107,3 @@ exports.getAllPosts = (req, res, next) => {
 
 
 
-/* --------------------------------------------- FONCTION MODIFICATION PUBLICATION ---------------------------------------- */
-
-
-// Modification d'une publication : Fonctionnel pour le message ET l'image MAIS empêche de faire soit l'un soit l'autre et présentant des erreurs
-exports.updatePost = (req, res, next) => {
-    let media = req.body.media;
-    let message = req.body.message || '';
-    let link = req.body.link || '';
-
-    // Si la publication contient une image
-    if (req.file && req.file.filename !== undefined) {
-        // Paramètrage de l'url
-        media = `/images/${req.file.filename}`;
-    } 
-
-    db.query(`UPDATE publications SET message=?, media=?, link=? WHERE id = ?`, [message, media, link,req.params.id], (error, result) => {
-        if (error) {
-            return res.status(400).json({ error: "Le post n'a pas pu être modifié" })
-        }
-        return res.status(200).json(result);
-    })
-}

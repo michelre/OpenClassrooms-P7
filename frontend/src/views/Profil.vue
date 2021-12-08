@@ -3,14 +3,12 @@
 
         <HeaderWall/>
 
-        <!-- Test bloc profil -->
+        <!-- Page Profil regroupant les informations de l'utilisateur -->
         <main class="main-profil">
-      
             <section class="profil-card">
 
                 <div class="profil-pic-name">
-
-                    <!-- Mise à jour de la photo de profil -->
+                    <!-- Mise à jour de l'avatar (photo de profil) -->
                     <form class="profil-pic-form"
                         @submit.prevent="updateUserImage($event)"
                         >
@@ -40,9 +38,9 @@
 
                 <hr class="profil-sep">
 
+                <!-- Mise à jour du nom, prénom et email --> 
                 <div class="profil-informations">
                     <form class="form-profil" @submit.prevent="updateProfil(user.id)">
-
                         <div class="form-group">
                             <label for="nom">Nom</label>
                             <input type="text" v-model.lazy="user.nom" name="nom" id="nom" class="form-input" required>
@@ -58,14 +56,13 @@
                             <input type="email" v-model.lazy="user.email" name="email" id="email" class="form-input" required>
                             <div class="form-err"></div>
                         </div>
-         
                         <button class="form-btn" title="Enregistrer les modifications">Enregistrer les modifications</button>
-
                     </form>
                 </div>
 
                 <hr class="profil-sep">
-
+                
+                <!-- Suppression du compte -->
                 <button class="suppr-btn" @click="deleteUser(user.id)" title="Supprimer le compte">Supprimer le compte</button>
 
             </section>
@@ -75,11 +72,9 @@
 </template>
 
 
-
 <script>
 
     import HeaderWall from '../components/HeaderWall.vue'
-
     import axios from 'axios'
 
     export default {
@@ -103,8 +98,7 @@
             this.getUserProfil();
         },
         methods: {
-
-            // Récupération des données de l'utilisateur - FONCTIONNEL 
+            // Récupération des informations de l'utilisateur 
             getUserProfil() {
                 const userId = JSON.parse(localStorage.id);
                 axios.get(`http://localhost:3000/api/users/${userId}`, {
@@ -117,8 +111,7 @@
                     console.log(this.user);
                 });
             },
-
-            // Modification de profil - FONCTIONNEL
+            // Modification du compte de l'utilisateur
             updateProfil(id) {
                 axios({
                     method: "put",
@@ -131,8 +124,7 @@
                     alert('Profil modifié avec succès !');
                 }); 
             },
-        
-            // Suppression d'un profil - FONCTIONNEL 
+            // Suppression du compte de l'utilisateur
             deleteUser(id) {
                 if (window.confirm("ATTENTION : Vous êtes sur le point de supprimer votre compte ! Toute suppression est définitive, êtes-vous certain de ce choix ?")) {
                     const token = localStorage.getItem('token')
@@ -153,15 +145,12 @@
                     .catch(error => {
                         console.log( error )
                     })
-                
                 }
             },
-
-            // Ajout d'une image de profil/avatar - FONCTIONNEL
+            // Ajout d'un avatar personnalisé 
             updateUserImage(event) { 
                 const image = event.target.avatar.files[0];
                 const id = this.user.id;
-                console.log(image);
                 const formData = new FormData();
                 formData.append("image", image);
                     axios({
@@ -171,18 +160,17 @@
                         headers: { "Content-Type": "multipart/form-data",
                                     Authorization: `Bearer ${this.token}`, },
                     })
-                        .then((res) => {
-                            this.user.image = res.data.path
-                        })
-                        .catch((e) => {
-                        console.log(e);
-                        });
-                    },
-                }
-            }
+                    .then((res) => {
+                        this.user.image = res.data.path
+                    })
+                    .catch((e) => {
+                    console.log(e);
+                });
+            },
+        }
+    }
 
 </script>  
-
 
 
 <style scoped>
@@ -194,6 +182,7 @@
 
     #profil-avatar-icon {  
         font-size: 3em;
+        color: rgb(30, 51, 121);
     }
 
     #profil-avatar-img {
@@ -202,29 +191,6 @@
         border-radius: 50% !important;
         box-shadow: 0 0 3px #000000b3;
     }
-
-/* TEST OVERLAY
-.overlay {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    font-size: 100px;
-    opacity: 0;
-    transition: all 0.3s ease 0s; 
-    border: 3px solid red;
-}
-.overlay:hover {
-    opacity: 0.8;
-}
-*/
-
-/* Test encart image (redimension)
-    #profil-avatar-img {
-        display: block;
-        width: 100%;
-        height: auto;
-        border-radius: 50% !important;
-    }
-*/
 
     .profil-avatar-btn {
         margin-top: 15%;
@@ -317,8 +283,6 @@
         margin: 3%;
     }
 
-
-
     /* Medium devices (tablets, 768px and up) */
     @media screen and (max-width: 1023px) {
 
@@ -328,7 +292,6 @@
         }
 
     } 
-
 
     /* Small device (smartphone, to 767px max) */
     @media screen and (max-width: 767px) {

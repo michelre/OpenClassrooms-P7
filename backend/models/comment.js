@@ -1,5 +1,7 @@
+// Importation mysql 
 const mysql = require('mysql2');
 
+// Création du modèle commentaire
 const Comment = function(comment) {
     this.id = comment.id;
     this.utilisateur_id = comment.utilisateur_id;

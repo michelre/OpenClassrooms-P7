@@ -4,9 +4,6 @@ const Like = require('../models/like');
 const db = require('../database');
 
 
-// INITIALISATION, A REVOIR ENTIEREMENT POUR PRENDRE EN COMPTE LA LIMITATION D'UN LIKE PAR UTILISATEUR
-
-
 // Ajout d'un like
 exports.addLike = (req, res) => {
     // Préparation de la requête SQL 
@@ -15,7 +12,8 @@ exports.addLike = (req, res) => {
     db.query(sqlCreateLike, (error, publication) => {
         if (!error) {
             res.status(201).json({ message: "Like ajouté !" });
-        } else {
+        // L'utilisateur souhaite annuler son like
+        } else { 
             let sqlDeleteLike = `DELETE FROM likes WHERE utilisateur_id = ${req.userId} AND publication_id = ${req.body.postId}`;
             db.query(sqlDeleteLike, (errorDelete, publication) => {
                 if (!errorDelete) {

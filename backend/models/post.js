@@ -1,5 +1,7 @@
+// Importation mysql 
 const mysql = require('mysql2');
 
+// Création du modèle post
 const Post = function (post) {
     this.id = post.id;
     this.utilisateur_id = post.utilisateur_id;

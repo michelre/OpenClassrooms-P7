@@ -1,7 +1,7 @@
  <template> 
     <section class="wall-card">
 
-        <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom et la date d'ajout du post -->
+        <!-- En-tête du post avec l'avatar de l'auteur, son nom/prénom et la date d'ajout du post -->
         <div class="post-card-header"> 
             <a href="/profil" class="post-header-pic"> 
                 <img v-if="post.image" :src="`http://localhost:3000/${post.image}`" width="50" title="Avatar de l'auteur" class="post-header-pic-round">
@@ -115,7 +115,6 @@
                     required
                 >
             </form>
-        
         </div>
 
     </section>
@@ -151,18 +150,22 @@
             console.log(this.commentaires);
         },
         methods: {
+            // Fonction fermant automatiquement la partie option de post dès lors que l'utilisateur click au délà des boutons modifier et supprimer 
             clickOutside() {
                 this.menuActive = false
             },
+            // Fonction fermant automatiquement la partie option  de commentaire dès lors que l'utilisateur click au délà du bouton supprimer 
             clickOutsideComment(event, el) {
                 const id = el.dataset['id'];
                 this.menuActiveComments = {...this.menuActiveComments, [id]:false};
             },
+            // Mise en forme de la date d'ajout du post sur un standard français 
             datePost(date){
                 const event = new Date(date);
                 const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
             return event.toLocaleDateString('fr-Fr', options);
             },
+            // Redirection vers la page dédiée à la modification de post 
             updatePost() {
                 this.$router.push({ name:'ModifyPost', params:{id:this.post.id} });
             },
@@ -171,10 +174,10 @@
                 this.reveleComment = true;
                 this.loadComments(postId)
             },
-            // Ajout de commentaire
+            // Fonction d'ajout de commentaire
             submitComment (){
                 this.addComment(this.post.id, this.commentData.message);
-                // Vidage de l'input une fois le commentaire ajouté
+                // Clean de l'input une fois le commentaire ajouté
                 this.commentData.message = "" 
             }
 

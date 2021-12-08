@@ -1,13 +1,13 @@
 <template>
     <header class="header-container">
 
+        <!-- Header constitué d'un unique logo Groupomania réservé à la page d'identification -->
         <div class="logo-header">
             <img src="../assets/main-header.png" alt="" class="logo-img">
         </div>
 
     </header>
 </template>
-
 
 
 <script>
@@ -17,7 +17,6 @@
     }
 
 </script> 
-
 
 
 <style>

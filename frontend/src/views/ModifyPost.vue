@@ -2,15 +2,17 @@
     <div class="container">
         
         <HeaderWall/>
-     
+
+        <!-- Page dédiée à la modification de publication -->
         <main class="modify-bck">
 
             <section class="modify-card">
 
-                <!-- En-tête du post avec la photo de profil de l'auteur, son nom/prénom, date d'ajout, et bouton retour au Wall -->
+                <!-- En-tête du post avec l'avatar l'auteur, son nom/prénom, la date d'ajout, et un bouton retour au Wall -->
                 <div class="post-card-header">
                     <a href="/profil" class="post-header-pic" title="Lien vers mon profil"> 
-                        <img :src="`http://localhost:3000/${post.image}`" width="50" alt="Avatar" class="post-header-pic-round">
+                        <img v-if="post.image" :src="`http://localhost:3000/${post.image}`" width="50" alt="Avatar" class="post-header-pic-round">
+                        <i v-else id="post-pic-modify-default" class="fas fa-user-circle"></i>
                     </a>
                     <div class="post-header-name-date">
                         <div class="post-header-name">
@@ -54,7 +56,6 @@
 </template>
 
 
-
 <script>
 
     import axios from 'axios'
@@ -75,19 +76,21 @@
             this.getOnePost();
         },
         methods: {
+            // Annulation et redirection sur le Wall
             cancelModify() {
                 this.$router.push({ name:'Wall' });
             },
+            // Validation et redirection sur le Wall 
             validMofidy() {
                 this.$router.push({ name:'Wall' });
             },
+            // Mise en forme de la date d'ajout du post sur un standard français 
             datePost(date){
                 const event = new Date(date);
                 const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
             return event.toLocaleDateString('fr-Fr', options);
             },
-            
-            // Fonction pour récupérer un seul post avant de procéder à la modification
+            // Récupération du post à modifier 
             getOnePost() {
             const postId = this.$route.params.id;
             console.log("publication id:" + postId);
@@ -103,11 +106,9 @@
                 console.log(this.post);
                 });
             },
-
-            // Modification d'une publication - FONCTIONNEL (à compléter avec l'image)
+            // Modification du post 
             updatePost(event) {
                 const postId = this.$route.params.id;
-                //const token = localStorage.getItem('token')
                 var formData = new FormData();
                     formData.append('media', this.post.media);
                     formData.append('message', this.post.message);
@@ -120,17 +121,15 @@
                     headers: { "Content-Type": "multipart/form-data",
                                 Authorization: `Bearer ${this.token}` },
                 })
-                // Une fois les vérifications et modifications effectuées, rediriger l'utilisateur vers le Wall
+                // Une fois les vérifications et modifications effectuées, redirection vers le Wall
                 .then(() => {
                     this.$router.push({ name: "Wall" });
                 })
             }
-
         }
     }
 
 </script>
-
 
 
 <style scoped>
@@ -165,6 +164,11 @@
         border-radius: 50% !important;
         height: 50px;
         width: 50px
+    }
+
+    #post-pic-modify-default {
+        font-size: 50px;
+        color: rgb(30, 51, 121);
     }
 
     .post-header-name-date {
@@ -248,8 +252,6 @@
         border-radius: 10px;
     }
 
-
-
     /* Medium devices (tablets, 768px and up) */
     @media screen and (max-width: 1023px) {
 
@@ -259,7 +261,6 @@
         }
 
     } 
-
 
     /* Small device (smartphone, to 767px max) */
     @media screen and (max-width: 767px) {

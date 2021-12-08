@@ -3,20 +3,18 @@
 
         <h1>Identifiez-vous</h1>
 
+        <!-- Formulaire de connexion -->
         <form class="form-card" v-on:submit.prevent="envoiForm">
-
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" v-model="formData.email" id="email" class="form-control" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
-
             <div class="form-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" v-model="formData.password" id="password" class="form-control" aria-invalid="false" required>
                 <div class="form-err"></div>
             </div>
-
             <button class="form-btn">Se connecter</button>
         </form>
 
@@ -28,16 +26,12 @@
 </template>
 
 
-
 <script>
 
     import axios from 'axios'; 
 
     export default {
         name: 'Login',
-        components: {
-            
-        },
         props: {
             changeForm: Function 
         },
@@ -51,8 +45,7 @@
             }
         },
         methods: {
-
-            // LOGIN FONCTIONNEL 
+            // Login de l'utilisateur à son compte 
             envoiForm() {
                 axios.post('http://localhost:3000/api/users/login', {
                     email: this.formData.email,
@@ -70,7 +63,7 @@
                 });    
             }  
         },
-
+        // ??? 
         clicRegister(e) {
             e.preventDefault()
             this.changeForm(true) 
@@ -106,7 +99,6 @@
     .form-group {
         display: flex;
         flex-direction: column;
-   
     }
 
     input {
@@ -126,8 +118,6 @@
         font-style: italic;
         text-align: center;
     }
-
-
 
     /* Small device (smartphone, to 767px max) */
     @media screen and (max-width: 767px) {

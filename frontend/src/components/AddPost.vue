@@ -3,16 +3,17 @@
 
         <form class="post-card" v-on:submit.prevent="envoiForm($event)" >
             <h1>Exprimez-vous...</h1>
-
+            <!-- Nouvelle publication : texte -->
             <div class="post-infos">
                 <label for="postTitle" class="hidden">Nouvelle publication</label>
                 <textarea name="postTitle" id="postTitle" placeholder="Que voulez-vous partager ?" v-model="postForm.message" aria-invalid="false" required></textarea>
             </div>
-
+            <!-- Nouvelle publication : lien -->
             <div class="post-content">
                 <input type="text" name="postContent" id="postContent" class="post-input" placeholder="Joindre un lien ?" title="Joindre un lien"
                     v-model="postForm.link"
-                     >
+                >
+                <!-- Nouvelle publication : image -->
                 <div class="post-img">
                     <label for="addContent"><i class="far fa-file-image" title="Ajouter un fichier"></i></label>
                     <input type="file"
@@ -23,12 +24,10 @@
                 </div>
                 <button class="post-btn" title="Valider la publication">Publier</button>
             </div>
-            
         </form>            
         
     </section>
 </template>
-
 
 
 <script>
@@ -48,32 +47,30 @@
             }
         },
         methods: {
+            // Ajout d'une nouvelle publication 
             envoiForm(event) { 
                 const message = this.postForm.message;
                 const media = event.target.image.files[0];
                 const link = this.postForm.link;
-
+                // Formulaire contenant les informations du post
                 var formData = new FormData();
                     formData.append('message', message);
                     formData.append('image', media);    
                     formData.append('link', link);
                     alert("Publication ajoutée !")
                     this.createPost(formData);
-                    // Vidage des inputs une fois le post envoyé
+                    // Clean des inputs une fois la publication ajoutée
                     this.postForm = {
                         message: '',
                         media: '',
                         link: ''
                     }
                     event.target.image.value = ''
-            },
-
+                },
+            }
         }
-    }
     
-
 </script>
-
 
 
 <style scoped> 
@@ -153,8 +150,6 @@
         border-radius: 10px;
     }
 
-
-
     /* Medium devices (tablets, 768px and up) */
     @media screen and (max-width: 1023px) {
 
@@ -163,7 +158,6 @@
         }
 
     } 
-
 
     /* Small device (smartphone, to 767px max) */
     @media screen and (max-width: 767px) {

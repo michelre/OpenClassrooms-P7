@@ -1,6 +1,7 @@
 <template>
     <header class="header-container">
 
+        <!-- Header général comprenant le logo Groupomania et les liens de navigations vers les différentes pages de l'app -->
         <nav>
             <router-link to="/wall" title="Retour à la page d'accueil" class="logo-header">
                 <img src="../assets/main-header.png" alt="Réseau social d'entreprise Groupomania" class="logo-img">
@@ -20,7 +21,6 @@
 </template>
 
 
-
 <script>
 
     export default {
@@ -28,7 +28,6 @@
     }
 
 </script> 
-
 
 
 <style scoped>
@@ -68,8 +67,6 @@
         border-radius: 100%;
         transform: rotate(720deg);
     }
-
-
 
     /* Small device (smartphone, to 767px max) */
     @media screen and (max-width: 767px) {

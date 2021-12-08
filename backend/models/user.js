@@ -1,5 +1,7 @@
+// Importation mysql 
 const mysql = require('mysql2');
 
+// Création du modèle user
 const User = function (user) {
     this.id = user.id;
     this.nom = user.nom;
