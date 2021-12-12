@@ -108,7 +108,6 @@
                     },
                 }).then((res) => {
                     this.user = res.data;
-                    console.log(this.user);
                 });
             },
             // Modification du compte de l'utilisateur
@@ -175,7 +174,27 @@
 
 <style scoped>
 
-    .profil-avatar {
+    .main-profil {
+        background-attachment: fixed;
+        background-image: url("../assets/test2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 80vh;
+        padding: 3%;
+    }
+
+    .profil-card {
+        width: 30%;
+        height: auto;
+        margin: auto;
+        padding: 1%;
+        background: #f1f1f1;
+        border-radius: 5px;
+        box-shadow: 0 0 20px #000000b3;
+        box-sizing: border-box;
+    }
+
+        .profil-avatar {
         width: 50px;
         height: 50px;
     }
@@ -209,26 +228,6 @@
     .container {
         overflow: hidden;
         margin: 0;
-    }
-
-    .main-profil {
-        background-attachment: fixed;
-        background-image: url("../assets/test2.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 80vh;
-        padding: 3%;
-    }
-
-    .profil-card {
-        width: 30%;
-        height: auto;
-        margin: auto;
-        padding: 1%;
-        background: #f1f1f1;
-        border-radius: 5px;
-        box-shadow: 0 0 20px #000000b3;
-        box-sizing: border-box;
     }
 
     .profil-pic-name {

@@ -100,25 +100,12 @@
 
 <style scoped>
 
-    .search-result {
-        font-size: 1.2em;
-        display: flex;
-        justify-content: center;
-        margin-top: 2%;
-        font-weight: bold;
-    }
-
-    .search-no-result {
-        text-align: center;
-        font-weight: bold;
-    }
-
     .main-community {
         background-attachment: fixed;
         background-image: url("../assets/test2.jpg");
         background-repeat: no-repeat;
         background-size: cover;
-        height: 500px;
+        height: auto;
         padding: 3%;
     }
 
@@ -165,6 +152,19 @@
 
     .community-search input:focus + button .fa-search {
         color: rgb(49, 94, 240);
+    }
+
+    .search-result {
+        font-size: 1.2em;
+        display: flex;
+        justify-content: center;
+        margin-top: 2%;
+        font-weight: bold;
+    }
+
+    .search-no-result {
+        text-align: center;
+        font-weight: bold;
     }
 
     .community-list {

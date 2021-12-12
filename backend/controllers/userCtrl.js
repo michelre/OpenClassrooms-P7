@@ -115,7 +115,7 @@ exports.getOneUser = (req, res, next) => {
 };
 
 
-// Afficher tous les comptes
+// Récupérer l'intégralité des membres inscrits
 exports.getAllUsers = (req, res, next) => {
     db.query(`SELECT * FROM utilisateurs`, (error, result) => {
         // Si les utilisateurs n'ont pas été trouvés
@@ -127,29 +127,3 @@ exports.getAllUsers = (req, res, next) => {
     });
 };
 
-/* --------------------------------------------- FONCTION MODIFICATION DE PROFIL ---------------------------------------- */
-
-
-
-
-
-
-/* TEST AJOUT IMAGE - REACTIF MAIS NULL
-// Modifier un compte 
-exports.updateUser = (req, res, next) => {
-    let image = req.body.image;
-    // Si la publication contient une image
-    if (req.file && req.file.filename !== undefined) {
-        // Paramètrage de l'url
-        image = `/images/${req.file.filename}`;
-    } 
-
-    db.query(`UPDATE utilisateurs SET image=? WHERE id = ?`, [image, req.params.id], (error, result) => {
-        if (error) {
-            console.log(error);
-            return res.status(400).json({ error: "Le compte n'a pas pu être modifié" })
-        }
-        return res.status(200).json(result);
-    }) 
-}
-*/

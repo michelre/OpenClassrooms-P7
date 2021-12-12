@@ -103,7 +103,6 @@
                 })
                 .then((res) => {
                 this.post = res.data;
-                console.log(this.post);
                 });
             },
             // Modification du post 

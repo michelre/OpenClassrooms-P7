@@ -90,7 +90,6 @@
             },
             // Suppression d'une publication 
             deletePost(postId) {
-                console.log(postId);
                 const token = localStorage.getItem('token')
                 console.log(token); 
                 axios
