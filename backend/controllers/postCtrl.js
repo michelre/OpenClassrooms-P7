@@ -1,9 +1,9 @@
 // Importation du modèle de publications
 const Post = require('../models/post')
-// Importation de la fonction fs permettant de supprimer un fichier 
+// Importation de la fonction fs permettant de supprimer un fichier
 const fs = require('fs');
 // Importation de la BDD
-const db = require('../database'); 
+const db = require('../database');
 
 
 // Création d'une nouvelle publication
@@ -19,24 +19,25 @@ exports.createPost = (req, res, next) => {
         if (req.file && req.file.filename !== undefined) {
             // Paramètrage de l'url
             media = `/images/${req.file.filename}`;
-        } 
+        }
         // Préparation de la requête SQL
-        let sqlCreatePost = `INSERT INTO publications (utilisateur_id, message, media, link, date_ajout) VALUES ('${req.userId}', '${req.body.message}', '${media}', '${req.body.link}', NOW())`;
+        let sqlCreatePost = `INSERT INTO publications (utilisateur_id, message, media, link, date_ajout) VALUES (?, ?, ?, ?, NOW())`;
+        console.log(req.userId)
         // Envoi de la requête à la BDD en vérifiant le statut de l'utilisateur et maj de l'odre des posts
-        db.query(sqlCreatePost, (error, publication) => {
+        db.execute(sqlCreatePost, [req.userId, req.body.message, media, req.body.link], (error, publication) => {
             if (!error) {
                 db.query(`SELECT publications.*, utilisateurs.nom, utilisateurs.prenom,
                 IF(publications.utilisateur_id = ${req.userId} OR "${req.status}" = "admin", 1, 0) AS editable 
                 FROM publications JOIN utilisateurs ON publications.utilisateur_id = utilisateurs.id WHERE publications.id = LAST_INSERT_ID()`,(error, publication) => {
-                    res.status(201).json(publication[0]); 
+                    res.status(201).json(publication[0]);
                 })
                 } else {
                     res.status(400).json({ message: "Erreur lors de la création de la publication !" });
                 }
-            }); 
+            });
 };
 
-// Modification d'une publication 
+// Modification d'une publication
 exports.updatePost = (req, res, next) => {
     let media = req.body.media;
     let message = req.body.message || '';
@@ -45,8 +46,8 @@ exports.updatePost = (req, res, next) => {
     if (req.file && req.file.filename !== undefined) {
         // Paramètrage de l'url
         media = `/images/${req.file.filename}`;
-    } 
-    // Mise à jour de la publication 
+    }
+    // Mise à jour de la publication
     db.query(`UPDATE publications SET message=?, media=?, link=? WHERE id = ?`, [message, media, link,req.params.id], (error, result) => {
         if (error) {
             return res.status(400).json({ error: "Le post n'a pas pu être modifié" })
@@ -64,7 +65,7 @@ exports.deletePost = (req, res, next) => {
             fs.unlink(__dirname + '/../' +result[0].media, () => {})
         }
     });
-    // Recherche de la publication via son id avant suppression 
+    // Recherche de la publication via son id avant suppression
     db.query(`DELETE FROM publications WHERE id = ?`, id, (error, result) => {
         // Si la publication n'a pas été trouvée
         if (error) {
@@ -88,7 +89,7 @@ exports.getOnePost = (req, res, next) => {
     });
 };
 
-// Récupération de l'intégralité des publications  
+// Récupération de l'intégralité des publications
 exports.getAllPosts = (req, res, next) => {
     console.log(req.status);
     db.query(`SELECT publications.*, utilisateurs.nom, utilisateurs.prenom, utilisateurs.image,
